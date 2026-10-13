@@ -1,0 +1,8 @@
+/**
+ * Placeholder for Express Route Controllers:
+ * - auth.controller.js (Registration, Login, Profile)
+ * - donation.controller.js (Create, list, update status)
+ * - prediction.controller.js (Surplus forecasting)
+ * - matching.controller.js (NGO recommendations)
+ */
+export {};

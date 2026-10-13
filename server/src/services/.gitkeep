@@ -1,0 +1,7 @@
+/**
+ * Placeholder for Backend Services:
+ * - prediction.service.js (Historical and weighted average surplus prediction)
+ * - matching.service.js (NGO ranking based on Haversine distance, capacity, schedule)
+ * - ai.service.js (IBM watsonx.ai / Granite integration)
+ */
+export {};

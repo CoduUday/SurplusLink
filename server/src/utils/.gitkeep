@@ -1,0 +1,6 @@
+/**
+ * Placeholder for Backend Utilities:
+ * - geo.util.js (Haversine formula distance calculation)
+ * - logger.util.js (Custom log formatting)
+ */
+export {};

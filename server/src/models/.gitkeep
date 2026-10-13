@@ -1,0 +1,9 @@
+/**
+ * Placeholder for Mongoose Data Models:
+ * - User.js (Donors and NGOs with role-based attributes)
+ * - Donation.js (Food surplus listings with quantities, deadlines, status)
+ * - MealSchedule.js (Donor regular meal timings for surplus prediction)
+ * - SurplusHistory.js (Historical food surplus logs for AI training/forecasting)
+ * - NGOProfile.js (Capacity, serving counts, operating hours, geolocation)
+ */
+export {};

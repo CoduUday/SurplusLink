@@ -1,0 +1,6 @@
+/**
+ * Placeholder for Frontend Utilities:
+ * - formatters.js (Date and food quantity formatting)
+ * - constants.js (Status constants, categories)
+ */
+export {};

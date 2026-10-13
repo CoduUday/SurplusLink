@@ -1,0 +1,5 @@
+/**
+ * Placeholder for React Context Providers:
+ * - AuthContext.jsx (Donor / NGO authentication state)
+ */
+export {};

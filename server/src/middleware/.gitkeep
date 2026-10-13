@@ -1,0 +1,6 @@
+/**
+ * Placeholder for Express Middlewares:
+ * - auth.middleware.js (JWT verification, role authorization)
+ * - validate.middleware.js (Request payload validation)
+ */
+export {};

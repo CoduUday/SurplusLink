@@ -1,0 +1,9 @@
+/**
+ * Placeholder for Reusable UI Components:
+ * - Navbar.jsx / Header.jsx
+ * - Footer.jsx
+ * - ProtectedRoute.jsx
+ * - StatusBadge.jsx (Available, Accepted, Scheduled, Collected, Delivered)
+ * - MapViewer.jsx (OpenStreetMap component)
+ */
+export {};
