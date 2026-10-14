@@ -64,11 +64,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#0d1117]  text-slate-100 flex flex-col">
       <Navbar />
 
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
-        <div className="w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="w-full max-w-md bg-[#0d1117] border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
           {/* Header */}
           <div className="text-center space-y-2 mb-8">
             <div className="inline-flex p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400 mb-2">
@@ -104,7 +104,7 @@ export default function LoginPage() {
                   onChange={handleChange}
                   placeholder="name@organization.com"
                   required
-                  className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                  className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-white text-sm transition"
                 />
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function LoginPage() {
                   onChange={handleChange}
                   placeholder="••••••••"
                   required
-                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-white text-sm transition"
                 />
                 <button
                   type="button"
