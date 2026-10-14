@@ -101,7 +101,7 @@ export default function HomePage() {
 
                 <Link
                   to="/login"
-                  className="px-6 py-3 rounded-xl bg-[#191919] hover:bg-slate-800/90 border border-[#303030] backdrop-blur-md text-slate-200 font-semibold text-sm transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3 rounded-xl bg-[#191919] hover:bg-slate-800/90 border border-[rgb(58,61,67)] backdrop-blur-md text-slate-200 font-semibold text-sm transition transform hover:-translate-y-0.5"
                 >
                   Sign In
                 </Link>
@@ -204,7 +204,7 @@ export default function HomePage() {
 
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800/80 py-6 px-6 text-center text-xs text-slate-400 bg-black backdrop-blur-md">
+      <footer className="relative z-10 border-t border-[rgb(58,61,67)] py-6 px-6 text-center text-xs text-slate-400 bg-black backdrop-blur-md">
         SurplusLink Platform • AI-Powered Food Surplus Redistribution
       </footer>
     </div>

@@ -104,7 +104,7 @@ export default function LoginPage() {
                   onChange={handleChange}
                   placeholder="name@organization.com"
                   required
-                  className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                  className="w-full pl-10 pr-3.5 py-3 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                 />
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function LoginPage() {
                   onChange={handleChange}
                   placeholder="••••••••"
                   required
-                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                 />
                 <button
                   type="button"
