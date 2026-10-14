@@ -173,13 +173,11 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       <Navbar />
 
-      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
-        <div className="w-full max-w-2xl bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 flex justify-center items-center bg-[#0d1117]">
+        <div className="w-full max-w-2xl bg-[#2c313711] border border-[#3d444d] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
           {/* Header */}
           <div className="text-center space-y-2 mb-8">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5" /> Join SurplusLink
-            </div>
+         
             <h1 className="text-3xl font-extrabold text-white tracking-tight">Create Your Account</h1>
             <p className="text-sm text-slate-400">
               Select your organization type to register for the food redistribution network.
@@ -187,7 +185,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Role Toggle Selector */}
-          <div className="grid grid-cols-2 gap-3 p-1.5 bg-slate-950/80 rounded-2xl border border-slate-800 mb-8">
+          <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#151B23] rounded-2xl border border-slate-800 mb-8">
             <button
               type="button"
               onClick={() => {
@@ -221,33 +219,7 @@ export default function RegisterPage() {
             </button>
           </div>
 
-          {/* Role Description Banner */}
-          <div
-            className={`p-3.5 rounded-xl border text-xs mb-6 flex items-start gap-2.5 ${
-              role === 'DONOR'
-                ? 'bg-emerald-950/30 border-emerald-800/40 text-emerald-200'
-                : 'bg-blue-950/30 border-blue-800/40 text-blue-200'
-            }`}
-          >
-            {role === 'DONOR' ? (
-              <>
-                <Utensils className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" />
-                <span>
-                  <strong>Food Donor Account:</strong> For restaurants, hostels, college messes, catering
-                  services, and event organizers looking to redirect edible surplus food to those in need.
-                </span>
-              </>
-            ) : (
-              <>
-                <HeartHandshake className="w-4 h-4 shrink-0 text-blue-400 mt-0.5" />
-                <span>
-                  <strong>NGO / Organization Account:</strong> For non-profits, shelters, charities, and
-                  community distribution networks collecting food donations for vulnerable groups.
-                </span>
-              </>
-            )}
-          </div>
-
+        
           {/* Error Banner */}
           {errorMessage && (
             <div className="mb-6 p-4 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-300 text-sm flex items-start gap-3">
@@ -277,9 +249,9 @@ export default function RegisterPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="e.g. John Doe"
+                    placeholder="Rahul Patil"
                     required
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-grey text-sm transition"
                   />
                 </div>
 
@@ -292,9 +264,9 @@ export default function RegisterPage() {
                     name="organization"
                     value={formData.organization}
                     onChange={handleChange}
-                    placeholder={role === 'DONOR' ? 'e.g. Green Valley Restaurant' : 'e.g. Food For All Foundation'}
+                    placeholder={role === 'DONOR' ? 'Shree Ganesh Family Restaurant, Pune' : 'Annapurna Seva Foundation, Pimpri-Chinchwad'}
                     required
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                   />
                 </div>
               </div>
@@ -311,7 +283,7 @@ export default function RegisterPage() {
                       onChange={handleChange}
                       placeholder="name@organization.com"
                       required
-                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                     />
                   </div>
                 </div>
@@ -327,7 +299,7 @@ export default function RegisterPage() {
                       onChange={handleChange}
                       placeholder="+91 98765 43210"
                       required
-                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                     />
                   </div>
                 </div>
@@ -346,7 +318,7 @@ export default function RegisterPage() {
                       onChange={handleChange}
                       placeholder="Min 6 characters"
                       required
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                      className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                     />
                     <button
                       type="button"
@@ -369,7 +341,7 @@ export default function RegisterPage() {
                       onChange={handleChange}
                       placeholder="Re-enter password"
                       required
-                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                     />
                   </div>
                 </div>
@@ -391,8 +363,8 @@ export default function RegisterPage() {
                     name="street"
                     value={formData.street}
                     onChange={handleChange}
-                    placeholder="e.g. 120 Green Park Main Road"
-                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                    placeholder="120, Laxmi Road, Sadashiv Peth, Pune"
+                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                   />
                 </div>
               </div>
@@ -405,8 +377,8 @@ export default function RegisterPage() {
                     name="city"
                     value={formData.city}
                     onChange={handleChange}
-                    placeholder="Bangalore"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                    placeholder="Pune"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                   />
                 </div>
                 <div>
@@ -416,8 +388,8 @@ export default function RegisterPage() {
                     name="state"
                     value={formData.state}
                     onChange={handleChange}
-                    placeholder="Karnataka"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                    placeholder="Maharashtra"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                   />
                 </div>
                 <div>
@@ -427,8 +399,8 @@ export default function RegisterPage() {
                     name="zipCode"
                     value={formData.zipCode}
                     onChange={handleChange}
-                    placeholder="560001"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                    placeholder="411001"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                   />
                 </div>
               </div>
@@ -469,7 +441,7 @@ export default function RegisterPage() {
                       value={formData.latitude}
                       onChange={handleChange}
                       placeholder="e.g. 12.971598"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                     />
                   </div>
                   <div>
@@ -481,7 +453,7 @@ export default function RegisterPage() {
                       value={formData.longitude}
                       onChange={handleChange}
                       placeholder="e.g. 77.594566"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                     />
                   </div>
                 </div>
@@ -496,7 +468,7 @@ export default function RegisterPage() {
                     value={formData.locationName}
                     onChange={handleChange}
                     placeholder="e.g. Main kitchen loading bay behind gate 2"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 text-sm transition"
                   />
                 </div>
               </div>
@@ -521,7 +493,7 @@ export default function RegisterPage() {
                         onChange={handleChange}
                         placeholder="e.g. 250"
                         required
-                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm transition"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm transition"
                       />
                     </div>
                     <span className="text-[11px] text-slate-500 mt-1 block">
@@ -542,7 +514,7 @@ export default function RegisterPage() {
                         onChange={handleChange}
                         placeholder="e.g. Mon - Sat, 8:00 AM - 9:00 PM"
                         required
-                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm transition"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#151B23] border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm transition"
                       />
                     </div>
                     <span className="text-[11px] text-slate-500 mt-1 block">

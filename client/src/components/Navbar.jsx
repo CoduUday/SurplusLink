@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { HeartHandshake, LogOut, User, LayoutDashboard, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/Logo.png';
 
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -15,12 +16,12 @@ export default function Navbar() {
   const dashboardPath = user?.role === 'NGO' ? '/ngo/dashboard' : '/donor/dashboard';
 
   return (
-    <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+    <header className="border-b border-[rgb(58,61,67)] bg-black backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="p-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 group-hover:scale-105 transition-transform duration-200">
-            <HeartHandshake className="w-6 h-6" />
+          <div className=" bg-black  rounded-xl text-emerald-400">
+            <img src={logo} alt="Logo" className="w-[53px]" />
           </div>
           <div className="flex items-center">
             <span className="text-xl font-bold tracking-tight text-white">
@@ -38,7 +39,7 @@ export default function Navbar() {
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider ${
                   user.role === 'NGO'
                     ? 'bg-blue-500/10 text-blue-400 border border-blue-500/30'
-                    : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                    : 'bg-emerald-500/10 text-emerald-400 border border-[rgb(58,61,67)]'
                 }`}
               >
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -54,7 +55,7 @@ export default function Navbar() {
               {/* Dashboard Link */}
               <Link
                 to={dashboardPath}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-[rgb(58,61,67)] transition"
               >
                 <LayoutDashboard className="w-3.5 h-3.5" />
                 <span>Dashboard</span>

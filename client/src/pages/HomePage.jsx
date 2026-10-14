@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from "../assets/logo.png"
 import {
   HeartHandshake,
   Utensils,
@@ -11,32 +12,19 @@ import {
   ShieldCheck,
   ArrowRight,
   Sparkles,
-  Pause,
-  Play
+  LogOut
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import carVideo from '../assets/Car.mp4';
+import carVideo from '../assets/Car-nw.mp4';
 
 export default function HomePage() {
   const { user, isAuthenticated } = useAuth();
   const [healthStatus, setHealthStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const videoRef = useRef(null);
 
-  const toggleVideoPlayback = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
-  };
 
   const checkBackendHealth = async () => {
     setLoading(true);
@@ -56,7 +44,6 @@ export default function HomePage() {
       {/* Background Video Layer */}
       <div className="fixed inset-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
         <video
-          ref={videoRef}
           autoPlay
           loop
           muted
@@ -74,10 +61,7 @@ export default function HomePage() {
       {/* Main Hero & Content on top of video */}
       <main className="relative z-10 flex-1 max-w-6xl mx-auto px-6 py-12 flex flex-col gap-10 w-full">
         <div className="text-center max-w-3xl mx-auto space-y-6 pt-4 sm:pt-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-semibold backdrop-blur-md shadow-lg shadow-emerald-950/50">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-            <span>AI-Powered Food Surplus Redistribution Platform</span>
-          </div>
+
 
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md">
             Bridging Food Surplus to Communities in Need
@@ -117,7 +101,7 @@ export default function HomePage() {
 
                 <Link
                   to="/login"
-                  className="px-6 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-700/80 backdrop-blur-md text-slate-200 font-semibold text-sm transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3 rounded-xl bg-[#191919] hover:bg-slate-800/90 border border-[rgb(58,61,67)] backdrop-blur-md text-slate-200 font-semibold text-sm transition transform hover:-translate-y-0.5"
                 >
                   Sign In
                 </Link>
@@ -127,7 +111,7 @@ export default function HomePage() {
         </div>
 
         {/* Backend & MongoDB Verification Panel (Frosted Glassmorphism) */}
-        <div className="bg-slate-900/70 backdrop-blur-xl border border-slate-700/60 rounded-3xl p-6 shadow-2xl max-w-2xl mx-auto w-full">
+        {/* <div className="bg-slate-900/70 backdrop-blur-xl border border-slate-700/60 rounded-3xl p-6 shadow-2xl max-w-2xl mx-auto w-full">
           <div className="flex items-center justify-between border-b border-slate-700/50 pb-4 mb-4">
             <div className="flex items-center gap-2.5">
               <Activity className="w-5 h-5 text-emerald-400" />
@@ -180,10 +164,10 @@ export default function HomePage() {
               Click the button above to run real-time checks on the Express server and MongoDB.
             </p>
           )}
-        </div>
+        </div> */}
 
         {/* Feature Highlights Grid (Frosted Glass Cards) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
           <div className="bg-slate-900/65 backdrop-blur-xl border border-slate-700/60 hover:border-emerald-500/40 rounded-2xl p-6 space-y-3 transition duration-300 shadow-xl group">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
               <Utensils className="w-5 h-5" />
@@ -213,23 +197,14 @@ export default function HomePage() {
               Password encryption using bcrypt hashing, signed JWT token-based sessions, and role-protected access control for Donors and NGOs.
             </p>
           </div>
-        </div>
+        </div> */}
+
       </main>
 
-      {/* Floating Video Pause/Play Toggle Button for Accessibility */}
-      <div className="fixed bottom-5 right-5 z-20">
-        <button
-          onClick={toggleVideoPlayback}
-          className="p-2.5 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/70 backdrop-blur-md shadow-lg transition"
-          title={isPlaying ? 'Pause background video' : 'Play background video'}
-          aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
-        >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-        </button>
-      </div>
+
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800/80 py-6 px-6 text-center text-xs text-slate-400 bg-slate-950/70 backdrop-blur-md">
+      <footer className="relative z-10 border-t border-[rgb(58,61,67)] py-6 px-6 text-center text-xs text-slate-400 bg-black backdrop-blur-md">
         SurplusLink Platform • AI-Powered Food Surplus Redistribution
       </footer>
     </div>
