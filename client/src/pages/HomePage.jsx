@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   HeartHandshake,
@@ -10,9 +10,7 @@ import {
   AlertTriangle,
   ShieldCheck,
   ArrowRight,
-  Sparkles,
-  Pause,
-  Play
+  Sparkles
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import api from '../services/api';
@@ -24,19 +22,7 @@ export default function HomePage() {
   const [healthStatus, setHealthStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const videoRef = useRef(null);
 
-  const toggleVideoPlayback = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
-  };
 
   const checkBackendHealth = async () => {
     setLoading(true);
@@ -56,7 +42,6 @@ export default function HomePage() {
       {/* Background Video Layer */}
       <div className="fixed inset-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
         <video
-          ref={videoRef}
           autoPlay
           loop
           muted
@@ -216,17 +201,7 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Floating Video Pause/Play Toggle Button for Accessibility */}
-      <div className="fixed bottom-5 right-5 z-20">
-        <button
-          onClick={toggleVideoPlayback}
-          className="p-2.5 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/70 backdrop-blur-md shadow-lg transition"
-          title={isPlaying ? 'Pause background video' : 'Play background video'}
-          aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
-        >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-        </button>
-      </div>
+
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-slate-800/80 py-6 px-6 text-center text-xs text-slate-400 bg-slate-950/70 backdrop-blur-md">
