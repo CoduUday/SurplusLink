@@ -160,9 +160,135 @@ npm run dev
 
 ---
 
-## 🔜 Next Steps / Feature Roadmap
+## 🔮 Feature 2: AI-Powered Food Surplus Prediction
 
-1. **Role-Based Authentication (JWT):** Implement User model, registration, login, and authorization middleware for Donors and NGOs.
-2. **Surplus Food Listings:** Build donation submission form and status lifecycle tracking (`Available` → `Accepted` → `Pickup Scheduled` → `Collected` → `Delivered`).
-3. **AI Food Surplus Prediction:** Implement meal schedules and weighted surplus forecasting.
-4. **Smart NGO Matching:** Implement Haversine distance and capacity compatibility scoring.
+### Overview
+SurplusLink includes an explainable, adaptive food surplus prediction engine that empowers food donors (hostels, banquets, event organizers, restaurants) to forecast excess food **before** an event finishes. By projecting expected surplus quantity and availability times early, partner NGOs can be alerted in advance to plan prompt pickups and prevent edible food from spoiling.
+
+---
+
+### 🧮 Prediction Formula & Historical Weighting Approach
+
+1. **Usable Historical Surplus Rate Calculation:**
+   For each verified past meal record belonging to the authenticated donor:
+   $$\text{surplusRate}_i = \frac{\text{actualSurplusKg}_i}{\text{plannedQuantityKg}_i}$$
+   *Only completed meals with valid submitted feedback where $0 \le \text{surplusRate} \le 1$ and created prior to the target prediction time are included to prevent future data leakage.*
+
+2. **Multi-Factor Historical Comparability Weighting:**
+   Each historical record receives a dynamic weight ($w_i$) based on similarity to the upcoming meal:
+   - **Base Weight:** $+1.0$
+   - **Category Match:** $+2.0$ (exact match on Vegetarian, Non-vegetarian, or Mixed cuisines)
+   - **Meal Type Match:** $+2.0$ (exact match on Breakfast, Lunch, Dinner, Wedding, Event)
+   - **Attendance Scale Similarity:** $+1.5$ (if historical attendance is within $\pm 25\%$ of current meal)
+   - **Quantity Scale Similarity:** $+1.0$ (if planned quantity is within $\pm 30\%$ of current meal)
+   - **Recency Boost:** Up to $+1.0$ (linear recency decay over a 60-day window)
+
+   The personalized surplus rate is calculated as:
+   $$\text{weightedSurplusRate} = \frac{\sum (w_i \cdot \text{surplusRate}_i)}{\sum w_i}$$
+
+   When sufficient attendance data is available, an attendance-to-consumption check blends average consumption per attendee:
+   $$\text{expectedConsumption} = \text{expectedAttendance} \times \text{avgPerPersonKg}$$
+   $$\text{predictedSurplusKg} = \max(0, \min(\text{plannedQuantityKg}, \text{plannedQuantityKg} \times \text{estimatedSurplusRate}))$$
+
+3. **Availability Time Estimation Rules:**
+   - **Priority 1 (Donor Input):** Uses the donor's explicit `expectedServingEndTime` if provided.
+   - **Priority 2 (Historical Median):** Calculates median serving duration for comparable meals if $\ge 2$ past records with verified availability timestamps exist.
+   - **Priority 3 (Default Assumption):** Configurable institutional benchmark (Breakfast: 90 min, Lunch: 120 min, Dinner: 150 min, Wedding: 210 min).
+
+---
+
+### ❄️ Cold-Start Baseline Fallbacks
+When a donor has no prior meal feedback in the database:
+- Configurable institutional benchmarks are applied:
+  - Vegetarian: **12%**
+  - Non-vegetarian: **15%**
+  - Mixed: **14%**
+  - General Default: **13%**
+- The prediction method is explicitly reported as `baseline_fallback`.
+- Marked as **"baseline estimate — not yet personalized"** with full transparent explanation.
+- No fabricated machine learning training claims are presented to the donor.
+
+---
+
+### 🛡️ Reliability Classification
+Reliability indicates sample size and variance consistency (not a statistically calibrated confidence interval):
+- **Low:** Cold-start ($< 3$ historical records) or high variance ($\text{stdDev} > 9\%$).
+- **Medium:** $3 \text{ to } 6$ relevant records with moderate consistency.
+- **High:** $\ge 7$ relevant records with low variance ($\text{stdDev} \le 4\%$).
+
+---
+
+### 🔄 Adaptive Feedback Loop
+After each meal or event:
+1. Donors enter the **actual surplus quantity (kg)** and **actual availability time** via the dashboard modal.
+2. Inputs are strictly validated (non-negative, bounded against planned quantities).
+3. The feedback is stored with status `submitted`.
+4. Subsequent predictions automatically incorporate this new data point, increasing weighting precision and reliability over time.
+
+---
+
+### 📡 API Endpoints
+
+All prediction routes require JWT authentication and `DONOR` role authorization:
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/predictions` | Generate and save a new surplus prediction |
+| `GET` | `/api/predictions` | Retrieve donor's paginated history with filters (`page`, `limit`, `foodCategory`, `feedbackStatus`, `startDate`, `endDate`) |
+| `GET` | `/api/predictions/:id` | Retrieve single prediction details (enforces donor ownership) |
+| `PATCH` | `/api/predictions/:id/feedback` | Record post-meal actual surplus quantity and availability time |
+
+---
+
+### 🤖 IBM watsonx.ai & IBM Granite Integration
+
+SurplusLink includes a dedicated modular service at `server/src/services/prediction/watsonxGranite.service.js`:
+- **Safe Architecture:** Numerical predictions, boundaries, and timestamps are always computed deterministically by the core engine. IBM Granite cannot override numerical bounds.
+- **Natural Language Synthesis:** Prepared prompt templates allow IBM Granite models (e.g. `ibm/granite-13b-chat-v2`) to synthesize user-friendly surplus summaries and analyze unstructured menu descriptions.
+- **Zero Hard Dependency:** SurplusLink operates fully without IBM credentials.
+- **Optional Environment Variables:**
+  - `IBM_WATSONX_APIKEY`
+  - `IBM_WATSONX_PROJECT_ID`
+  - `IBM_WATSONX_URL` (default: `https://us-south.ml.cloud.ibm.com`)
+  - `IBM_GRANITE_MODEL_ID` (default: `ibm/granite-13b-chat-v2`)
+
+---
+
+### 🧪 Running Tests
+
+Run the complete test suite (unit + integration tests) via Node.js native test runner:
+
+```bash
+# Run tests from project root
+npm test
+
+# Or run directly inside server directory
+cd server
+npm test
+```
+
+Test coverage includes:
+1. Input validation & boundary constraints (negative values, invalid times, chronological order).
+2. Cold-start fallback behavior without ML training claims.
+3. Historical weighted rate calculation and variance.
+4. Data leakage prevention (future records and unverified feedback excluded).
+5. Availability time priority resolution (donor input > median > default duration).
+6. Cross-donor isolation (Donor B cannot read or submit feedback for Donor A's records).
+7. Feedback incorporation into subsequent predictions.
+
+---
+
+## 🏃 Running the Application
+
+### 1. Environment Configuration
+Ensure `.env` files are created:
+- `server/.env` (see `server/.env.example`)
+- `client/.env` (see `client/.env.example`)
+
+### 2. Start Servers Concurrently
+```bash
+npm run dev
+```
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5000`
+- Health check: `http://localhost:5000/api/health`
