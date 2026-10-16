@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../context/AuthContext';
-import Navbar from '../components/Navbar';
-import MealScheduleSection from '../components/MealScheduleSection';
+import React, { useState, useEffect, useCallback } from "react";
+import { useAuth } from "../context/AuthContext";
+import Navbar from "../components/Navbar";
+import MealScheduleSection from "../components/MealScheduleSection";
 import {
   Utensils,
   MapPin,
@@ -16,16 +16,38 @@ import {
   Compass,
   History,
   CheckCircle2,
-  AlertCircle
-} from 'lucide-react';
-import SurplusPredictionForm from '../components/prediction/SurplusPredictionForm';
-import PredictionResultCard from '../components/prediction/PredictionResultCard';
-import PredictionHistoryTable from '../components/prediction/PredictionHistoryTable';
-import PredictionFeedbackModal from '../components/prediction/PredictionFeedbackModal';
-import predictionService from '../services/predictionService';
+  AlertCircle,
+} from "lucide-react";
+import SurplusPredictionForm from "../components/prediction/SurplusPredictionForm";
+import PredictionResultCard from "../components/prediction/PredictionResultCard";
+import PredictionHistoryTable from "../components/prediction/PredictionHistoryTable";
+import PredictionFeedbackModal from "../components/prediction/PredictionFeedbackModal";
+import predictionService from "../services/predictionService";
+import { mealScheduleService } from "../services/mealSchedule.service";
 
 export default function DonorDashboard() {
   const { user } = useAuth();
+
+  // Meal Schedules state for dashboard-level surplus totals
+  const [mealSchedules, setMealSchedules] = useState([]);
+
+  // Calculate total predicted surplus portions across eligible meal schedules
+  const totalPredictedSurplusMeals = mealSchedules.reduce((acc, s) => {
+    // Only sum active predictions for eligible meals (Not Started or In Progress without recorded outcome)
+    if (
+      (s.preparationStatus === "Not Started" ||
+        s.preparationStatus === "In Progress") &&
+      !s.outcome
+    ) {
+      if (s.prediction && typeof s.prediction.predictedSurplusQuantity === "number") {
+        return acc + s.prediction.predictedSurplusQuantity;
+      }
+      const prep = Number(s.expectedMealsPrepared) || 0;
+      const eating = Number(s.expectedPeopleEating) || 0;
+      return acc + Math.max(0, prep - eating);
+    }
+    return acc;
+  }, 0);
 
   // Prediction State
   const [activePrediction, setActivePrediction] = useState(null);
@@ -33,12 +55,15 @@ export default function DonorDashboard() {
   const [totalPredictions, setTotalPredictions] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [filters, setFilters] = useState({ foodCategory: '', feedbackStatus: '' });
+  const [filters, setFilters] = useState({
+    foodCategory: "",
+    feedbackStatus: "",
+  });
   const [stats, setStats] = useState({
     totalPredictions: 0,
     totalPredictedKg: 0,
     pendingFeedbackCount: 0,
-    submittedFeedbackCount: 0
+    submittedFeedbackCount: 0,
   });
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
@@ -47,33 +72,48 @@ export default function DonorDashboard() {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   // Fetch prediction history
-  const fetchPredictionHistory = useCallback(async (page = 1, queryFilters = filters) => {
-    setIsLoadingHistory(true);
-    try {
-      const response = await predictionService.getPredictions({
-        page,
-        limit: 10,
-        ...queryFilters
-      });
-      if (response.success) {
-        setPredictions(response.predictions);
-        setTotalPredictions(response.total);
-        setCurrentPage(response.page);
-        setTotalPages(response.totalPages);
-        if (response.stats) {
-          setStats(response.stats);
+  const fetchPredictionHistory = useCallback(
+    async (page = 1, queryFilters = filters) => {
+      setIsLoadingHistory(true);
+      try {
+        const response = await predictionService.getPredictions({
+          page,
+          limit: 10,
+          ...queryFilters,
+        });
+        if (response.success) {
+          setPredictions(response.predictions);
+          setTotalPredictions(response.total);
+          setCurrentPage(response.page);
+          setTotalPages(response.totalPages);
+          if (response.stats) {
+            setStats(response.stats);
+          }
         }
+      } catch (err) {
+        console.error("Failed to load predictions:", err);
+      } finally {
+        setIsLoadingHistory(false);
+      }
+    },
+    [filters],
+  );
+
+  const fetchMealSchedules = useCallback(async () => {
+    try {
+      const res = await mealScheduleService.getAll();
+      if (res && res.data) {
+        setMealSchedules(res.data);
       }
     } catch (err) {
-      console.error('Failed to load predictions:', err);
-    } finally {
-      setIsLoadingHistory(false);
+      console.error("Failed to load meal schedules for dashboard metrics:", err);
     }
-  }, [filters]);
+  }, []);
 
   useEffect(() => {
     fetchPredictionHistory(1, filters);
-  }, []);
+    fetchMealSchedules();
+  }, [fetchMealSchedules]);
 
   const handlePredictionGenerated = (newPrediction) => {
     setActivePrediction(newPrediction);
@@ -122,16 +162,18 @@ export default function DonorDashboard() {
                 <Utensils className="w-3.5 h-3.5" /> Food Donor Portal
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-                Welcome back, {user?.name || 'Donor'}!
+                Welcome back, {user?.name || "Donor"}!
               </h1>
               <p className="text-slate-400 text-sm mt-1 max-w-xl">
-                Ready to redirect surplus food from <strong className="text-slate-200">{user?.organization}</strong> to nearby NGOs and prevent food waste.
+                Ready to redirect surplus food from{" "}
+                <strong className="text-slate-200">{user?.organization}</strong>{" "}
+                to nearby NGOs and prevent food waste.
               </p>
             </div>
 
             <div className="flex items-center gap-3">
               <a
-                href="#prediction-section"
+                href="#meal-schedules"
                 className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-medium text-sm rounded-xl shadow-lg shadow-emerald-950/50 flex items-center gap-2 transition"
               >
                 <Sparkles className="w-4 h-4" />
@@ -144,93 +186,144 @@ export default function DonorDashboard() {
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">Surplus Forecasts Generated</span>
+            <span className="text-xs text-slate-400 font-medium">
+              Scheduled Meal Batches
+            </span>
             <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-white">{stats.totalPredictions}</span>
-              <span className="text-xs text-emerald-400 font-medium">Recorded meals</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">Total Predicted Surplus</span>
-            <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-emerald-400">{stats.totalPredictedKg.toFixed(1)} kg</span>
-              <span className="text-xs text-slate-500 font-medium">Forecasted</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">Logged Actual Outcomes</span>
-            <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-white">{stats.submittedFeedbackCount}</span>
-              <span className="text-xs text-emerald-500/80 font-medium">Feedback saved</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">Pending Meal Outcomes</span>
-            <div className="flex items-baseline justify-between">
-              <span className={`text-2xl font-bold ${stats.pendingFeedbackCount > 0 ? 'text-amber-400' : 'text-slate-400'}`}>
-                {stats.pendingFeedbackCount}
+              <span className="text-2xl font-bold text-white">
+                {mealSchedules.length}
               </span>
-              <span className="text-xs text-amber-500/80 font-medium">Awaiting feedback</span>
+              <span className="text-xs text-emerald-400 font-medium">
+                Recorded meals
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
+            <span className="text-xs text-slate-400 font-medium">
+              Total Predicted Surplus
+            </span>
+            <div className="flex items-baseline justify-between">
+              <span className="text-2xl font-bold text-emerald-400">
+                {totalPredictedSurplusMeals} meals
+              </span>
+              <span className="text-xs text-slate-500 font-medium">
+                Forecasted
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
+            <span className="text-xs text-slate-400 font-medium">
+              Logged Actual Outcomes
+            </span>
+            <div className="flex items-baseline justify-between">
+              <span className="text-2xl font-bold text-white">
+                {mealSchedules.filter((s) => Boolean(s.outcome)).length}
+              </span>
+              <span className="text-xs text-emerald-500/80 font-medium">
+                Feedback saved
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
+            <span className="text-xs text-slate-400 font-medium">
+              Pending Meal Outcomes
+            </span>
+            <div className="flex items-baseline justify-between">
+              <span
+                className={`text-2xl font-bold ${
+                  mealSchedules.filter((s) => !s.outcome).length > 0
+                    ? "text-amber-400"
+                    : "text-slate-400"
+                }`}
+              >
+                {mealSchedules.filter((s) => !s.outcome).length}
+              </span>
+              <span className="text-xs text-amber-500/80 font-medium">
+                Awaiting outcome
+              </span>
             </div>
           </div>
         </div>
 
         {/* Feature 2: Meal Schedule & Actual Leftover Recording Section */}
-        <MealScheduleSection />
+        <MealScheduleSection onSchedulesChange={setMealSchedules} />
 
         {/* Profile & Registered Details Card */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Building className="w-5 h-5 text-emerald-400" /> Organization Profile
+                <Building className="w-5 h-5 text-emerald-400" /> Organization
+                Profile
               </h2>
-              <p className="text-xs text-slate-400 mt-1">Verified Donor credentials stored in database</p>
+              <p className="text-xs text-slate-400 mt-1">
+                Verified Donor credentials stored in database
+              </p>
             </div>
 
             <div className="space-y-4 text-sm">
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">Donor Name</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                  Donor Name
+                </span>
                 <span className="text-slate-200 font-medium">{user?.name}</span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">Organization</span>
-                <span className="text-slate-200 font-medium">{user?.organization}</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                  Organization
+                </span>
+                <span className="text-slate-200 font-medium">
+                  {user?.organization}
+                </span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">Email Address</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                  Email Address
+                </span>
                 <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
                   <Mail className="w-3.5 h-3.5 text-slate-400" /> {user?.email}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">Contact Number</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                  Contact Number
+                </span>
                 <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
-                  <Phone className="w-3.5 h-3.5 text-slate-400" /> {user?.contact}
+                  <Phone className="w-3.5 h-3.5 text-slate-400" />{" "}
+                  {user?.contact}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">Address</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                  Address
+                </span>
                 <span className="text-slate-200 font-medium flex items-start gap-1.5 mt-0.5">
                   <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-                  <span>{user?.address?.fullAddress || user?.address?.street || 'Not provided'}</span>
+                  <span>
+                    {user?.address?.fullAddress ||
+                      user?.address?.street ||
+                      "Not provided"}
+                  </span>
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">Geotagged Coordinates</span>
+                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                  Geotagged Coordinates
+                </span>
                 <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
                   <Compass className="w-3.5 h-3.5 text-emerald-400" />
-                  {user?.location?.coordinates && user.location.coordinates[0] !== 0
+                  {user?.location?.coordinates &&
+                  user.location.coordinates[0] !== 0
                     ? `[${user.location.coordinates[1]?.toFixed(4)}° N, ${user.location.coordinates[0]?.toFixed(4)}° E]`
-                    : 'Coordinates will be updated on donation'}
+                    : "Coordinates will be updated on donation"}
                 </span>
               </div>
             </div>
@@ -242,29 +335,44 @@ export default function DonorDashboard() {
               <PackageCheck className="w-8 h-8" />
             </div>
             <div className="max-w-md space-y-1">
-              <h3 className="text-lg font-bold text-white">Surplus Donation Pipeline</h3>
+              <h3 className="text-lg font-bold text-white">
+                Surplus Donation Pipeline
+              </h3>
               <p className="text-sm text-slate-400">
-                Meal schedules and actual outcomes logged above will feed the AI surplus prediction engine and automate NGO pickup requests.
+                Meal schedules and actual outcomes logged above will feed the AI
+                surplus prediction engine and automate NGO pickup requests.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-                  <span className="text-xs text-emerald-400 font-semibold block">Cold-Start Benchmarking</span>
+                  <span className="text-xs text-emerald-400 font-semibold block">
+                    Cold-Start Benchmarking
+                  </span>
                   <p className="text-xs text-slate-400">
-                    New donors receive transparent institutional benchmarks (12% Vegetarian, 15% Non-vegetarian) without fabricated training claims.
+                    New donors receive transparent institutional benchmarks (12%
+                    Vegetarian, 15% Non-vegetarian) without fabricated training
+                    claims.
                   </p>
                 </div>
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-                  <span className="text-xs text-emerald-400 font-semibold block">Adaptive Feedback Loop</span>
+                  <span className="text-xs text-emerald-400 font-semibold block">
+                    Adaptive Feedback Loop
+                  </span>
                   <p className="text-xs text-slate-400">
-                    Every actual surplus outcome you record refines future predictions, tightening variance and increasing forecast reliability.
+                    Every actual surplus outcome you record refines future
+                    predictions, tightening variance and increasing forecast
+                    reliability.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-500">
-              <span>Model version: <strong>v1.0.0-heuristic-baseline</strong></span>
-              <span>IBM Granite boundary: <strong>Active & Modular</strong></span>
+              <span>
+                Model version: <strong>v1.0.0-heuristic-baseline</strong>
+              </span>
+              <span>
+                IBM Granite boundary: <strong>Active & Modular</strong>
+              </span>
             </div>
           </div>
         </div>

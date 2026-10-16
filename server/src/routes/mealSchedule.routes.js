@@ -4,7 +4,8 @@ import {
   getMealScheduleById,
   createMealSchedule,
   updateMealSchedule,
-  recordMealOutcome
+  recordMealOutcome,
+  getMealSchedulePrediction
 } from '../controllers/mealSchedule.controller.js';
 import { protect, authorize } from '../middleware/auth.middleware.js';
 
@@ -21,6 +22,9 @@ router.route('/')
 router.route('/:id')
   .get(getMealScheduleById)
   .put(updateMealSchedule);
+
+router.route('/:id/prediction')
+  .get(getMealSchedulePrediction);
 
 router.route('/:id/outcome')
   .post(recordMealOutcome);

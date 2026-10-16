@@ -1,51 +1,57 @@
-import React, { useState } from 'react';
-import { Calendar, Clock, AlertCircle, Sparkles, CheckCircle2 } from 'lucide-react';
-import { mealScheduleService } from '../services/mealSchedule.service';
+import React, { useState } from "react";
+import {
+  Calendar,
+  Clock,
+  AlertCircle,
+  Sparkles,
+  CheckCircle2,
+} from "lucide-react";
+import { mealScheduleService } from "../services/mealSchedule.service";
 
 export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
   const isEditing = Boolean(schedule && schedule._id);
 
   const [formData, setFormData] = useState({
-    mealDate: schedule?.mealDate || new Date().toISOString().split('T')[0],
-    mealType: schedule?.mealType || 'Lunch',
-    scheduledStartTime: schedule?.scheduledStartTime || '12:00',
-    scheduledEndTime: schedule?.scheduledEndTime || '14:00',
-    expectedMealsPrepared: schedule?.expectedMealsPrepared ?? '',
-    expectedPeopleEating: schedule?.expectedPeopleEating ?? '',
-    menuItems: schedule?.menuItems || '',
+    mealDate: schedule?.mealDate || new Date().toISOString().split("T")[0],
+    mealType: schedule?.mealType || "Lunch",
+    scheduledStartTime: schedule?.scheduledStartTime || "12:00",
+    scheduledEndTime: schedule?.scheduledEndTime || "14:00",
+    expectedMealsPrepared: schedule?.expectedMealsPrepared ?? "",
+    expectedPeopleEating: schedule?.expectedPeopleEating ?? "",
+    menuItems: schedule?.menuItems || "",
     isSpecialEvent: schedule?.isSpecialEvent ?? false,
-    typicalLeftoverQuantity: schedule?.typicalLeftoverQuantity ?? '',
-    preparationStatus: schedule?.preparationStatus || 'Not Started'
+    typicalLeftoverQuantity: schedule?.typicalLeftoverQuantity ?? "",
+    preparationStatus: schedule?.preparationStatus || "Not Started",
   });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Client-side validations
     if (!formData.mealDate) {
-      setError('Meal date is required.');
+      setError("Meal date is required.");
       return;
     }
 
     if (!formData.scheduledStartTime || !formData.scheduledEndTime) {
-      setError('Start time and End time are required.');
+      setError("Start time and End time are required.");
       return;
     }
 
     if (formData.scheduledEndTime <= formData.scheduledStartTime) {
-      setError('Scheduled end time must follow scheduled start time.');
+      setError("Scheduled end time must follow scheduled start time.");
       return;
     }
 
@@ -53,33 +59,33 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
     const eating = parseInt(formData.expectedPeopleEating, 10);
 
     if (isNaN(prepared) || prepared <= 0) {
-      setError('Expected meals prepared must be a positive integer.');
+      setError("Expected meals prepared must be a positive integer.");
       return;
     }
 
     if (isNaN(eating) || eating <= 0) {
-      setError('Expected people eating must be a positive integer.');
+      setError("Expected people eating must be a positive integer.");
       return;
     }
 
     if (eating > prepared) {
-      setError('Expected people eating cannot exceed expected meals prepared.');
+      setError("Expected people eating cannot exceed expected meals prepared.");
       return;
     }
 
     if (!formData.menuItems.trim()) {
-      setError('Menu items cannot be empty.');
+      setError("Menu items cannot be empty.");
       return;
     }
 
     if (
-      formData.typicalLeftoverQuantity !== '' &&
+      formData.typicalLeftoverQuantity !== "" &&
       formData.typicalLeftoverQuantity !== null &&
       formData.typicalLeftoverQuantity !== undefined
     ) {
       const leftover = parseInt(formData.typicalLeftoverQuantity, 10);
       if (isNaN(leftover) || leftover < 0) {
-        setError('Typical leftover quantity must be a non-negative number.');
+        setError("Typical leftover quantity must be a non-negative number.");
         return;
       }
     }
@@ -92,9 +98,9 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
         expectedMealsPrepared: prepared,
         expectedPeopleEating: eating,
         typicalLeftoverQuantity:
-          formData.typicalLeftoverQuantity !== ''
+          formData.typicalLeftoverQuantity !== ""
             ? parseInt(formData.typicalLeftoverQuantity, 10)
-            : null
+            : null,
       };
 
       if (isEditing) {
@@ -105,10 +111,10 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
 
       onSuccess();
     } catch (err) {
-      console.error('Error saving schedule:', err);
+      console.error("Error saving schedule:", err);
       setError(
         err.response?.data?.message ||
-          'Failed to save meal schedule. Please check all fields.'
+          "Failed to save meal schedule. Please check all fields.",
       );
     } finally {
       setLoading(false);
@@ -122,10 +128,11 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
           <div>
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Calendar className="w-5 h-5 text-emerald-400" />
-              {isEditing ? 'Edit Meal Schedule' : 'Add Meal Schedule'}
+              {isEditing ? "Edit Meal Schedule" : "Add Meal Schedule"}
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Plan and log upcoming meal preparation to enable accurate surplus redistribution.
+              Plan and log upcoming meal preparation to enable accurate surplus
+              redistribution.
             </p>
           </div>
           <button
@@ -182,7 +189,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Scheduled Start Time */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
+              <label className=" text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
                 Scheduled Start Time <span className="text-rose-400">*</span>
               </label>
@@ -198,7 +205,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
 
             {/* Scheduled End Time */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
+              <label className=" text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
                 Scheduled End Time <span className="text-rose-400">*</span>
               </label>
@@ -271,7 +278,8 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
             {/* Typical Leftover Quantity */}
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                Typical Leftover Quantity <span className="text-slate-500">(Optional)</span>
+                Typical Leftover Quantity{" "}
+                <span className="text-slate-500">(Optional)</span>
               </label>
               <input
                 type="number"
@@ -284,7 +292,8 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
               <p className="text-[11px] text-slate-500 mt-1">
-                Historical leftovers from similar meals. Leave blank if no prior history.
+                Historical leftovers from similar meals. Leave blank if no prior
+                history.
               </p>
             </div>
 
@@ -321,7 +330,8 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                   Special Event or Holiday
                 </span>
                 <span className="text-[11px] text-slate-400">
-                  Enable if this meal coincides with a festival, corporate event, or catering function.
+                  Enable if this meal coincides with a festival, corporate
+                  event, or catering function.
                 </span>
               </div>
             </label>

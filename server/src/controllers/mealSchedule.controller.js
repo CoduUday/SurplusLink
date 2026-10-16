@@ -1,5 +1,6 @@
 import MealSchedule from '../models/MealSchedule.js';
 import MealOutcome from '../models/MealOutcome.js';
+import { predictMealSurplus } from '../services/prediction/mealSurplusPrediction.service.js';
 
 /**
  * Helper to validate schedule fields
@@ -87,10 +88,34 @@ export const getMealSchedules = async (req, res) => {
       .populate('outcome')
       .sort({ mealDate: -1, scheduledStartTime: -1 });
 
+    const enrichedSchedules = await Promise.all(
+      schedules.map(async (scheduleDoc) => {
+        const scheduleObj = scheduleDoc.toObject();
+        const hasOutcome = Boolean(scheduleObj.outcome);
+        const isEligible =
+          (scheduleObj.preparationStatus === 'Not Started' ||
+            scheduleObj.preparationStatus === 'In Progress') &&
+          !hasOutcome;
+
+        if (isEligible) {
+          try {
+            scheduleObj.prediction = await predictMealSurplus(scheduleObj, req.user._id);
+          } catch (predErr) {
+            console.error(`Prediction error for schedule ${scheduleObj._id}:`, predErr);
+            scheduleObj.prediction = null;
+          }
+        } else {
+          scheduleObj.prediction = null;
+        }
+
+        return scheduleObj;
+      })
+    );
+
     res.status(200).json({
       success: true,
-      count: schedules.length,
-      data: schedules
+      count: enrichedSchedules.length,
+      data: enrichedSchedules
     });
   } catch (error) {
     console.error('Error fetching meal schedules:', error);
@@ -120,9 +145,26 @@ export const getMealScheduleById = async (req, res) => {
       });
     }
 
+    const scheduleObj = schedule.toObject();
+    const hasOutcome = Boolean(scheduleObj.outcome);
+    const isEligible =
+      (scheduleObj.preparationStatus === 'Not Started' ||
+        scheduleObj.preparationStatus === 'In Progress') &&
+      !hasOutcome;
+
+    if (isEligible) {
+      try {
+        scheduleObj.prediction = await predictMealSurplus(scheduleObj, req.user._id);
+      } catch (predErr) {
+        scheduleObj.prediction = null;
+      }
+    } else {
+      scheduleObj.prediction = null;
+    }
+
     res.status(200).json({
       success: true,
-      data: schedule
+      data: scheduleObj
     });
   } catch (error) {
     console.error('Error fetching meal schedule:', error);
@@ -379,6 +421,59 @@ export const recordMealOutcome = async (req, res) => {
     res.status(500).json({
       success: false,
       message: error.message || 'Failed to record actual meal outcome.'
+    });
+  }
+};
+
+/**
+ * @desc    Get surplus prediction for a specific meal schedule
+ * @route   GET /api/meal-schedules/:id/prediction
+ * @access  Private (Donor only)
+ */
+export const getMealSchedulePrediction = async (req, res) => {
+  try {
+    const schedule = await MealSchedule.findOne({
+      _id: req.params.id,
+      donorId: req.user._id
+    }).populate('outcome');
+
+    if (!schedule) {
+      return res.status(404).json({
+        success: false,
+        message: 'Meal schedule not found or unauthorized access.'
+      });
+    }
+
+    const hasOutcome = Boolean(schedule.outcome);
+    const isEligible =
+      (schedule.preparationStatus === 'Not Started' ||
+        schedule.preparationStatus === 'In Progress') &&
+      !hasOutcome;
+
+    if (!isEligible) {
+      return res.status(200).json({
+        success: true,
+        isEligible: false,
+        message:
+          schedule.preparationStatus === 'Completed'
+            ? 'Meal preparation is marked Completed. Active surplus prediction is not displayed.'
+            : 'Actual meal outcome has already been recorded. Active surplus prediction is not displayed.',
+        actualOutcome: schedule.outcome || null
+      });
+    }
+
+    const prediction = await predictMealSurplus(schedule, req.user._id);
+
+    return res.status(200).json({
+      success: true,
+      isEligible: true,
+      prediction
+    });
+  } catch (error) {
+    console.error('Error getting meal schedule prediction:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to generate meal surplus prediction.'
     });
   }
 };

@@ -1,9 +1,9 @@
-import api from './api';
+import api from "./api";
 
 export const mealScheduleService = {
   // Get all meal schedules for current donor
   getAll: async () => {
-    const res = await api.get('/meal-schedules');
+    const res = await api.get("/meal-schedules");
     return res.data;
   },
 
@@ -15,7 +15,7 @@ export const mealScheduleService = {
 
   // Create new meal schedule
   create: async (data) => {
-    const res = await api.post('/meal-schedules', data);
+    const res = await api.post("/meal-schedules", data);
     return res.data;
   },
 
@@ -27,7 +27,16 @@ export const mealScheduleService = {
 
   // Record or update actual outcome
   recordOutcome: async (scheduleId, outcomeData) => {
-    const res = await api.post(`/meal-schedules/${scheduleId}/outcome`, outcomeData);
+    const res = await api.post(
+      `/meal-schedules/${scheduleId}/outcome`,
+      outcomeData,
+    );
     return res.data;
-  }
+  },
+
+  // Get surplus prediction for meal schedule
+  getPrediction: async (scheduleId) => {
+    const res = await api.get(`/meal-schedules/${scheduleId}/prediction`);
+    return res.data;
+  },
 };

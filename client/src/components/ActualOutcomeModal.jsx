@@ -184,7 +184,7 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
 
           {/* Actual Meal End Time (Required) */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
+            <label className=" text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
               <Clock className="w-3.5 h-3.5 text-slate-400" />
               Actual Meal End Time <span className="text-rose-400">*</span>
             </label>
