@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { HeartHandshake, LogOut, User, LayoutDashboard, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/Logo.png';
 
-export default function Navbar() {
+export default function Navbar({ animate, className = '' }) {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -14,9 +15,11 @@ export default function Navbar() {
   };
 
   const dashboardPath = user?.role === 'NGO' ? '/ngo/dashboard' : '/donor/dashboard';
+  const isHomePage = location.pathname === '/';
+  const shouldAnimate = typeof animate === 'boolean' ? animate : isHomePage;
 
   return (
-    <header className="border-b border-[rgb(58,61,67)] bg-black backdrop-blur-md sticky top-0 z-50 animate-slide-down">
+    <header className={`border-b border-[rgb(58,61,67)] bg-black backdrop-blur-md sticky top-0 z-50 ${shouldAnimate ? 'animate-slide-down' : ''} ${className}`.trim()}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">

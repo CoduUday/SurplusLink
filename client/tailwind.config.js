@@ -33,9 +33,9 @@ export default {
         },
       },
       animation: {
-        'fade-in': 'fadeIn 1.2s ease-out both',
-        'fade-in-up': 'fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both',
-        'slide-down': 'slideDown 1.0s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'fade-in': 'fadeIn 1.3s ease-out both',
+        'fade-in-up': 'fadeInUp 1.3s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'slide-down': 'slideDown 1.1s cubic-bezier(0.16, 1, 0.3, 1) both',
       },
       borderColor: {
         slate: {

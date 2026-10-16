@@ -184,10 +184,10 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      <Navbar />
+      <Navbar animate={false} />
 
       <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 flex justify-center items-center bg-[#0d1117]">
-        <div className="w-full max-w-2xl bg-[#2c313711] border border-[#3d444d] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="w-full max-w-2xl bg-[#2c313711] border border-[#3d444d] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl animate-fade-in-up">
           {/* Header */}
           <div className="text-center space-y-2 mb-8">
             <h1 className="text-3xl font-extrabold text-white tracking-tight">
