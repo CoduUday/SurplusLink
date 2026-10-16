@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
+import MealScheduleSection from '../components/MealScheduleSection';
 import {
   Utensils,
   MapPin,
@@ -177,34 +178,8 @@ export default function DonorDashboard() {
           </div>
         </div>
 
-        {/* FEATURE 2: AI Surplus Prediction Section */}
-        <div id="prediction-section" className="space-y-8">
-          {/* Active / Latest Prediction Showcase */}
-          {activePrediction && (
-            <PredictionResultCard
-              prediction={activePrediction}
-              onLogFeedbackClick={handleOpenFeedback}
-              onReset={() => setActivePrediction(null)}
-            />
-          )}
-
-          {/* Surplus Prediction Form */}
-          <SurplusPredictionForm onPredictionGenerated={handlePredictionGenerated} />
-
-          {/* Prediction History & Feedback Table */}
-          <PredictionHistoryTable
-            predictions={predictions}
-            total={totalPredictions}
-            page={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            onFilterChange={handleFilterChange}
-            currentFilters={filters}
-            onViewDetails={(item) => setActivePrediction(item)}
-            onLogFeedback={handleOpenFeedback}
-            isLoading={isLoadingHistory}
-          />
-        </div>
+        {/* Feature 2: Meal Schedule & Actual Leftover Recording Section */}
+        <MealScheduleSection />
 
         {/* Profile & Registered Details Card */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -261,15 +236,15 @@ export default function DonorDashboard() {
             </div>
           </div>
 
-          {/* AI Surplus Prediction Model Summary */}
-          <div className="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5" /> Explainable Prediction System
-              </div>
-              <h3 className="text-xl font-bold text-white">How SurplusLink Learns Your Pattern</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                SurplusLink uses a weighted historical average algorithm that matches your event parameters (food category, meal occasion, attendance scale, and prepared quantities) with verified past outcomes.
+          {/* Activity Placeholder */}
+          <div className="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-center items-center text-center space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <PackageCheck className="w-8 h-8" />
+            </div>
+            <div className="max-w-md space-y-1">
+              <h3 className="text-lg font-bold text-white">Surplus Donation Pipeline</h3>
+              <p className="text-sm text-slate-400">
+                Meal schedules and actual outcomes logged above will feed the AI surplus prediction engine and automate NGO pickup requests.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">

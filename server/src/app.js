@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import healthRoutes from './routes/health.routes.js';
 import authRoutes from './routes/auth.routes.js';
-import predictionRoutes from './routes/prediction.routes.js';
+import mealScheduleRoutes from './routes/mealSchedule.routes.js';
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // API Routes
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/predictions', predictionRoutes);
+app.use('/api/meal-schedules', mealScheduleRoutes);
 
 
 // Root route
