@@ -186,7 +186,7 @@ export default function DonorDashboard() {
                 <Utensils className="w-3.5 h-3.5" /> Food Donor Portal
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-                Welcome back, {user?.name || "Donor"}!
+                Welcome back, {user?.name || "Donor"}
               </h1>
               <p className="text-slate-400 text-sm mt-1 max-w-xl">
                 Ready to redirect surplus food from{" "}
@@ -250,7 +250,7 @@ export default function DonorDashboard() {
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">
+            <span className="text-xs text-slate-200 font-medium">
               Scheduled Meal Batches
             </span>
             <div className="flex items-baseline justify-between">
@@ -264,35 +264,31 @@ export default function DonorDashboard() {
           </div>
 
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">
+            <span className="text-xs text-slate-200 font-medium">
               Total Predicted Surplus
             </span>
             <div className="flex items-baseline justify-between">
               <span className="text-2xl font-bold text-emerald-400">
                 {totalPredictedSurplusMeals} meals
               </span>
-              <span className="text-xs text-slate-500 font-medium">
-                Forecasted
-              </span>
+              
             </div>
           </div>
 
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">
+            <span className="text-xs text-slate-200 font-medium">
               Logged Actual Outcomes
             </span>
             <div className="flex items-baseline justify-between">
               <span className="text-2xl font-bold text-white">
                 {mealSchedules.filter((s) => Boolean(s.outcome)).length}
               </span>
-              <span className="text-xs text-emerald-500/80 font-medium">
-                Feedback saved
-              </span>
+            
             </div>
           </div>
 
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">
+            <span className="text-xs text-slate-200 font-medium">
               Pending Meal Outcomes
             </span>
             <div className="flex items-baseline justify-between">
@@ -305,9 +301,6 @@ export default function DonorDashboard() {
               >
                 {mealSchedules.filter((s) => !s.outcome).length}
               </span>
-              <span className="text-xs text-amber-500/80 font-medium">
-                Awaiting outcome
-              </span>
             </div>
           </div>
         </div>
@@ -316,28 +309,26 @@ export default function DonorDashboard() {
         <MealScheduleSection onSchedulesChange={setMealSchedules} />
 
         {/* Profile & Registered Details Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-1 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-6">
+        <div className="flex gap-6">
+          <div className="lg:col-span-1 w-full bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Building className="w-5 h-5 text-emerald-400" /> Organization
+                <Building className="w-5 h-5 text-emerald-400" /> Donor
                 Profile
               </h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Verified Donor credentials stored in database
-              </p>
+            
             </div>
 
             <div className="space-y-4 text-sm">
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
                   Donor Name
                 </span>
                 <span className="text-slate-200 font-medium">{user?.name}</span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
                   Organization
                 </span>
                 <span className="text-slate-200 font-medium">
@@ -346,7 +337,7 @@ export default function DonorDashboard() {
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
                   Email Address
                 </span>
                 <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
@@ -355,7 +346,7 @@ export default function DonorDashboard() {
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
                   Contact Number
                 </span>
                 <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
@@ -365,7 +356,7 @@ export default function DonorDashboard() {
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
                   Address
                 </span>
                 <span className="text-slate-200 font-medium flex items-start gap-1.5 mt-0.5">
@@ -379,7 +370,7 @@ export default function DonorDashboard() {
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
                   Geotagged Coordinates
                 </span>
                 <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
@@ -394,51 +385,7 @@ export default function DonorDashboard() {
           </div>
 
           {/* Activity Placeholder */}
-          <div className="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-center items-center text-center space-y-4">
-            <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-              <PackageCheck className="w-8 h-8" />
-            </div>
-            <div className="max-w-md space-y-1">
-              <h3 className="text-lg font-bold text-white">
-                Surplus Donation Pipeline
-              </h3>
-              <p className="text-sm text-slate-400">
-                Meal schedules and actual outcomes logged above will feed the AI
-                surplus prediction engine and automate NGO pickup requests.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-                  <span className="text-xs text-emerald-400 font-semibold block">
-                    Cold-Start Benchmarking
-                  </span>
-                  <p className="text-xs text-slate-400">
-                    New donors receive transparent institutional benchmarks (12%
-                    Vegetarian, 15% Non-vegetarian) without fabricated training
-                    claims.
-                  </p>
-                </div>
-                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-                  <span className="text-xs text-emerald-400 font-semibold block">
-                    Adaptive Feedback Loop
-                  </span>
-                  <p className="text-xs text-slate-400">
-                    Every actual surplus outcome you record refines future
-                    predictions, tightening variance and increasing forecast
-                    reliability.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-500">
-              <span>
-                Model version: <strong>v1.0.0-heuristic-baseline</strong>
-              </span>
-              <span>
-                IBM Granite boundary: <strong>Active & Modular</strong>
-              </span>
-            </div>
-          </div>
+         
         </div>
       </main>
 

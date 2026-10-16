@@ -123,17 +123,14 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div className="bg-[#0d1117] border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between pb-4 ">
           <div>
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Calendar className="w-5 h-5 text-emerald-400" />
               {isEditing ? "Edit Meal Schedule" : "Add Meal Schedule"}
             </h2>
-            <p className="text-xs text-slate-400 mt-1">
-              Plan and log upcoming meal preparation to enable accurate surplus
-              redistribution.
-            </p>
+          
           </div>
           <button
             type="button"
@@ -151,11 +148,11 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-1 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Meal Date */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              <label className="block text-xs font-semibold text-slate-200 mb-1.5">
                 Meal Date <span className="text-rose-400">*</span>
               </label>
               <input
@@ -291,10 +288,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 onChange={handleChange}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
-              <p className="text-[11px] text-slate-500 mt-1">
-                Historical leftovers from similar meals. Leave blank if no prior
-                history.
-              </p>
+              
             </div>
 
             {/* Preparation Status */}

@@ -13,3 +13,59 @@ body {
   background-color: #0b1120;
   color: #f1f5f9;
 }
+
+@keyframes fadeInOnly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInOnly 1.2s ease-out both;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-down {
+  animation: slideDown 1.0s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animation-delay-150 {
+  animation-delay: 250ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 500ms;
+}
+
+.animation-delay-450 {
+  animation-delay: 750ms;
+}
+

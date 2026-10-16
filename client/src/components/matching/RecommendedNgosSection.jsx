@@ -156,9 +156,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
             <span>
               Showing <strong className="text-white">{rankedNgos.length}</strong> eligible partner{rankedNgos.length === 1 ? '' : 's'}
             </span>
-            <span className="text-[11px] text-emerald-400 flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5" /> Transparent multi-criteria scoring
-            </span>
+         
           </div>
 
           <div className="space-y-3">

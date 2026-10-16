@@ -91,9 +91,7 @@ export default function RecommendedDonationsSection({ ngoId }) {
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             Recommended Surplus Food For You
           </h2>
-          <p className="text-xs text-slate-400 mt-1 max-w-xl">
-            Ranked by proximity to your facility, declared serving capacity compatibility, and pickup feasibility.
-          </p>
+       
         </div>
 
         <button
@@ -236,8 +234,8 @@ export default function RecommendedDonationsSection({ ngoId }) {
                       <span>Deadline: {formatDeadline(donation.pickupDeadline)}</span>
                     </div>
 
-                    <span className="text-[10px] text-amber-400/90 font-medium block">
-                      ⏳ {getTimeRemaining(donation.pickupDeadline)}
+                    <span className="text-[10px] text-red-400/90 font-medium block">
+                       {getTimeRemaining(donation.pickupDeadline)}
                     </span>
                   </div>
 

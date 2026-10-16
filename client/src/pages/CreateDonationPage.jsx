@@ -307,7 +307,7 @@ export default function CreateDonationPage() {
         {/* Page Header */}
         <div className="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-900 border border-emerald-500/20 rounded-3xl p-6 sm:p-8 shadow-xl">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-3">
-            <Utensils className="w-3.5 h-3.5" /> Feature 3: Food Surplus Listing
+            <Utensils className="w-3.5 h-3.5" />Food Surplus Listing
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white">List Surplus Food for Donation</h1>
           <p className="text-slate-400 text-sm mt-1 max-w-2xl">

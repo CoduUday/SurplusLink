@@ -104,10 +104,7 @@ export default function MealScheduleSection({ onSchedulesChange }) {
               <h2 className="text-xl font-bold text-white">
                 Donor Meal Schedules
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Log planned meal batches and record post-meal leftover outcomes
-                for food surplus redistribution.
-              </p>
+             
             </div>
           </div>
         </div>

@@ -136,7 +136,7 @@ export default function AvailableDonationsPage() {
             <ArrowLeft className="w-4 h-4" /> Back to NGO Dashboard
           </Link>
           <span className="text-xs text-slate-500">
-            Authenticated as <strong className="text-slate-300">{user?.organization}</strong>
+            <strong className="text-slate-300">{user?.organization}</strong>
           </span>
         </div>
 

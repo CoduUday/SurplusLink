@@ -218,7 +218,7 @@ export default function DonationDetailsPage() {
                   onClick={() => setIsAcceptOpen(true)}
                   className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-950/50 transition cursor-pointer"
                 >
-                  <HeartHandshake className="w-4 h-4" />
+                 
                   <span>Accept & Claim Food</span>
                 </button>
               )}
@@ -352,7 +352,7 @@ export default function DonationDetailsPage() {
               <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-amber-400" /> Allergen & Safety Information
               </h3>
-              <span
+              {/* <span
                 className={`text-[11px] px-2.5 py-0.5 rounded-full font-medium ${
                   donation.allergenInfo?.declarationStatus === 'ALLERGEN_FREE_VERIFIED'
                     ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
@@ -366,7 +366,7 @@ export default function DonationDetailsPage() {
                   : donation.allergenInfo?.declarationStatus === 'DECLARED_ALLERGENS'
                   ? 'Allergens Declared'
                   : 'Not Formally Tested / Unknown'}
-              </span>
+              </span> */}
             </div>
 
             {donation.allergenInfo?.allergensDeclared && donation.allergenInfo.allergensDeclared.length > 0 ? (

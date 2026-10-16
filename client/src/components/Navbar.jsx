@@ -16,7 +16,7 @@ export default function Navbar() {
   const dashboardPath = user?.role === 'NGO' ? '/ngo/dashboard' : '/donor/dashboard';
 
   return (
-    <header className="border-b border-[rgb(58,61,67)] bg-black backdrop-blur-md sticky top-0 z-50">
+    <header className="border-b border-[rgb(58,61,67)] bg-black backdrop-blur-md sticky top-0 z-50 animate-slide-down">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">

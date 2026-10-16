@@ -64,7 +64,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
             </div>
             <div>
               <h3 className="text-base font-bold text-white">Accept & Claim Food Surplus</h3>
-              <p className="text-xs text-slate-400">Commit to collecting this surplus food</p>
+            
             </div>
           </div>
 
@@ -193,7 +193,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
                 </>
               ) : (
                 <>
-                  <HeartHandshake className="w-3.5 h-3.5" />
+                
                   <span>Confirm & Claim Food</span>
                 </>
               )}
