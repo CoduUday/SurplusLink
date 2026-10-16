@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
+import MealScheduleSection from '../components/MealScheduleSection';
 import {
   Utensils,
   MapPin,
@@ -85,6 +86,9 @@ export default function DonorDashboard() {
           </div>
         </div>
 
+        {/* Feature 2: Meal Schedule & Actual Leftover Recording Section */}
+        <MealScheduleSection />
+
         {/* Profile & Registered Details Card */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-6">
@@ -146,9 +150,9 @@ export default function DonorDashboard() {
               <PackageCheck className="w-8 h-8" />
             </div>
             <div className="max-w-md space-y-1">
-              <h3 className="text-lg font-bold text-white">No active donations yet</h3>
+              <h3 className="text-lg font-bold text-white">Surplus Donation Pipeline</h3>
               <p className="text-sm text-slate-400">
-                Authentication and donor profile setup are complete. Next, you will be able to list excess cooked or packaged food, run surplus forecasting, and dispatch donations to matched NGOs.
+                Meal schedules and actual outcomes logged above will feed the AI surplus prediction engine and automate NGO pickup requests.
               </p>
             </div>
           </div>
