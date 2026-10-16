@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 import {
@@ -12,11 +12,101 @@ import {
   Sparkles,
   TrendingUp,
   PackageCheck,
-  Compass
+  Compass,
+  History,
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
+import SurplusPredictionForm from '../components/prediction/SurplusPredictionForm';
+import PredictionResultCard from '../components/prediction/PredictionResultCard';
+import PredictionHistoryTable from '../components/prediction/PredictionHistoryTable';
+import PredictionFeedbackModal from '../components/prediction/PredictionFeedbackModal';
+import predictionService from '../services/predictionService';
 
 export default function DonorDashboard() {
   const { user } = useAuth();
+
+  // Prediction State
+  const [activePrediction, setActivePrediction] = useState(null);
+  const [predictions, setPredictions] = useState([]);
+  const [totalPredictions, setTotalPredictions] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [filters, setFilters] = useState({ foodCategory: '', feedbackStatus: '' });
+  const [stats, setStats] = useState({
+    totalPredictions: 0,
+    totalPredictedKg: 0,
+    pendingFeedbackCount: 0,
+    submittedFeedbackCount: 0
+  });
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+
+  // Modal State
+  const [selectedForFeedback, setSelectedForFeedback] = useState(null);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+
+  // Fetch prediction history
+  const fetchPredictionHistory = useCallback(async (page = 1, queryFilters = filters) => {
+    setIsLoadingHistory(true);
+    try {
+      const response = await predictionService.getPredictions({
+        page,
+        limit: 10,
+        ...queryFilters
+      });
+      if (response.success) {
+        setPredictions(response.predictions);
+        setTotalPredictions(response.total);
+        setCurrentPage(response.page);
+        setTotalPages(response.totalPages);
+        if (response.stats) {
+          setStats(response.stats);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load predictions:', err);
+    } finally {
+      setIsLoadingHistory(false);
+    }
+  }, [filters]);
+
+  useEffect(() => {
+    fetchPredictionHistory(1, filters);
+  }, []);
+
+  const handlePredictionGenerated = (newPrediction) => {
+    setActivePrediction(newPrediction);
+    fetchPredictionHistory(1, filters);
+  };
+
+  const handleOpenFeedback = (prediction) => {
+    setSelectedForFeedback(prediction);
+    setIsFeedbackModalOpen(true);
+  };
+
+  const handleCloseFeedback = () => {
+    setIsFeedbackModalOpen(false);
+    setSelectedForFeedback(null);
+  };
+
+  const handleFeedbackSubmitted = (updatedPrediction) => {
+    // If the currently viewed prediction was updated, update it too
+    if (activePrediction && activePrediction._id === updatedPrediction._id) {
+      setActivePrediction(updatedPrediction);
+    }
+    fetchPredictionHistory(currentPage, filters);
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    fetchPredictionHistory(newPage, filters);
+  };
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    setCurrentPage(1);
+    fetchPredictionHistory(1, newFilters);
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
@@ -39,13 +129,13 @@ export default function DonorDashboard() {
             </div>
 
             <div className="flex items-center gap-3">
-              <button
+              <a
+                href="#prediction-section"
                 className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-medium text-sm rounded-xl shadow-lg shadow-emerald-950/50 flex items-center gap-2 transition"
-                onClick={() => alert('Food Listing form is scheduled for the next phase!')}
               >
-                <PlusCircle className="w-4 h-4" />
-                <span>List Surplus Food</span>
-              </button>
+                <Sparkles className="w-4 h-4" />
+                <span>Estimate Meal Surplus</span>
+              </a>
             </div>
           </div>
         </div>
@@ -53,36 +143,67 @@ export default function DonorDashboard() {
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">Active Surplus Listings</span>
+            <span className="text-xs text-slate-400 font-medium">Surplus Forecasts Generated</span>
             <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-white">0</span>
-              <span className="text-xs text-emerald-400 font-medium">Ready for pickup</span>
+              <span className="text-2xl font-bold text-white">{stats.totalPredictions}</span>
+              <span className="text-xs text-emerald-400 font-medium">Recorded meals</span>
             </div>
           </div>
 
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">Total Donations Completed</span>
+            <span className="text-xs text-slate-400 font-medium">Total Predicted Surplus</span>
             <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-white">0</span>
-              <span className="text-xs text-slate-500 font-medium">All time</span>
+              <span className="text-2xl font-bold text-emerald-400">{stats.totalPredictedKg.toFixed(1)} kg</span>
+              <span className="text-xs text-slate-500 font-medium">Forecasted</span>
             </div>
           </div>
 
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">Estimated Meals Provided</span>
+            <span className="text-xs text-slate-400 font-medium">Logged Actual Outcomes</span>
             <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-emerald-400">0</span>
-              <span className="text-xs text-emerald-500/80 font-medium">People served</span>
+              <span className="text-2xl font-bold text-white">{stats.submittedFeedbackCount}</span>
+              <span className="text-xs text-emerald-500/80 font-medium">Feedback saved</span>
             </div>
           </div>
 
           <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-400 font-medium">AI Surplus Forecast</span>
+            <span className="text-xs text-slate-400 font-medium">Pending Meal Outcomes</span>
             <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-amber-400">Ready</span>
-              <span className="text-xs text-amber-500/80 font-medium">Smart AI model</span>
+              <span className={`text-2xl font-bold ${stats.pendingFeedbackCount > 0 ? 'text-amber-400' : 'text-slate-400'}`}>
+                {stats.pendingFeedbackCount}
+              </span>
+              <span className="text-xs text-amber-500/80 font-medium">Awaiting feedback</span>
             </div>
           </div>
+        </div>
+
+        {/* FEATURE 2: AI Surplus Prediction Section */}
+        <div id="prediction-section" className="space-y-8">
+          {/* Active / Latest Prediction Showcase */}
+          {activePrediction && (
+            <PredictionResultCard
+              prediction={activePrediction}
+              onLogFeedbackClick={handleOpenFeedback}
+              onReset={() => setActivePrediction(null)}
+            />
+          )}
+
+          {/* Surplus Prediction Form */}
+          <SurplusPredictionForm onPredictionGenerated={handlePredictionGenerated} />
+
+          {/* Prediction History & Feedback Table */}
+          <PredictionHistoryTable
+            predictions={predictions}
+            total={totalPredictions}
+            page={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            onFilterChange={handleFilterChange}
+            currentFilters={filters}
+            onViewDetails={(item) => setActivePrediction(item)}
+            onLogFeedback={handleOpenFeedback}
+            isLoading={isLoadingHistory}
+          />
         </div>
 
         {/* Profile & Registered Details Card */}
@@ -140,20 +261,47 @@ export default function DonorDashboard() {
             </div>
           </div>
 
-          {/* Activity Placeholder */}
-          <div className="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-center items-center text-center space-y-4">
-            <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-              <PackageCheck className="w-8 h-8" />
-            </div>
-            <div className="max-w-md space-y-1">
-              <h3 className="text-lg font-bold text-white">No active donations yet</h3>
-              <p className="text-sm text-slate-400">
-                Authentication and donor profile setup are complete. Next, you will be able to list excess cooked or packaged food, run surplus forecasting, and dispatch donations to matched NGOs.
+          {/* AI Surplus Prediction Model Summary */}
+          <div className="lg:col-span-2 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+                <Sparkles className="w-3.5 h-3.5" /> Explainable Prediction System
+              </div>
+              <h3 className="text-xl font-bold text-white">How SurplusLink Learns Your Pattern</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                SurplusLink uses a weighted historical average algorithm that matches your event parameters (food category, meal occasion, attendance scale, and prepared quantities) with verified past outcomes.
               </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
+                  <span className="text-xs text-emerald-400 font-semibold block">Cold-Start Benchmarking</span>
+                  <p className="text-xs text-slate-400">
+                    New donors receive transparent institutional benchmarks (12% Vegetarian, 15% Non-vegetarian) without fabricated training claims.
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
+                  <span className="text-xs text-emerald-400 font-semibold block">Adaptive Feedback Loop</span>
+                  <p className="text-xs text-slate-400">
+                    Every actual surplus outcome you record refines future predictions, tightening variance and increasing forecast reliability.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-500">
+              <span>Model version: <strong>v1.0.0-heuristic-baseline</strong></span>
+              <span>IBM Granite boundary: <strong>Active & Modular</strong></span>
             </div>
           </div>
         </div>
       </main>
+
+      {/* Post-Meal Feedback Modal */}
+      <PredictionFeedbackModal
+        prediction={selectedForFeedback}
+        isOpen={isFeedbackModalOpen}
+        onClose={handleCloseFeedback}
+        onFeedbackSubmitted={handleFeedbackSubmitted}
+      />
     </div>
   );
 }
