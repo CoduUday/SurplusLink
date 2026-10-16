@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import logo from "../assets/logo.png"
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 import {
   HeartHandshake,
   Utensils,
@@ -12,12 +12,12 @@ import {
   ShieldCheck,
   ArrowRight,
   Sparkles,
-  LogOut
-} from 'lucide-react';
-import Navbar from '../components/Navbar';
-import api from '../services/api';
-import { useAuth } from '../context/AuthContext';
-import carVideo from '../assets/Car-nw.mp4';
+  LogOut,
+} from "lucide-react";
+import Navbar from "../components/Navbar";
+import api from "../services/api";
+import { useAuth } from "../context/AuthContext";
+import carVideo from "../assets/Car-nw.mp4";
 
 export default function HomePage() {
   const { user, isAuthenticated } = useAuth();
@@ -25,15 +25,14 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-
   const checkBackendHealth = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.get('/health');
+      const response = await api.get("/health");
       setHealthStatus(response.data);
     } catch (err) {
-      setError(err.message || 'Failed to connect to backend server');
+      setError(err.message || "Failed to connect to backend server");
     } finally {
       setLoading(false);
     }
@@ -59,33 +58,37 @@ export default function HomePage() {
       <Navbar />
 
       {/* Main Hero & Content on top of video */}
-      <main className="relative z-10 flex-1 max-w-6xl mx-auto px-6 py-12 flex flex-col gap-10 w-full">
+      <main className="relative z-10 flex-1 max-w-6xl mx-auto px-6 py-12 flex flex-col gap-10 w-full animate-fade-in">
         <div className="text-center max-w-3xl mx-auto space-y-6 pt-4 sm:pt-8">
-
-
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md">
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md animate-fade-in-up">
             Bridging Food Surplus to Communities in Need
           </h1>
 
-          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow">
-            Connecting restaurants, mess halls, and caterers with local NGOs and food distribution networks to eliminate waste and nourish communities.
+          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow animate-fade-in-up animation-delay-150">
+            Connecting restaurants, mess halls, and caterers with local NGOs and
+            food distribution networks to eliminate waste and nourish
+            communities.
           </p>
 
           {/* Call to Actions on top of video */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2 animate-fade-in-up animation-delay-300">
             {isAuthenticated ? (
               <Link
-                to={user?.role === 'NGO' ? '/ngo/dashboard' : '/donor/dashboard'}
-                className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-xl shadow-emerald-950/70 backdrop-blur-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                to={
+                  user?.role === "NGO" ? "/ngo/dashboard" : "/donor/dashboard"
+                }
+                className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-sm backdrop-blur-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
               >
-                <span>Go to {user?.role === 'NGO' ? 'NGO' : 'Donor'} Dashboard</span>
+                <span>
+                  Go to {user?.role === "NGO" ? "NGO" : "Donor"} Dashboard
+                </span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             ) : (
               <>
                 <Link
                   to="/register"
-                  className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-xl shadow-emerald-950/70 flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
                 >
                   <Utensils className="w-4 h-4" />
                   <span>Join as Food Donor</span>
@@ -93,7 +96,7 @@ export default function HomePage() {
 
                 <Link
                   to="/register"
-                  className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-semibold text-sm shadow-xl shadow-blue-950/70 flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-semibold text-sm shadow-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
                 >
                   <Building2 className="w-4 h-4" />
                   <span>Join as NGO / Organization</span>
@@ -198,10 +201,7 @@ export default function HomePage() {
             </p>
           </div>
         </div> */}
-
       </main>
-
-
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-[rgb(58,61,67)] py-6 px-6 text-center text-xs text-slate-400 bg-black backdrop-blur-md">
@@ -210,4 +210,3 @@ export default function HomePage() {
     </div>
   );
 }
-

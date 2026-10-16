@@ -68,7 +68,7 @@ export default function LoginPage() {
       <Navbar />
 
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
-        <div className="w-full max-w-md bg-[#0d1117] border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="w-full max-w-md bg-[#0d1117] border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl animate-fade-in-up">
           {/* Header */}
           <div className="text-center space-y-2 mb-8">
             <div className="inline-flex p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-emerald-400 mb-2">
@@ -138,7 +138,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold shadow-lg shadow-emerald-950/50 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
+              className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold shadow-sm transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
             >
               {loading ? (
                 <>

@@ -91,23 +91,19 @@ export default function MealScheduleSection({ onSchedulesChange }) {
   return (
     <section
       id="meal-schedules"
-      className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl scroll-mt-6"
+      className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm scroll-mt-6"
     >
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#30363d]">
         <div>
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-emerald-500/10 rounded-xl text-emerald-400 border border-emerald-500/20">
+            <div className="p-2 bg-[#21262d] rounded-xl text-emerald-400 border border-[#30363d]">
               <Calendar className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">
+              <h2 className="text-xl font-bold text-white tracking-tight">
                 Donor Meal Schedules
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Log planned meal batches and record post-meal leftover outcomes
-                for food surplus redistribution.
-              </p>
             </div>
           </div>
         </div>
@@ -117,13 +113,13 @@ export default function MealScheduleSection({ onSchedulesChange }) {
             onClick={fetchSchedules}
             disabled={loading}
             title="Refresh schedules"
-            className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition"
+            className="p-2.5 bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-300 hover:text-white rounded-xl transition"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
           </button>
           <button
             onClick={handleOpenAddSchedule}
-            className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-lg shadow-emerald-950/40 flex items-center gap-2 transition"
+            className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-sm flex items-center gap-2 transition hover:-translate-y-0.5"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Add Meal Schedule</span>
@@ -148,30 +144,30 @@ export default function MealScheduleSection({ onSchedulesChange }) {
       )}
 
       {/* Filter Bar */}
-      <div className="bg-slate-950/70 border border-slate-800/80 rounded-2xl p-3 sm:p-4 flex flex-wrap items-center gap-3 text-xs">
-        <div className="flex items-center gap-1.5 text-slate-400 font-semibold mr-1">
-          <Filter className="w-3.5 h-3.5" />
+      <div className="bg-[#0d1117] border border-[#30363d] rounded-xl p-3 sm:p-4 flex flex-wrap items-center gap-3 text-xs">
+        <div className="flex items-center gap-1.5 text-slate-300 font-semibold mr-1">
+          <Filter className="w-3.5 h-3.5 text-slate-400" />
           <span>Filters:</span>
         </div>
 
         {/* Date Filter */}
         <div className="flex items-center gap-1.5">
-          <span className="text-slate-500">Date:</span>
+          <span className="text-slate-400">Date:</span>
           <input
             type="date"
             value={filterDate}
             onChange={(e) => setFilterDate(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-emerald-500"
+            className="bg-[#161b22] border border-[#30363d] rounded-lg px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-slate-500"
           />
         </div>
 
         {/* Meal Type Filter */}
         <div className="flex items-center gap-1.5">
-          <span className="text-slate-500">Meal:</span>
+          <span className="text-slate-400">Meal:</span>
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-emerald-500"
+            className="bg-[#161b22] border border-[#30363d] rounded-lg px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-slate-500"
           >
             <option value="ALL">All Meals</option>
             <option value="Breakfast">Breakfast</option>
@@ -182,11 +178,11 @@ export default function MealScheduleSection({ onSchedulesChange }) {
 
         {/* Status Filter */}
         <div className="flex items-center gap-1.5">
-          <span className="text-slate-500">Status:</span>
+          <span className="text-slate-400">Status:</span>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-emerald-500"
+            className="bg-[#161b22] border border-[#30363d] rounded-lg px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-slate-500"
           >
             <option value="ALL">All Statuses</option>
             <option value="Not Started">Not Started</option>
@@ -259,10 +255,10 @@ export default function MealScheduleSection({ onSchedulesChange }) {
       ) : (
         <>
           {/* Desktop Table View (Hidden on mobile) */}
-          <div className="hidden lg:block overflow-x-auto border border-slate-800 rounded-2xl bg-slate-950/50">
+          <div className="hidden lg:block overflow-x-auto border border-[#30363d] rounded-xl bg-[#0d1117]">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-900/60 font-semibold">
+                <tr className="border-b border-[#30363d] text-[11px] uppercase tracking-wider text-slate-300 bg-[#161b22] font-semibold">
                   <th className="py-3 px-4">Date & Meal</th>
                   <th className="py-3 px-4">Scheduled Window</th>
                   <th className="py-3 px-4">Planned Prep / Eating</th>
@@ -273,7 +269,7 @@ export default function MealScheduleSection({ onSchedulesChange }) {
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-xs">
+              <tbody className="divide-y divide-[#30363d] text-xs">
                 {filteredSchedules.map((schedule) => {
                   const outcome = schedule.outcome;
                   const isEligible =
@@ -331,7 +327,7 @@ export default function MealScheduleSection({ onSchedulesChange }) {
 
                       <td className="py-3.5 px-4">
                         <span
-                          className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-medium ${
+                          className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-medium text-center ${
                             schedule.preparationStatus === "Completed"
                               ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                               : schedule.preparationStatus === "In Progress"
@@ -364,19 +360,11 @@ export default function MealScheduleSection({ onSchedulesChange }) {
                               <div className="text-base font-extrabold text-white">
                                 {prediction.predictedSurplusQuantity}{" "}
                                 <span className="text-xs font-normal text-slate-300">
-                                  meals (~portions)
+                                  meals 
                                 </span>
                               </div>
-                              <p
-                                className="text-[10px] text-slate-400 line-clamp-2 leading-tight"
-                                title={prediction.explanation}
-                              >
-                                {prediction.explanation}
-                              </p>
-                              <div className="text-[9px] text-amber-400/90 flex items-center gap-1 pt-0.5 font-medium">
-                                <AlertCircle className="w-3 h-3 shrink-0" />
-                                <span>Estimated portions — not confirmed food</span>
-                              </div>
+                         
+                              
                             </div>
                           ) : (
                             <div className="p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400 italic flex items-center gap-1">
@@ -425,7 +413,7 @@ export default function MealScheduleSection({ onSchedulesChange }) {
                             </div>
                           </div>
                         ) : (
-                          <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-800/80 text-slate-400 border border-slate-700/60">
+                          <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-800/80 text-slate-400 border border-slate-700/60 text-center">
                             Outcome Not Recorded
                           </span>
                         )}
@@ -481,7 +469,7 @@ export default function MealScheduleSection({ onSchedulesChange }) {
               return (
                 <div
                   key={schedule._id}
-                  className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-md"
+                  className="bg-[#0d1117] border border-[#30363d] rounded-xl p-5 space-y-4 shadow-sm"
                 >
                   <div className="flex items-start justify-between">
                     <div>

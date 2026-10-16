@@ -18,6 +18,25 @@ export default {
           900: '#064e3b'
         }
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideDown: {
+          '0%': { opacity: '0', transform: 'translateY(-100%)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 1.3s ease-out both',
+        'fade-in-up': 'fadeInUp 1.3s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'slide-down': 'slideDown 1.1s cubic-bezier(0.16, 1, 0.3, 1) both',
+      },
       borderColor: {
         slate: {
           50: 'rgb(58 61 67 / <alpha-value>)',

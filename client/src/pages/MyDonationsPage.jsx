@@ -151,7 +151,7 @@ export default function MyDonationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#0d1117] text-slate-100 flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-6">
@@ -159,14 +159,14 @@ export default function MyDonationsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <Link
             to="/donor/dashboard"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-emerald-400 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Dashboard
           </Link>
 
           <Link
             to="/donor/create-donation"
-            className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg shadow-emerald-950/40 transition self-start sm:self-auto"
+            className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition hover:-translate-y-0.5 self-start sm:self-auto"
           >
             <PlusCircle className="w-4 h-4" />
             <span>List New Surplus Food</span>
@@ -174,18 +174,18 @@ export default function MyDonationsPage() {
         </div>
 
         {/* Page Banner */}
-        <div className="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-900 border border-emerald-500/20 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-in-up">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2">
-              <Utensils className="w-3.5 h-3.5" /> Donor Food Catalog
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-slate-300 text-xs font-semibold mb-2">
+              <Utensils className="w-3.5 h-3.5 text-emerald-400" /> Donor Food Catalog
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">My Food Surplus Listings</h1>
-            <p className="text-slate-400 text-xs sm:text-sm mt-1 max-w-xl">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">My Food Surplus Listings</h1>
+            <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl">
               Track the live lifecycle of your surplus donations, make changes to available listings, or record cancellations.
             </p>
           </div>
 
-          <div className="bg-slate-950/70 border border-slate-800 rounded-2xl px-5 py-3 text-right">
+          <div className="bg-[#0d1117] border border-[#30363d] rounded-xl px-5 py-3 text-right">
             <span className="text-xs text-slate-400 block font-medium">Total Listings Recorded</span>
             <span className="text-2xl font-bold text-white">{total}</span>
           </div>
@@ -193,16 +193,16 @@ export default function MyDonationsPage() {
 
         {/* Notification Toast */}
         {notification && (
-          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2 animate-fade-in">
+          <div className="p-4 rounded-xl bg-[#161b22] border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2 animate-fade-in">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             <span>{notification}</span>
           </div>
         )}
 
         {/* Table / Card Container */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm animate-fade-in-up animation-delay-150">
           {/* Controls Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
             <h2 className="text-lg font-bold text-white">All Published Surplus Items</h2>
 
             {/* Filter */}
@@ -213,7 +213,7 @@ export default function MyDonationsPage() {
               <select
                 value={statusFilter}
                 onChange={handleStatusFilterChange}
-                className="px-3 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 outline-none focus:border-emerald-500 transition"
+                className="px-3 py-1.5 bg-[#0d1117] border border-[#30363d] rounded-lg text-xs text-slate-200 outline-none focus:border-slate-500 transition"
               >
                 <option value="">All Statuses</option>
                 <option value="AVAILABLE">Available</option>
@@ -234,7 +234,7 @@ export default function MyDonationsPage() {
             </div>
           ) : donations.length === 0 ? (
             <div className="py-16 text-center space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-slate-850 border border-slate-800 flex items-center justify-center text-slate-500 mx-auto">
+              <div className="w-14 h-14 rounded-2xl bg-[#21262d] border border-[#30363d] flex items-center justify-center text-slate-500 mx-auto">
                 <Utensils className="w-6 h-6" />
               </div>
               <div className="space-y-1">
@@ -247,15 +247,15 @@ export default function MyDonationsPage() {
               </div>
               <Link
                 to="/donor/create-donation"
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold transition"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold transition shadow-sm"
               >
                 <PlusCircle className="w-3.5 h-3.5" /> List Food Now
               </Link>
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto border border-[#30363d] rounded-xl bg-[#0d1117]">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/60 text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800">
+                <thead className="bg-[#161b22] text-slate-300 uppercase tracking-wider text-[11px] border-b border-[#30363d]">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Food Item</th>
                     <th className="py-3 px-4 font-semibold">Category & Type</th>
@@ -266,7 +266,7 @@ export default function MyDonationsPage() {
                     <th className="py-3 px-4 font-semibold text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-850 text-slate-300">
+                <tbody className="divide-y divide-[#30363d] text-slate-300">
                   {donations.map((item) => {
                     const isAvailable = item.status === 'AVAILABLE';
                     const deadlineFormatted = new Date(item.pickupDeadline).toLocaleString(undefined, {
@@ -282,7 +282,7 @@ export default function MyDonationsPage() {
                     });
 
                     return (
-                      <tr key={item._id} className="hover:bg-slate-850/50 transition">
+                      <tr key={item._id} className="hover:bg-[#161b22]/70 transition">
                         <td className="py-3.5 px-4">
                           <div className="font-semibold text-sm text-white">{item.foodName}</div>
                           <div className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
@@ -325,7 +325,7 @@ export default function MyDonationsPage() {
                           <Link
                             to={`/donations/${item._id}`}
                             title="Find suitable NGOs (Smart Matching)"
-                            className="p-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition inline-block align-middle"
+                            className="p-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-emerald-400 border border-[#30363d] transition inline-block align-middle"
                           >
                             <Sparkles className="w-3.5 h-3.5" />
                           </Link>
@@ -333,7 +333,7 @@ export default function MyDonationsPage() {
                           <button
                             onClick={() => handleView(item)}
                             title="Quick preview details"
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition inline-block align-middle"
+                            className="p-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-slate-300 hover:text-white border border-[#30363d] transition inline-block align-middle"
                           >
                             <Eye className="w-3.5 h-3.5" />
                           </button>
@@ -343,14 +343,14 @@ export default function MyDonationsPage() {
                               <button
                                 onClick={() => handleEdit(item)}
                                 title="Edit listing"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                                className="p-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-slate-300 hover:text-white border border-[#30363d] transition"
                               >
                                 <Edit2 className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => handleCancelClick(item)}
                                 title="Cancel listing"
-                                className="p-1.5 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 transition"
+                                className="p-1.5 rounded-lg bg-[#21262d] hover:bg-rose-950/60 text-rose-400 border border-[#30363d] transition"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>

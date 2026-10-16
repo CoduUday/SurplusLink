@@ -184,10 +184,10 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      <Navbar />
+      <Navbar animate={false} />
 
       <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8 flex justify-center items-center bg-[#0d1117]">
-        <div className="w-full max-w-2xl bg-[#2c313711] border border-[#3d444d] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl">
+        <div className="w-full max-w-2xl bg-[#2c313711] border border-[#3d444d] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl animate-fade-in-up">
           {/* Header */}
           <div className="text-center space-y-2 mb-8">
             <h1 className="text-3xl font-extrabold text-white tracking-tight">
@@ -209,8 +209,8 @@ export default function RegisterPage() {
               }}
               className={`flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 role === "DONOR"
-                  ? "bg-emerald-600 text-white shadow-lg shadow-emerald-950/50"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-[#21262d]"
               }`}
             >
               <Utensils className="w-4 h-4" />
@@ -583,10 +583,10 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3.5 px-4 rounded-xl text-white font-semibold shadow-lg transition-all duration-200 flex items-center justify-center gap-2 ${
+              className={`w-full py-3.5 px-4 rounded-xl text-white font-semibold shadow-sm transition-all duration-200 flex items-center justify-center gap-2 ${
                 role === "DONOR"
-                  ? "bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 shadow-emerald-950/50"
-                  : "bg-blue-600 hover:bg-blue-500 active:bg-blue-700 shadow-blue-950/50"
+                  ? "bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700"
+                  : "bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
               } disabled:opacity-50`}
             >
               {loading ? (

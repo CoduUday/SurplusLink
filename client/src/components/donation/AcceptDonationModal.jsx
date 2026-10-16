@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X,
   HeartHandshake,
@@ -53,25 +54,24 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="p-6 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-blue-950/40 via-slate-900 to-slate-900">
+        <div className="p-6 border-b border-[#30363d] flex items-center justify-between bg-[#161b22]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#21262d] border border-[#30363d] text-blue-400 flex items-center justify-center shrink-0">
               <HeartHandshake className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">Accept & Claim Food Surplus</h3>
-              <p className="text-xs text-slate-400">Commit to collecting this surplus food</p>
+              <h3 className="text-base font-bold text-white tracking-tight">Accept & Claim Food Surplus</h3>
             </div>
           </div>
 
           <button
             onClick={onClose}
             disabled={isSubmitting}
-            className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition"
+            className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-[#21262d] transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -80,10 +80,10 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
         {/* Modal Body */}
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-5 text-xs text-slate-300">
           {/* Donation Summary Card */}
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+          <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-white text-sm">{donation.foodName}</span>
-              <span className="px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30 text-[10px] font-semibold">
+              <span className="text-sm font-bold text-white">{donation.foodName}</span>
+              <span className="px-2 py-0.5 rounded-full bg-[#21262d] text-blue-400 border border-[#30363d] text-[10px] font-semibold">
                 {donation.category}
               </span>
             </div>
@@ -99,7 +99,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-slate-400 text-[11px] pt-1 border-t border-slate-800/60">
+            <div className="flex items-center gap-1.5 text-slate-400 text-[11px] pt-1 border-t border-[#30363d]">
               <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
               <span className="line-clamp-1">{donation.location?.address}</span>
             </div>
@@ -115,7 +115,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
 
           {/* Estimated Pickup Time */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold text-slate-200 uppercase tracking-wider block">
+            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
               Estimated Pickup Time / ETA <span className="text-rose-400">*</span>
             </label>
             <input
@@ -124,7 +124,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
               value={estimatedPickupTime}
               onChange={(e) => setEstimatedPickupTime(e.target.value)}
               placeholder="e.g. Today around 3:30 PM, or within 45 mins"
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-xl text-slate-100 text-xs outline-none transition"
+              className="w-full px-3.5 py-2.5 bg-[#0d1117] border border-[#30363d] focus:border-blue-500 rounded-xl text-slate-100 placeholder-slate-500 text-xs outline-none transition"
             />
             {/* Presets */}
             <div className="flex flex-wrap gap-1.5 pt-1">
@@ -135,8 +135,8 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
                   onClick={() => setEstimatedPickupTime(preset)}
                   className={`px-2.5 py-1 rounded-lg text-[10px] font-medium border transition cursor-pointer ${
                     estimatedPickupTime === preset
-                      ? 'bg-blue-600/30 border-blue-500/50 text-blue-300'
-                      : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                      ? 'bg-blue-600/20 border-blue-500/40 text-blue-300 font-semibold'
+                      : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-slate-200 hover:bg-[#21262d]'
                   }`}
                 >
                   {preset}
@@ -147,7 +147,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
 
           {/* Coordination Notes */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-200 uppercase tracking-wider block">
+            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
               Pickup Coordination Notes (Optional)
             </label>
             <textarea
@@ -155,12 +155,12 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
               value={acceptNotes}
               onChange={(e) => setAcceptNotes(e.target.value)}
               placeholder="e.g., Driver John will arrive in a silver van. Bringing insulated containers."
-              className="w-full px-3.5 py-2 bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-xl text-slate-100 text-xs outline-none transition"
+              className="w-full px-3.5 py-2 bg-[#0d1117] border border-[#30363d] focus:border-blue-500 rounded-xl text-slate-100 placeholder-slate-500 text-xs outline-none transition"
             />
           </div>
 
           {/* Commitment Notice */}
-          <div className="p-3.5 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-300 text-[11px] space-y-1">
+          <div className="p-3.5 rounded-xl bg-[#0d1117] border border-blue-500/30 text-blue-300 text-[11px] space-y-1">
             <div className="font-semibold flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
               Direct Coordination Guarantee
@@ -171,12 +171,12 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
           </div>
 
           {/* Footer Actions */}
-          <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-800">
+          <div className="pt-2 flex items-center justify-end gap-3 border-t border-[#30363d]">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition"
+              className="px-4 py-2.5 rounded-xl bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-300 text-xs font-semibold transition cursor-pointer"
             >
               Cancel
             </button>
@@ -184,7 +184,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
             <button
               type="submit"
               disabled={isSubmitting || !estimatedPickupTime.trim()}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white text-xs font-bold shadow-lg shadow-blue-950/60 flex items-center gap-1.5 transition disabled:opacity-50 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-sm flex items-center gap-1.5 transition disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -192,15 +192,13 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
                   <span>Confirming Acceptance...</span>
                 </>
               ) : (
-                <>
-                  <HeartHandshake className="w-3.5 h-3.5" />
-                  <span>Confirm & Claim Food</span>
-                </>
+                <span>Confirm & Claim Food</span>
               )}
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

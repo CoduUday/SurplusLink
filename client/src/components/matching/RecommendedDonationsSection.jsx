@@ -48,10 +48,10 @@ export default function RecommendedDonationsSection({ ngoId }) {
   }, [ngoId]);
 
   const getScoreBadgeColor = (score) => {
-    if (score >= 85) return 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400';
-    if (score >= 70) return 'bg-teal-500/10 border-teal-500/30 text-teal-300';
-    if (score >= 50) return 'bg-amber-500/10 border-amber-500/30 text-amber-300';
-    return 'bg-slate-500/10 border-slate-500/30 text-slate-400';
+    if (score >= 85) return 'bg-[#21262d] border-emerald-500/40 text-emerald-400';
+    if (score >= 70) return 'bg-[#21262d] border-teal-500/40 text-teal-300';
+    if (score >= 50) return 'bg-[#21262d] border-amber-500/40 text-amber-300';
+    return 'bg-[#21262d] border-[#30363d] text-slate-400';
   };
 
   const formatDeadline = (dateString) => {
@@ -81,25 +81,22 @@ export default function RecommendedDonationsSection({ ngoId }) {
   };
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+    <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-blue-400 text-xs font-semibold mb-2">
             <Sparkles className="w-3.5 h-3.5" /> Smart Recommendations
           </div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             Recommended Surplus Food For You
           </h2>
-          <p className="text-xs text-slate-400 mt-1 max-w-xl">
-            Ranked by proximity to your facility, declared serving capacity compatibility, and pickup feasibility.
-          </p>
         </div>
 
         <button
           onClick={fetchRecommendedDonations}
           disabled={isLoading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-750 text-slate-300 text-xs font-medium rounded-xl border border-slate-700/60 transition disabled:opacity-50 self-start sm:self-auto cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#21262d] hover:bg-[#30363d] text-slate-200 text-xs font-medium rounded-xl border border-[#30363d] transition disabled:opacity-50 self-start sm:self-auto cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
           <span>Refresh Feed</span>
@@ -117,7 +114,7 @@ export default function RecommendedDonationsSection({ ngoId }) {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-44 bg-slate-950/40 border border-slate-800/60 rounded-2xl animate-pulse"
+                className="h-44 bg-[#0d1117] border border-[#30363d] rounded-xl animate-pulse"
               />
             ))}
           </div>
@@ -126,7 +123,7 @@ export default function RecommendedDonationsSection({ ngoId }) {
 
       {/* Error State */}
       {!isLoading && error && (
-        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center justify-between gap-3">
+        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
             <span>{error}</span>
@@ -142,8 +139,8 @@ export default function RecommendedDonationsSection({ ngoId }) {
 
       {/* Empty State */}
       {!isLoading && !error && rankedDonations.length === 0 && (
-        <div className="p-8 text-center bg-slate-950/40 rounded-2xl border border-slate-800/60 space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-800/80 text-slate-400 flex items-center justify-center mx-auto">
+        <div className="p-8 text-center bg-[#0d1117] rounded-xl border border-[#30363d] space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-[#21262d] text-slate-400 flex items-center justify-center mx-auto">
             <Utensils className="w-6 h-6" />
           </div>
           <h3 className="text-sm font-semibold text-white">No Matched Donations Currently Available</h3>
@@ -172,7 +169,7 @@ export default function RecommendedDonationsSection({ ngoId }) {
             return (
               <div
                 key={donation._id}
-                className="bg-slate-950/70 border border-slate-800 hover:border-slate-700/80 rounded-2xl p-5 flex flex-col justify-between transition hover:shadow-lg space-y-4"
+                className="bg-[#0d1117] border border-[#30363d] hover:border-slate-600 rounded-xl p-5 flex flex-col justify-between transition hover:shadow-md space-y-4"
               >
                 <div className="space-y-3">
                   {/* Top Bar: Food Type & Match Score */}
@@ -180,15 +177,15 @@ export default function RecommendedDonationsSection({ ngoId }) {
                     <span
                       className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${
                         isVeg
-                          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
-                          : 'bg-rose-500/10 border-rose-500/30 text-rose-300'
+                          ? 'bg-[#21262d] border-emerald-500/30 text-emerald-400'
+                          : 'bg-[#21262d] border-rose-500/30 text-rose-400'
                       }`}
                     >
                       {isVeg ? '🌱 Vegetarian' : '🍗 Non-Veg'}
                     </span>
 
                     <span
-                      className={`text-xs font-bold px-2.5 py-1 rounded-xl border flex items-center gap-1 ${getScoreBadgeColor(
+                      className={`text-xs font-bold px-2.5 py-1 rounded-lg border flex items-center gap-1 ${getScoreBadgeColor(
                         totalScore
                       )}`}
                     >
@@ -201,21 +198,21 @@ export default function RecommendedDonationsSection({ ngoId }) {
                   <div>
                     <h3 className="text-base font-bold text-white line-clamp-1">{donation.foodName}</h3>
                     <p className="text-xs text-slate-400 mt-0.5">
-                      Offered by <span className="text-slate-300 font-medium">{donation.donorOrganization}</span>
+                      Offered by <span className="text-slate-200 font-medium">{donation.donorOrganization}</span>
                     </p>
                   </div>
 
                   {/* Quantity & Servings */}
-                  <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800/80">
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#30363d]">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] text-slate-500 uppercase font-semibold">Quantity</span>
+                      <span className="text-[10px] text-slate-400 uppercase font-semibold">Quantity</span>
                       <p className="text-xs font-bold text-slate-200">
                         {donation.quantity} {donation.quantityUnit}
                       </p>
                     </div>
 
                     <div className="space-y-0.5">
-                      <span className="text-[10px] text-slate-500 uppercase font-semibold">People Served</span>
+                      <span className="text-[10px] text-slate-400 uppercase font-semibold">People Served</span>
                       <p className="text-xs font-bold text-blue-400 flex items-center gap-1">
                         <Users className="w-3.5 h-3.5" /> {donation.servings} people
                       </p>
@@ -223,7 +220,7 @@ export default function RecommendedDonationsSection({ ngoId }) {
                   </div>
 
                   {/* Proximity & Pickup Deadline */}
-                  <div className="space-y-1.5 text-xs text-slate-400">
+                  <div className="space-y-1.5 text-xs text-slate-300">
                     {distanceKm !== null && (
                       <div className="flex items-center gap-1.5 text-slate-300">
                         <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -231,19 +228,19 @@ export default function RecommendedDonationsSection({ ngoId }) {
                       </div>
                     )}
 
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5 text-slate-400">
                       <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                       <span>Deadline: {formatDeadline(donation.pickupDeadline)}</span>
                     </div>
 
-                    <span className="text-[10px] text-amber-400/90 font-medium block">
-                      ⏳ {getTimeRemaining(donation.pickupDeadline)}
+                    <span className="text-[10px] text-rose-400 font-medium block">
+                       {getTimeRemaining(donation.pickupDeadline)}
                     </span>
                   </div>
 
                   {/* Match Reason snippet */}
                   {reasons && reasons.length > 0 && (
-                    <div className="pt-2 border-t border-slate-800/60">
+                    <div className="pt-2 border-t border-[#30363d]">
                       <p className="text-[11px] text-slate-300 flex items-start gap-1">
                         <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0 mt-0.5" />
                         <span className="line-clamp-2">{reasons[0]}</span>
@@ -256,7 +253,7 @@ export default function RecommendedDonationsSection({ ngoId }) {
                 <div className="pt-2">
                   <Link
                     to={`/donations/${donation._id}`}
-                    className="w-full py-2 px-3 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 transition"
+                    className="w-full py-2 px-3 bg-[#21262d] hover:bg-[#30363d] text-blue-400 hover:text-blue-300 border border-[#30363d] text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 transition"
                   >
                     <span>View Donation Details</span>
                     <ChevronRight className="w-3.5 h-3.5" />
