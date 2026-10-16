@@ -45,19 +45,19 @@ export default function PredictionHistoryTable({
   const getReliabilityBadge = (level) => {
     switch (level) {
       case 'High':
-        return <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[11px] font-medium">High</span>;
+        return <span className="px-2 py-0.5 rounded-full bg-[#21262d] text-emerald-400 border border-emerald-500/40 text-[11px] font-medium">High</span>;
       case 'Medium':
-        return <span className="px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/30 text-[11px] font-medium">Medium</span>;
+        return <span className="px-2 py-0.5 rounded-full bg-[#21262d] text-sky-400 border border-sky-500/40 text-[11px] font-medium">Medium</span>;
       case 'Low':
       default:
-        return <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[11px] font-medium">Low / Base</span>;
+        return <span className="px-2 py-0.5 rounded-full bg-[#21262d] text-amber-400 border border-amber-500/40 text-[11px] font-medium">Low / Base</span>;
     }
   };
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+    <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
       {/* Header & Filters */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
         <div>
           <h3 className="text-lg sm:text-xl font-bold text-white">Prediction History & Feedback</h3>
           <p className="text-xs text-slate-400 mt-1">
@@ -75,7 +75,7 @@ export default function PredictionHistoryTable({
           <select
             value={filterCategory}
             onChange={handleCategoryChange}
-            className="px-3 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 outline-none focus:border-emerald-500 transition"
+            className="px-3 py-1.5 bg-[#0d1117] border border-[#30363d] rounded-xl text-xs text-slate-200 outline-none focus:border-emerald-500 transition"
           >
             <option value="">All Categories</option>
             <option value="Vegetarian">Vegetarian</option>
@@ -86,7 +86,7 @@ export default function PredictionHistoryTable({
           <select
             value={filterStatus}
             onChange={handleStatusChange}
-            className="px-3 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 outline-none focus:border-emerald-500 transition"
+            className="px-3 py-1.5 bg-[#0d1117] border border-[#30363d] rounded-xl text-xs text-slate-200 outline-none focus:border-emerald-500 transition"
           >
             <option value="">All Feedback</option>
             <option value="pending">Pending Outcome</option>
@@ -103,7 +103,7 @@ export default function PredictionHistoryTable({
         </div>
       ) : !predictions || predictions.length === 0 ? (
         <div className="py-14 text-center space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-center mx-auto text-slate-400">
+          <div className="w-12 h-12 rounded-2xl bg-[#21262d] border border-[#30363d] flex items-center justify-center mx-auto text-slate-400">
             <Clock3 className="w-6 h-6" />
           </div>
           <h4 className="text-base font-semibold text-slate-200">No predictions found</h4>
@@ -116,7 +116,7 @@ export default function PredictionHistoryTable({
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/60 text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800">
+            <thead className="bg-[#0d1117] text-slate-400 uppercase tracking-wider text-[11px] border-b border-[#30363d]">
               <tr>
                 <th className="py-3 px-4 font-semibold">Meal & Occasion</th>
                 <th className="py-3 px-4 font-semibold">Date & Time</th>
@@ -128,7 +128,7 @@ export default function PredictionHistoryTable({
                 <th className="py-3 px-4 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-850 text-slate-300">
+            <tbody className="divide-y divide-[#30363d] text-slate-300">
               {predictions.map((item) => {
                 const mealDateFormatted = new Date(item.mealDate).toLocaleDateString(undefined, {
                   month: 'short',
@@ -141,7 +141,7 @@ export default function PredictionHistoryTable({
                 );
 
                 return (
-                  <tr key={item._id} className="hover:bg-slate-850/50 transition">
+                  <tr key={item._id} className="hover:bg-[#21262d]/50 transition">
                     <td className="py-3.5 px-4 font-medium text-white">
                       <div className="font-semibold text-sm">{item.mealName}</div>
                       <div className="text-[11px] text-slate-400">
@@ -151,7 +151,7 @@ export default function PredictionHistoryTable({
 
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="flex items-center gap-1.5 text-slate-200">
-                        <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                        <Calendar className="w-3.5 h-3.5 text-slate-400" />
                         <span>{mealDateFormatted}</span>
                       </div>
                       <div className="text-[11px] text-slate-400 mt-0.5">
@@ -187,13 +187,13 @@ export default function PredictionHistoryTable({
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       {item.feedbackStatus === 'submitted' ? (
                         <div className="space-y-0.5">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[11px] font-semibold">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#21262d] border border-emerald-500/40 text-emerald-400 text-[11px] font-semibold">
                             <CheckCircle2 className="w-3 h-3" /> {item.actualSurplusKg} kg actual
                           </span>
-                          <div className="text-[10px] text-slate-500">Feedback logged</div>
+                          <div className="text-[10px] text-slate-400">Feedback logged</div>
                         </div>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-[11px] font-medium">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#21262d] border border-amber-500/40 text-amber-400 text-[11px] font-medium">
                           <Clock3 className="w-3 h-3" /> Pending
                         </span>
                       )}
@@ -203,7 +203,7 @@ export default function PredictionHistoryTable({
                       <button
                         onClick={() => onViewDetails(item)}
                         title="View details & assumptions"
-                        className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                        className="p-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-300 hover:text-white transition"
                       >
                         <Eye className="w-3.5 h-3.5" />
                       </button>
@@ -211,14 +211,14 @@ export default function PredictionHistoryTable({
                       {item.feedbackStatus === 'pending' ? (
                         <button
                           onClick={() => onLogFeedback(item)}
-                          className="px-2.5 py-1.5 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white font-medium text-[11px] transition inline-flex items-center gap-1"
+                          className="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-[11px] transition inline-flex items-center gap-1 shadow-sm"
                         >
                           <span>Log Outcome</span>
                         </button>
                       ) : (
                         <button
                           onClick={() => onLogFeedback(item)}
-                          className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-[11px] transition inline-flex items-center gap-1"
+                          className="px-2.5 py-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-300 font-medium text-[11px] transition inline-flex items-center gap-1"
                         >
                           <span>Edit</span>
                         </button>
@@ -234,7 +234,7 @@ export default function PredictionHistoryTable({
 
       {/* Pagination Footer */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between border-t border-slate-800 pt-4 text-xs text-slate-400">
+        <div className="flex items-center justify-between border-t border-[#30363d] pt-4 text-xs text-slate-400">
           <div>
             Showing <strong className="text-slate-200">{(page - 1) * 10 + 1}</strong> to{' '}
             <strong className="text-slate-200">{Math.min(page * 10, total)}</strong> of{' '}
@@ -245,7 +245,7 @@ export default function PredictionHistoryTable({
             <button
               onClick={() => onPageChange(page - 1)}
               disabled={page <= 1}
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-300 transition"
+              className="p-2 rounded-xl bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] disabled:opacity-40 disabled:cursor-not-allowed text-slate-300 transition"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -255,7 +255,7 @@ export default function PredictionHistoryTable({
             <button
               onClick={() => onPageChange(page + 1)}
               disabled={page >= totalPages}
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-300 transition"
+              className="p-2 rounded-xl bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] disabled:opacity-40 disabled:cursor-not-allowed text-slate-300 transition"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

@@ -93,14 +93,14 @@ export default function LikelyAvailabilitySection({
   return (
     <section id="likely-availability-section" className="space-y-5">
       {/* Section Header Card */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40 border border-slate-800 rounded-3xl p-6 sm:p-7 shadow-xl space-y-5">
+      <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-7 shadow-sm space-y-5">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-indigo-400 text-xs font-semibold">
               <Timer className="w-3.5 h-3.5 text-indigo-400" />
               <span>Surplus Pickup Timetable</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2 tracking-tight">
               Likely Surplus Availability Times
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 max-w-2xl">
@@ -111,15 +111,15 @@ export default function LikelyAvailabilitySection({
 
           {/* Quick Metrics Pills */}
           <div className="flex flex-wrap items-center gap-2.5">
-            <div className="px-3.5 py-2 rounded-2xl bg-slate-950/70 border border-slate-800 text-center">
+            <div className="px-3.5 py-2 rounded-xl bg-[#0d1117] border border-[#30363d] text-center">
               <span className="text-[10px] text-slate-400 uppercase font-semibold block">Confirmed Ready</span>
               <span className="text-lg font-bold text-emerald-400">{metrics.confirmedCount}</span>
             </div>
-            <div className="px-3.5 py-2 rounded-2xl bg-slate-950/70 border border-slate-800 text-center">
+            <div className="px-3.5 py-2 rounded-xl bg-[#0d1117] border border-[#30363d] text-center">
               <span className="text-[10px] text-slate-400 uppercase font-semibold block">In Progress</span>
               <span className="text-lg font-bold text-blue-400">{metrics.inProgressCount}</span>
             </div>
-            <div className="px-3.5 py-2 rounded-2xl bg-slate-950/70 border border-slate-800 text-center">
+            <div className="px-3.5 py-2 rounded-xl bg-[#0d1117] border border-[#30363d] text-center">
               <span className="text-[10px] text-slate-400 uppercase font-semibold block">Historical Predictions</span>
               <span className="text-lg font-bold text-indigo-400">{metrics.historicalCount}</span>
             </div>
@@ -127,13 +127,13 @@ export default function LikelyAvailabilitySection({
         </div>
 
         {/* Filter Navigation Tabs */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
-          <div className="flex items-center gap-1.5 bg-slate-950/60 p-1 rounded-2xl border border-slate-800 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#30363d]">
+          <div className="flex items-center gap-1.5 bg-[#0d1117] p-1 rounded-xl border border-[#30363d] text-xs">
             <button
               onClick={() => setActiveFilter("ACTIVE")}
-              className={`px-3 py-1.5 rounded-xl font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer ${
                 activeFilter === "ACTIVE"
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-950"
+                  ? "bg-indigo-600 text-white shadow-sm"
                   : "text-slate-400 hover:text-slate-200"
               }`}
             >
@@ -141,9 +141,9 @@ export default function LikelyAvailabilitySection({
             </button>
             <button
               onClick={() => setActiveFilter("CONFIRMED")}
-              className={`px-3 py-1.5 rounded-xl font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer ${
                 activeFilter === "CONFIRMED"
-                  ? "bg-emerald-600 text-white shadow-md shadow-emerald-950"
+                  ? "bg-emerald-600 text-white shadow-sm"
                   : "text-slate-400 hover:text-slate-200"
               }`}
             >
@@ -151,9 +151,9 @@ export default function LikelyAvailabilitySection({
             </button>
             <button
               onClick={() => setActiveFilter("UPCOMING")}
-              className={`px-3 py-1.5 rounded-xl font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer ${
                 activeFilter === "UPCOMING"
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-950"
+                  ? "bg-blue-600 text-white shadow-sm"
                   : "text-slate-400 hover:text-slate-200"
               }`}
             >
@@ -161,9 +161,9 @@ export default function LikelyAvailabilitySection({
             </button>
             <button
               onClick={() => setActiveFilter("ALL")}
-              className={`px-3 py-1.5 rounded-xl font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer ${
                 activeFilter === "ALL"
-                  ? "bg-slate-800 text-white"
+                  ? "bg-[#21262d] text-white border border-[#30363d]"
                   : "text-slate-400 hover:text-slate-200"
               }`}
             >
@@ -180,8 +180,8 @@ export default function LikelyAvailabilitySection({
 
       {/* Cards Grid */}
       {filteredData.length === 0 ? (
-        <div className="bg-slate-900/50 border border-slate-800/80 rounded-3xl p-8 text-center space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mx-auto">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-8 text-center space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-[#21262d] border border-[#30363d] flex items-center justify-center text-indigo-400 mx-auto">
             <Clock className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold text-white">No Meal Batches Match Current Filter</h3>
@@ -199,13 +199,7 @@ export default function LikelyAvailabilitySection({
             return (
               <div
                 key={schedule._id}
-                className={`rounded-3xl border p-5 sm:p-6 transition flex flex-col justify-between space-y-4 relative overflow-hidden group shadow-lg ${
-                  isConfirmed
-                    ? "bg-gradient-to-b from-emerald-950/40 via-slate-900/90 to-slate-950 border-emerald-500/40 hover:border-emerald-500/60 shadow-emerald-950/20"
-                    : isHistoricalMethod
-                    ? "bg-gradient-to-b from-slate-900/90 via-slate-900/90 to-indigo-950/30 border-slate-800 hover:border-indigo-500/40 shadow-slate-950/40"
-                    : "bg-slate-900/70 border-slate-800 hover:border-slate-700"
-                }`}
+                className="bg-[#161b22] border border-[#30363d] hover:border-slate-600 rounded-2xl p-5 sm:p-6 transition flex flex-col justify-between space-y-4 shadow-sm"
               >
                 {/* Header: Meal Type, Badge & Date */}
                 <div className="space-y-2">
@@ -216,7 +210,7 @@ export default function LikelyAvailabilitySection({
                         {schedule.mealType}
                       </span>
                       {schedule.isSpecialEvent && (
-                        <span className="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[9px] font-bold uppercase tracking-wide">
+                        <span className="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/30 text-[9px] font-bold uppercase tracking-wide">
                           Event
                         </span>
                       )}
@@ -225,10 +219,10 @@ export default function LikelyAvailabilitySection({
                     <span
                       className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border ${
                         isConfirmed
-                          ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30 flex items-center gap-1"
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 flex items-center gap-1"
                           : isHistoricalMethod
-                          ? "bg-indigo-500/10 text-indigo-300 border-indigo-500/30 flex items-center gap-1"
-                          : "bg-slate-800 text-slate-400 border-slate-700"
+                          ? "bg-indigo-500/10 text-indigo-400 border-indigo-500/30 flex items-center gap-1"
+                          : "bg-[#21262d] text-slate-400 border-[#30363d]"
                       }`}
                     >
                       {isConfirmed ? (
@@ -259,13 +253,7 @@ export default function LikelyAvailabilitySection({
                 </div>
 
                 {/* Hero Stat: Likely Available At */}
-                <div
-                  className={`p-4 rounded-2xl border space-y-2 ${
-                    isConfirmed
-                      ? "bg-emerald-950/50 border-emerald-500/30"
-                      : "bg-slate-950/70 border-slate-800/80"
-                  }`}
-                >
+                <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
                   <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center justify-between">
                     <span>{isConfirmed ? "Confirmed Surplus Ready At" : "Likely Surplus Available At"}</span>
                     {isConfirmed ? (
@@ -278,7 +266,7 @@ export default function LikelyAvailabilitySection({
                   <div className="flex items-baseline justify-between gap-2">
                     <span
                       className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
-                        isConfirmed ? "text-emerald-300" : "text-white"
+                        isConfirmed ? "text-emerald-400" : "text-white"
                       }`}
                     >
                       {timeDisplay}
@@ -295,7 +283,7 @@ export default function LikelyAvailabilitySection({
                   </div>
 
                   {/* Breakdown details */}
-                  <div className="pt-2 border-t border-slate-800/80 text-[11px] space-y-1">
+                  <div className="pt-2 border-t border-[#30363d] text-[11px] space-y-1">
                     {avail?.referenceType === "predicted_actual_end" ? (
                       <div className="text-indigo-300 flex items-center justify-between">
                         <span>Predicted Service Finish:</span>
@@ -309,7 +297,7 @@ export default function LikelyAvailabilitySection({
                     ) : (
                       <div className="text-slate-400 flex items-center justify-between">
                         <span>Scheduled Meal End:</span>
-                        <strong>{schedule.scheduledEndTime}</strong>
+                        <strong className="text-slate-200">{schedule.scheduledEndTime}</strong>
                       </div>
                     )}
 
@@ -326,16 +314,16 @@ export default function LikelyAvailabilitySection({
 
                 {/* Explanation text */}
                 {avail?.explanation && (
-                  <p className="text-[11px] text-slate-400 bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/60 line-clamp-2 leading-relaxed">
+                  <p className="text-[11px] text-slate-400 bg-[#0d1117] p-2.5 rounded-xl border border-[#30363d] line-clamp-2 leading-relaxed">
                     {avail.explanation}
                   </p>
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex items-center gap-2 pt-2 border-t border-slate-800/80">
+                <div className="flex items-center gap-2 pt-2 border-t border-[#30363d]">
                   <button
                     onClick={() => onViewDetails && onViewDetails(schedule)}
-                    className="flex-1 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-800 text-slate-200 text-xs font-medium transition flex items-center justify-center gap-1.5"
+                    className="flex-1 py-2 px-3 rounded-xl bg-[#21262d] hover:bg-[#30363d] text-slate-200 border border-[#30363d] text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span>View Forecast</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -344,7 +332,7 @@ export default function LikelyAvailabilitySection({
                   {!isConfirmed && (
                     <button
                       onClick={() => onRecordOutcome && onRecordOutcome(schedule)}
-                      className="py-2 px-3 rounded-xl bg-emerald-600/90 hover:bg-emerald-500 active:bg-emerald-700 text-white text-xs font-semibold transition flex items-center gap-1 shadow-sm"
+                      className="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition flex items-center gap-1 shadow-sm cursor-pointer"
                       title="Confirm food readiness or record outcome"
                     >
                       <PackageCheck className="w-3.5 h-3.5" />

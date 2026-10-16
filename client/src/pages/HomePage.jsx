@@ -77,7 +77,7 @@ export default function HomePage() {
                 to={
                   user?.role === "NGO" ? "/ngo/dashboard" : "/donor/dashboard"
                 }
-                className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-xl shadow-emerald-950/70 backdrop-blur-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-sm backdrop-blur-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
               >
                 <span>
                   Go to {user?.role === "NGO" ? "NGO" : "Donor"} Dashboard
@@ -88,7 +88,7 @@ export default function HomePage() {
               <>
                 <Link
                   to="/register"
-                  className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-xl shadow-emerald-950/70 flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm shadow-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
                 >
                   <Utensils className="w-4 h-4" />
                   <span>Join as Food Donor</span>
@@ -96,7 +96,7 @@ export default function HomePage() {
 
                 <Link
                   to="/register"
-                  className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-semibold text-sm shadow-xl shadow-blue-950/70 flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-semibold text-sm shadow-sm flex items-center gap-2 transition transform hover:-translate-y-0.5"
                 >
                   <Building2 className="w-4 h-4" />
                   <span>Join as NGO / Organization</span>

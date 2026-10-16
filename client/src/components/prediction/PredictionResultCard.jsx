@@ -59,14 +59,14 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
     switch (level) {
       case 'High':
         return {
-          bg: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
+          bg: 'bg-[#21262d] border-emerald-500/40 text-emerald-400',
           icon: <ShieldCheck className="w-3.5 h-3.5" />,
           label: 'High Reliability',
           desc: 'Backed by consistent historical donor records'
         };
       case 'Medium':
         return {
-          bg: 'bg-sky-500/10 border-sky-500/30 text-sky-400',
+          bg: 'bg-[#21262d] border-sky-500/40 text-sky-400',
           icon: <ShieldCheck className="w-3.5 h-3.5" />,
           label: 'Medium Reliability',
           desc: 'Moderate historical sample size'
@@ -74,7 +74,7 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
       case 'Low':
       default:
         return {
-          bg: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
+          bg: 'bg-[#21262d] border-amber-500/40 text-amber-400',
           icon: <ShieldAlert className="w-3.5 h-3.5" />,
           label: 'Low / Baseline',
           desc: 'Limited data or cold-start fallback'
@@ -97,18 +97,18 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden space-y-6">
+    <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm relative overflow-hidden space-y-6">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5">
+            <span className="px-3 py-1 rounded-full bg-[#21262d] text-emerald-400 border border-[#30363d] text-xs font-semibold flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Prediction Generated
             </span>
             <span className={`px-2.5 py-0.5 rounded-full border text-xs font-medium flex items-center gap-1 ${relBadge.bg}`}>
               {relBadge.icon} {relBadge.label}
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#21262d] border border-[#30363d] text-slate-300 text-xs">
               {predictionMethod === 'historical_weighted_average' ? 'Weighted Model' : 'Baseline Fallback'}
             </span>
           </div>
@@ -125,7 +125,7 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
         {onReset && (
           <button
             onClick={onReset}
-            className="self-start sm:self-center px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-xs text-slate-300 hover:text-white transition"
+            className="self-start sm:self-center px-4 py-2 rounded-xl bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-xs text-slate-200 hover:text-white font-medium transition"
           >
             Plan Another Meal
           </button>
@@ -135,7 +135,7 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
       {/* Primary Key Metric Tiles */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Metric 1: Predicted Surplus */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 space-y-2">
+        <div className="bg-[#0d1117] border border-[#30363d] rounded-xl p-5 space-y-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
             Estimated Surplus Food
           </span>
@@ -145,14 +145,14 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
             </span>
             <span className="text-sm font-semibold text-slate-400">kg</span>
           </div>
-          <p className="text-xs text-emerald-500/80 font-medium flex items-center gap-1">
+          <p className="text-xs text-emerald-400/90 font-medium flex items-center gap-1">
             <TrendingDown className="w-3.5 h-3.5" />
             {(estimatedSurplusRate * 100).toFixed(1)}% of planned {plannedQuantityKg} kg
           </p>
         </div>
 
         {/* Metric 2: Availability Time */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 space-y-2">
+        <div className="bg-[#0d1117] border border-[#30363d] rounded-xl p-5 space-y-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
             Available For Pickup
           </span>
@@ -168,7 +168,7 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
         </div>
 
         {/* Metric 3: Historical Basis */}
-        <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 space-y-2">
+        <div className="bg-[#0d1117] border border-[#30363d] rounded-xl p-5 space-y-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
             Historical Data Basis
           </span>
@@ -185,7 +185,7 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
       </div>
 
       {/* Explanation & Assumptions Box */}
-      <div className="bg-slate-950/50 border border-slate-800/80 rounded-2xl p-5 space-y-3">
+      <div className="bg-[#0d1117] border border-[#30363d] rounded-xl p-5 space-y-3">
         <div className="flex items-center gap-2 text-sm font-semibold text-slate-200">
           <Info className="w-4 h-4 text-emerald-400" />
           <span>Why was this surplus predicted?</span>
@@ -195,7 +195,7 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
         </p>
 
         {assumptions && assumptions.length > 0 && (
-          <div className="pt-2 border-t border-slate-850 space-y-1.5">
+          <div className="pt-2 border-t border-[#30363d] space-y-1.5">
             <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
               Model Assumptions & Parameters:
             </span>
@@ -213,14 +213,14 @@ export default function PredictionResultCard({ prediction, onLogFeedbackClick, o
 
       {/* Actions footer */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-        <p className="text-[11px] text-slate-500 text-center sm:text-left">
+        <p className="text-[11px] text-slate-400 text-center sm:text-left">
           Actual surplus may vary. Recording actual outcomes after the meal refines future forecasts.
         </p>
 
         {feedbackStatus === 'pending' && onLogFeedbackClick && (
           <button
             onClick={() => onLogFeedbackClick(prediction)}
-            className="w-full sm:w-auto px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition"
+            className="w-full sm:w-auto px-5 py-2.5 bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-200 hover:text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition"
           >
             <span>Log Actual Outcome Feedback</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -284,7 +284,7 @@ export default function CreateDonationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#0d1117] text-slate-100 flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-6">
@@ -305,11 +305,11 @@ export default function CreateDonationPage() {
         </div>
 
         {/* Page Header */}
-        <div className="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-900 border border-emerald-500/20 rounded-3xl p-6 sm:p-8 shadow-xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-3">
-            <Utensils className="w-3.5 h-3.5" />Food Surplus Listing
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-emerald-400 text-xs font-semibold mb-3">
+            <Utensils className="w-3.5 h-3.5" /> Food Surplus Listing
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">List Surplus Food for Donation</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">List Surplus Food for Donation</h1>
           <p className="text-slate-400 text-sm mt-1 max-w-2xl">
             Publish prepared meals, bakery items, or excess groceries. Nearby verified NGOs will be alerted to claim and distribute food before the pickup deadline.
           </p>
@@ -317,7 +317,7 @@ export default function CreateDonationPage() {
 
         {/* Feedback Alerts */}
         {serverError && (
-          <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm flex items-start gap-3">
+          <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm flex items-start gap-3">
             <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold block">Failed to Publish Listing</span>
@@ -327,24 +327,24 @@ export default function CreateDonationPage() {
         )}
 
         {successMessage && (
-          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm flex items-center gap-3">
+          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm flex items-center gap-3">
             <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-400" />
             <span>{successMessage} Redirecting to listing details...</span>
           </div>
         )}
 
         {/* Listing Form */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Section 1: Food Details */}
-            <div className="border-b border-slate-800 pb-6 space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <div className="border-b border-[#30363d] pb-6 space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
                 <Utensils className="w-4 h-4 text-emerald-400" /> 1. Food Details & Categorization
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div className="sm:col-span-2 space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     Food Name / Description <span className="text-rose-400">*</span>
                   </label>
                   <input
@@ -353,22 +353,22 @@ export default function CreateDonationPage() {
                     value={formData.foodName}
                     onChange={handleChange}
                     placeholder="e.g., Vegetable Biryani, Assorted Bakery Croissants"
-                    className={`w-full px-4 py-2.5 bg-slate-950/70 border ${
-                      errors.foodName ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                    } rounded-xl text-slate-100 placeholder-slate-600 text-sm outline-none transition`}
+                    className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                      errors.foodName ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                    } rounded-xl text-slate-100 placeholder-slate-500 text-sm outline-none transition`}
                   />
                   {errors.foodName && <p className="text-xs text-rose-400">{errors.foodName}</p>}
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     Category <span className="text-rose-400">*</span>
                   </label>
                   <select
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-3 py-2.5 bg-slate-950/70 border border-slate-800 focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
+                    className="w-full px-3 py-2.5 bg-[#0d1117] border border-[#30363d] focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
                   >
                     <option value="Cooked Meals">Cooked Meals</option>
                     <option value="Bakery & Bread">Bakery & Bread</option>
@@ -383,17 +383,17 @@ export default function CreateDonationPage() {
 
               {/* Food Type Toggle */}
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Food Type <span className="text-rose-400">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-4 max-w-md">
                   <button
                     type="button"
                     onClick={() => setFormData((p) => ({ ...p, foodType: 'VEGETARIAN' }))}
-                    className={`py-2.5 px-4 rounded-xl border text-xs font-semibold transition flex items-center justify-center gap-2 ${
+                    className={`py-2.5 px-4 rounded-xl border text-xs font-semibold transition flex items-center justify-center gap-2 cursor-pointer ${
                       formData.foodType === 'VEGETARIAN'
-                        ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-950/40'
-                        : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white'
+                        ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                        : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-slate-200 hover:bg-[#21262d]'
                     }`}
                   >
                     <span>🌱</span>
@@ -402,10 +402,10 @@ export default function CreateDonationPage() {
                   <button
                     type="button"
                     onClick={() => setFormData((p) => ({ ...p, foodType: 'NON_VEGETARIAN' }))}
-                    className={`py-2.5 px-4 rounded-xl border text-xs font-semibold transition flex items-center justify-center gap-2 ${
+                    className={`py-2.5 px-4 rounded-xl border text-xs font-semibold transition flex items-center justify-center gap-2 cursor-pointer ${
                       formData.foodType === 'NON_VEGETARIAN'
-                        ? 'bg-rose-500/20 border-rose-500 text-rose-300 shadow-md shadow-rose-950/40'
-                        : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white'
+                        ? 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+                        : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-slate-200 hover:bg-[#21262d]'
                     }`}
                   >
                     <span>🍗</span>
@@ -416,17 +416,17 @@ export default function CreateDonationPage() {
             </div>
 
             {/* Section 2: Quantities & Servings */}
-            <div className="border-b border-slate-800 pb-6 space-y-4">
+            <div className="border-b border-[#30363d] pb-6 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
                   <Scale className="w-4 h-4 text-emerald-400" /> 2. Quantity & Servings Capacity
                 </h3>
-                <span className="text-[11px] text-slate-500">Separately measured quantities</span>
+                <span className="text-[11px] text-slate-400">Separately measured quantities</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     Quantity Amount <span className="text-rose-400">*</span>
                   </label>
                   <input
@@ -437,22 +437,22 @@ export default function CreateDonationPage() {
                     value={formData.quantity}
                     onChange={handleChange}
                     placeholder="e.g. 15.0"
-                    className={`w-full px-4 py-2.5 bg-slate-950/70 border ${
-                      errors.quantity ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                    } rounded-xl text-slate-100 placeholder-slate-600 text-sm outline-none transition`}
+                    className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                      errors.quantity ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                    } rounded-xl text-slate-100 placeholder-slate-500 text-sm outline-none transition`}
                   />
                   {errors.quantity && <p className="text-xs text-rose-400">{errors.quantity}</p>}
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     Measurement Unit <span className="text-rose-400">*</span>
                   </label>
                   <select
                     name="quantityUnit"
                     value={formData.quantityUnit}
                     onChange={handleChange}
-                    className="w-full px-3 py-2.5 bg-slate-950/70 border border-slate-800 focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
+                    className="w-full px-3 py-2.5 bg-[#0d1117] border border-[#30363d] focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
                   >
                     <option value="kg">kg (kilograms)</option>
                     <option value="grams">grams</option>
@@ -465,7 +465,7 @@ export default function CreateDonationPage() {
 
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-emerald-400" /> People Served <span className="text-rose-400">*</span>
                     </label>
                   </div>
@@ -477,9 +477,9 @@ export default function CreateDonationPage() {
                     value={formData.servings}
                     onChange={handleChange}
                     placeholder="e.g. 50"
-                    className={`w-full px-4 py-2.5 bg-slate-950/70 border ${
-                      errors.servings ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                    } rounded-xl text-slate-100 placeholder-slate-600 text-sm outline-none transition`}
+                    className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                      errors.servings ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                    } rounded-xl text-slate-100 placeholder-slate-500 text-sm outline-none transition`}
                   />
                   {errors.servings && <p className="text-xs text-rose-400">{errors.servings}</p>}
                 </div>
@@ -487,14 +487,14 @@ export default function CreateDonationPage() {
             </div>
 
             {/* Section 3: Pickup Deadline & Location */}
-            <div className="border-b border-slate-800 pb-6 space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <div className="border-b border-[#30363d] pb-6 space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
                 <Clock className="w-4 h-4 text-emerald-400" /> 3. Pickup Schedule & Logistics
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                     Pickup Deadline <span className="text-rose-400">*</span>
                   </label>
@@ -503,18 +503,18 @@ export default function CreateDonationPage() {
                     name="pickupDeadline"
                     value={formData.pickupDeadline}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 bg-slate-950/70 border ${
-                      errors.pickupDeadline ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                    className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                      errors.pickupDeadline ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                     } rounded-xl text-slate-100 text-sm outline-none transition`}
                   />
-                  <span className="text-[11px] text-slate-500">
+                  <span className="text-[11px] text-slate-400">
                     Food will be automatically retired from available feeds after this time.
                   </span>
                   {errors.pickupDeadline && <p className="text-xs text-rose-400">{errors.pickupDeadline}</p>}
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                     Pickup Address <span className="text-rose-400">*</span>
                   </label>
@@ -524,23 +524,23 @@ export default function CreateDonationPage() {
                     value={formData.locationAddress}
                     onChange={handleChange}
                     placeholder="Street address, building, city"
-                    className={`w-full px-4 py-2.5 bg-slate-950/70 border ${
-                      errors.locationAddress ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                    } rounded-xl text-slate-100 placeholder-slate-600 text-sm outline-none transition`}
+                    className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                      errors.locationAddress ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                    } rounded-xl text-slate-100 placeholder-slate-500 text-sm outline-none transition`}
                   />
                   {errors.locationAddress && <p className="text-xs text-rose-400">{errors.locationAddress}</p>}
                 </div>
               </div>
 
               {/* Coordinates Section with GPS Auto-detection */}
-              <div className="space-y-3 bg-slate-950/50 p-4 rounded-2xl border border-slate-800/80">
+              <div className="space-y-3 bg-[#0d1117] p-4 rounded-xl border border-[#30363d]">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
                       <Crosshair className="w-3.5 h-3.5 text-emerald-400" />
                       Geographic Coordinates <span className="text-rose-400">*</span>
                     </label>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-[11px] text-slate-400">
                       Required for Smart NGO proximity & service-radius matching.
                     </p>
                   </div>
@@ -548,7 +548,7 @@ export default function CreateDonationPage() {
                     type="button"
                     onClick={handleAutoDetectLocation}
                     disabled={isLocating}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 active:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold rounded-xl transition disabled:opacity-50 self-start sm:self-auto cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#21262d] hover:bg-[#30363d] text-emerald-400 border border-[#30363d] text-xs font-semibold rounded-xl transition disabled:opacity-50 self-start sm:self-auto cursor-pointer"
                   >
                     {isLocating ? (
                       <>
@@ -566,8 +566,8 @@ export default function CreateDonationPage() {
                   <div
                     className={`p-2.5 rounded-xl text-xs flex items-center gap-2 ${
                       locationFeedback.type === 'success'
-                        ? 'bg-emerald-950/40 border border-emerald-500/30 text-emerald-300'
-                        : 'bg-rose-950/40 border border-rose-500/30 text-rose-300'
+                        ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300'
+                        : 'bg-rose-500/10 border border-rose-500/30 text-rose-300'
                     }`}
                   >
                     {locationFeedback.type === 'success' ? (
@@ -581,7 +581,7 @@ export default function CreateDonationPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-400">
+                    <label className="text-xs font-semibold text-slate-400">
                       Latitude <span className="text-rose-400">*</span>
                     </label>
                     <input
@@ -591,15 +591,15 @@ export default function CreateDonationPage() {
                       value={formData.latitude}
                       onChange={handleChange}
                       placeholder="e.g. 12.9716"
-                      className={`w-full px-3.5 py-2 bg-slate-900 border ${
-                        errors.latitude ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                      } rounded-xl text-slate-200 text-xs outline-none transition`}
+                      className={`w-full px-3.5 py-2 bg-[#161b22] border ${
+                        errors.latitude ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                      } rounded-xl text-slate-100 text-xs outline-none transition`}
                     />
                     {errors.latitude && <p className="text-xs text-rose-400">{errors.latitude}</p>}
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-400">
+                    <label className="text-xs font-semibold text-slate-400">
                       Longitude <span className="text-rose-400">*</span>
                     </label>
                     <input
@@ -609,9 +609,9 @@ export default function CreateDonationPage() {
                       value={formData.longitude}
                       onChange={handleChange}
                       placeholder="e.g. 77.5946"
-                      className={`w-full px-3.5 py-2 bg-slate-900 border ${
-                        errors.longitude ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                      } rounded-xl text-slate-200 text-xs outline-none transition`}
+                      className={`w-full px-3.5 py-2 bg-[#161b22] border ${
+                        errors.longitude ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                      } rounded-xl text-slate-100 text-xs outline-none transition`}
                     />
                     {errors.longitude && <p className="text-xs text-rose-400">{errors.longitude}</p>}
                   </div>
@@ -620,7 +620,7 @@ export default function CreateDonationPage() {
 
               {/* Pickup Instructions */}
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Pickup Instructions (optional)
                 </label>
                 <textarea
@@ -629,18 +629,18 @@ export default function CreateDonationPage() {
                   value={formData.pickupInstructions}
                   onChange={handleChange}
                   placeholder="e.g., Ring bell at kitchen loading dock behind the main banquet hall. Bring clean food containers."
-                  className="w-full px-4 py-2.5 bg-slate-950/70 border border-slate-800 focus:border-emerald-500 rounded-xl text-slate-200 placeholder-slate-600 text-xs outline-none transition"
+                  className="w-full px-4 py-2.5 bg-[#0d1117] border border-[#30363d] focus:border-emerald-500 rounded-xl text-slate-200 placeholder-slate-500 text-xs outline-none transition"
                 />
               </div>
             </div>
 
             {/* Section 4: Allergen Information */}
-            <div className="border-b border-slate-800 pb-6 space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <div className="border-b border-[#30363d] pb-6 space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-amber-400" /> 4. Structured Allergen & Ingredient Information
               </h3>
 
-              <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-4">
+              <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-4">
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-slate-300 block">
                     Allergen Declaration Status:
@@ -649,7 +649,7 @@ export default function CreateDonationPage() {
                     name="declarationStatus"
                     value={formData.declarationStatus}
                     onChange={handleChange}
-                    className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 outline-none focus:border-emerald-500 transition"
+                    className="px-3 py-2 bg-[#161b22] border border-[#30363d] rounded-xl text-xs text-slate-200 outline-none focus:border-emerald-500 transition"
                   >
                     <option value="UNKNOWN_UNVERIFIED">Unknown / Not Formally Lab Verified</option>
                     <option value="DECLARED_ALLERGENS">Specific Allergens Declared Below</option>
@@ -669,10 +669,10 @@ export default function CreateDonationPage() {
                           key={allergen}
                           type="button"
                           onClick={() => toggleAllergen(allergen)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition ${
+                          className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition cursor-pointer ${
                             isChecked
-                              ? 'bg-amber-500/20 border-amber-500 text-amber-300'
-                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                              ? 'bg-amber-500/10 border-amber-500/30 text-amber-300 font-semibold'
+                              : 'bg-[#161b22] border-[#30363d] text-slate-300 hover:bg-[#21262d]'
                           }`}
                         >
                           {allergen}
@@ -683,7 +683,7 @@ export default function CreateDonationPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-slate-400">
+                  <label className="text-xs font-semibold text-slate-400">
                     Ingredient Notes (optional):
                   </label>
                   <input
@@ -692,7 +692,7 @@ export default function CreateDonationPage() {
                     value={formData.ingredientNotes}
                     onChange={handleChange}
                     placeholder="e.g., Basmati rice, green peas, paneer, refined sunflower oil, whole spices."
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-slate-200 text-xs outline-none focus:border-emerald-500 transition"
+                    className="w-full px-3 py-2 bg-[#161b22] border border-[#30363d] rounded-xl text-slate-100 text-xs outline-none focus:border-emerald-500 transition"
                   />
                 </div>
               </div>
@@ -700,13 +700,13 @@ export default function CreateDonationPage() {
 
             {/* Section 5: Contact Details */}
             <div className="space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
                 <Phone className="w-4 h-4 text-emerald-400" /> 5. Pickup Contact Details
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     Contact Person Name <span className="text-rose-400">*</span>
                   </label>
                   <input
@@ -714,15 +714,15 @@ export default function CreateDonationPage() {
                     name="contactPerson"
                     value={formData.contactPerson}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 bg-slate-950/70 border ${
-                      errors.contactPerson ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                    className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                      errors.contactPerson ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                     } rounded-xl text-slate-100 text-sm outline-none transition`}
                   />
                   {errors.contactPerson && <p className="text-xs text-rose-400">{errors.contactPerson}</p>}
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     Contact Phone Number <span className="text-rose-400">*</span>
                   </label>
                   <input
@@ -730,8 +730,8 @@ export default function CreateDonationPage() {
                     name="contactPhone"
                     value={formData.contactPhone}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 bg-slate-950/70 border ${
-                      errors.contactPhone ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                    className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                      errors.contactPhone ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                     } rounded-xl text-slate-100 text-sm outline-none transition`}
                   />
                   {errors.contactPhone && <p className="text-xs text-rose-400">{errors.contactPhone}</p>}
@@ -740,15 +740,15 @@ export default function CreateDonationPage() {
             </div>
 
             {/* Actions */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
-              <span className="text-xs text-slate-500 text-center sm:text-left">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#30363d]">
+              <span className="text-xs text-slate-400 text-center sm:text-left">
                 Ensure all food meets local safety standards before listing for donation.
               </span>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-emerald-950/50 flex items-center justify-center gap-2 transition disabled:opacity-60"
+                className="w-full sm:w-auto px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm rounded-xl shadow-sm flex items-center justify-center gap-2 transition disabled:opacity-60 cursor-pointer"
               >
                 {isSubmitting ? (
                   <>

@@ -89,11 +89,11 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between pb-4 border-b border-[#30363d]">
           <div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2 tracking-tight">
               <PackageCheck className="w-5 h-5 text-amber-400" />
               {isEditing ? 'Edit Actual Meal Outcome' : 'Record Actual Meal Outcome'}
             </h2>
@@ -105,29 +105,29 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition p-2 rounded-xl hover:bg-slate-800"
+            className="text-slate-400 hover:text-white transition p-2 rounded-xl hover:bg-[#21262d] cursor-pointer"
           >
             ✕
           </button>
         </div>
 
         {/* Schedule Context Recap */}
-        <div className="mt-4 p-3 bg-slate-950/60 border border-slate-800/80 rounded-2xl text-xs space-y-1.5 text-slate-300">
+        <div className="mt-4 p-3.5 bg-[#0d1117] border border-[#30363d] rounded-xl text-xs space-y-1.5 text-slate-300">
           <div className="flex items-center justify-between">
-            <span className="text-slate-500">Planned Schedule:</span>
+            <span className="text-slate-400">Planned Schedule:</span>
             <span className="font-semibold text-slate-200">
               {schedule?.scheduledStartTime} - {schedule?.scheduledEndTime}
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-slate-500">Planned Prepared / Eating:</span>
+            <span className="text-slate-400">Planned Prepared / Eating:</span>
             <span className="font-semibold text-slate-200">
               {schedule?.expectedMealsPrepared} meals / {schedule?.expectedPeopleEating} people
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-slate-500">Menu:</span>
-            <span className="font-medium text-slate-300 truncate max-w-[220px]">
+            <span className="text-slate-400">Menu:</span>
+            <span className="font-medium text-slate-200 truncate max-w-[220px]">
               {schedule?.menuItems}
             </span>
           </div>
@@ -143,8 +143,8 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
         <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           {/* Actual Meals Served (Optional) */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              Actual Meals Served <span className="text-slate-500">(Optional)</span>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              Actual Meals Served <span className="text-slate-400 lowercase font-normal">(optional)</span>
             </label>
             <input
               type="number"
@@ -154,16 +154,16 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
               placeholder="e.g. 135 (leave blank if uncounted)"
               value={formData.actualMealsServed}
               onChange={handleChange}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 transition"
+              className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
             />
-            <p className="text-[11px] text-slate-500 mt-1">
+            <p className="text-[11px] text-slate-400 mt-1">
               Number of portions actually consumed during this meal.
             </p>
           </div>
 
           {/* Actual Leftover Quantity (Required) */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
               Actual Leftover Quantity (Meals/Portions) <span className="text-rose-400">*</span>
             </label>
             <input
@@ -175,16 +175,16 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
               value={formData.actualLeftoverQuantity}
               onChange={handleChange}
               required
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 transition"
+              className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
             />
-            <p className="text-[11px] text-slate-500 mt-1">
+            <p className="text-[11px] text-slate-400 mt-1">
               Actual untouched, safe food portions available for redistribution.
             </p>
           </div>
 
           {/* Actual Meal End Time (Required) */}
           <div>
-            <label className=" text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1">
               <Clock className="w-3.5 h-3.5 text-slate-400" />
               Actual Meal End Time <span className="text-rose-400">*</span>
             </label>
@@ -194,22 +194,22 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
               value={formData.actualMealEndTime}
               onChange={handleChange}
               required
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 transition"
+              className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 transition"
             />
-            <p className="text-[11px] text-slate-500 mt-1">
+            <p className="text-[11px] text-slate-400 mt-1">
               Recorded separately from scheduled end time ({schedule?.scheduledEndTime}).
             </p>
           </div>
 
           {/* Food Ready for Pickup (Required toggle / Yes/No) */}
           <div className="pt-2">
-            <label className="flex items-start gap-3 cursor-pointer p-3.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition">
+            <label className="flex items-start gap-3 cursor-pointer p-3.5 rounded-xl bg-[#0d1117] border border-[#30363d] hover:border-slate-600 transition">
               <input
                 type="checkbox"
                 name="foodReadyForPickup"
                 checked={formData.foodReadyForPickup}
                 onChange={handleChange}
-                className="w-4 h-4 mt-0.5 rounded text-emerald-500 bg-slate-900 border-slate-700 focus:ring-emerald-500 focus:ring-offset-slate-900"
+                className="w-4 h-4 mt-0.5 rounded text-emerald-500 bg-[#161b22] border-[#30363d] focus:ring-emerald-500"
               />
               <div>
                 <span className="text-xs font-semibold text-slate-200 block">
@@ -223,19 +223,19 @@ export default function ActualOutcomeModal({ schedule, onClose, onSuccess }) {
           </div>
 
           {/* Form Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#30363d]">
             <button
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+              className="px-4 py-2.5 text-xs font-semibold text-slate-300 hover:text-white bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] rounded-xl transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2.5 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-500 active:bg-amber-700 rounded-xl shadow-lg shadow-amber-950/40 flex items-center gap-2 transition disabled:opacity-50"
+              className="px-5 py-2.5 text-xs font-semibold text-white bg-amber-600 hover:bg-amber-500 rounded-xl shadow-sm flex items-center gap-2 transition disabled:opacity-50 cursor-pointer"
             >
               {loading ? (
                 <span>Saving...</span>

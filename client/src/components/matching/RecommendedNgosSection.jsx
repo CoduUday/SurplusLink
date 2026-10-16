@@ -56,23 +56,23 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
 
   const getScoreBadgeColor = (score) => {
     if (score >= 85) {
-      return 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400';
+      return 'bg-[#21262d] border-emerald-500/40 text-emerald-400';
     }
     if (score >= 70) {
-      return 'bg-teal-500/10 border-teal-500/30 text-teal-300';
+      return 'bg-[#21262d] border-teal-500/40 text-teal-300';
     }
     if (score >= 50) {
-      return 'bg-amber-500/10 border-amber-500/30 text-amber-300';
+      return 'bg-[#21262d] border-amber-500/40 text-amber-300';
     }
-    return 'bg-slate-500/10 border-slate-500/30 text-slate-400';
+    return 'bg-[#21262d] border-[#30363d] text-slate-400';
   };
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+    <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-emerald-400 text-xs font-semibold mb-2">
             <Sparkles className="w-3.5 h-3.5" /> Smart NGO Matching System
           </div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -86,7 +86,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
         <button
           onClick={fetchRecommendations}
           disabled={isLoading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-750 text-slate-300 text-xs font-medium rounded-xl border border-slate-700/60 transition disabled:opacity-50 self-start sm:self-auto cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#21262d] hover:bg-[#30363d] text-slate-200 text-xs font-medium rounded-xl border border-[#30363d] transition disabled:opacity-50 self-start sm:self-auto cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
           <span>Refresh Matches</span>
@@ -104,7 +104,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
             {[1, 2].map((i) => (
               <div
                 key={i}
-                className="h-28 bg-slate-950/40 border border-slate-800/60 rounded-2xl animate-pulse"
+                className="h-28 bg-[#0d1117] border border-[#30363d] rounded-xl animate-pulse"
               />
             ))}
           </div>
@@ -113,7 +113,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
 
       {/* Error State */}
       {!isLoading && error && (
-        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-start justify-between gap-3">
+        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-start justify-between gap-3">
           <div className="flex items-start gap-2.5">
             <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
             <div>
@@ -132,8 +132,8 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
 
       {/* Empty State */}
       {!isLoading && !error && rankedNgos.length === 0 && (
-        <div className="p-8 text-center bg-slate-950/40 rounded-2xl border border-slate-800/60 space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-800/80 text-slate-400 flex items-center justify-center mx-auto">
+        <div className="p-8 text-center bg-[#0d1117] rounded-xl border border-[#30363d] space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-[#21262d] text-slate-400 flex items-center justify-center mx-auto">
             <Building2 className="w-6 h-6" />
           </div>
           <h3 className="text-sm font-semibold text-white">No Matching NGOs Found</h3>
@@ -142,7 +142,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
               'No eligible partner organizations were found matching this donation’s food type, location, or pickup window.'}
           </p>
           <div className="pt-2 flex justify-center gap-2">
-            <span className="text-[11px] text-slate-500 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+            <span className="text-[11px] text-slate-300 bg-[#21262d] px-3 py-1 rounded-full border border-[#30363d]">
               💡 Tip: Verify your pickup coordinates or extend the deadline to widen NGO availability.
             </span>
           </div>
@@ -156,7 +156,6 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
             <span>
               Showing <strong className="text-white">{rankedNgos.length}</strong> eligible partner{rankedNgos.length === 1 ? '' : 's'}
             </span>
-         
           </div>
 
           <div className="space-y-3">
@@ -167,13 +166,13 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
               return (
                 <div
                   key={ngo._id}
-                  className="bg-slate-950/70 border border-slate-800 hover:border-slate-700/80 rounded-2xl p-5 transition space-y-4"
+                  className="bg-[#0d1117] border border-[#30363d] hover:border-slate-600 rounded-xl p-5 transition space-y-4"
                 >
                   {/* NGO Header Row */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs font-bold px-2 py-0.5 rounded-lg bg-slate-800 text-slate-300">
+                        <span className="text-xs font-bold px-2 py-0.5 rounded-lg bg-[#21262d] text-slate-300">
                           #{index + 1}
                         </span>
                         <h3 className="text-base font-bold text-white flex items-center gap-1.5">
@@ -217,7 +216,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
 
                       <button
                         onClick={() => toggleExpand(ngo._id)}
-                        className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-lg transition text-xs flex items-center gap-1"
+                        className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-[#21262d] rounded-lg transition text-xs flex items-center gap-1"
                       >
                         <span className="hidden sm:inline">{isExpanded ? 'Hide Details' : 'Why this match?'}</span>
                         <ChevronRight
@@ -232,7 +231,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
                     {reasons.slice(0, 3).map((reason, idx) => (
                       <span
                         key={idx}
-                        className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-1"
+                        className="text-[11px] px-2.5 py-1 rounded-lg bg-[#21262d] border border-[#30363d] text-slate-200 flex items-center gap-1"
                       >
                         <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
                         <span>{reason}</span>
@@ -250,9 +249,9 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
 
                   {/* Expanded Breakdown Accordion */}
                   {isExpanded && (
-                    <div className="pt-3 border-t border-slate-800/80 space-y-4 text-xs">
+                    <div className="pt-3 border-t border-[#30363d] space-y-4 text-xs">
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                        <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                        <div className="p-3 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
                           <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                             Proximity (35 pts max)
                           </span>
@@ -263,7 +262,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
                           <p className="text-[11px] text-slate-400 mt-0.5">{criteria?.proximity?.reason}</p>
                         </div>
 
-                        <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                        <div className="p-3 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
                           <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                             Capacity (25 pts max)
                           </span>
@@ -274,7 +273,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
                           <p className="text-[11px] text-slate-400 mt-0.5">{criteria?.capacity?.reason}</p>
                         </div>
 
-                        <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                        <div className="p-3 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
                           <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                             Schedule (20 pts max)
                           </span>
@@ -285,7 +284,7 @@ export default function RecommendedNgosSection({ donationId, isAvailable }) {
                           <p className="text-[11px] text-slate-400 mt-0.5">{criteria?.schedule?.reason}</p>
                         </div>
 
-                        <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                        <div className="p-3 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
                           <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                             Food Compatibility (20 pts max)
                           </span>

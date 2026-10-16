@@ -122,20 +122,19 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-[#0d1117] border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex items-center justify-between pb-4 ">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between pb-4 border-b border-[#30363d]">
           <div>
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Calendar className="w-5 h-5 text-emerald-400" />
               {isEditing ? "Edit Meal Schedule" : "Add Meal Schedule"}
             </h2>
-          
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition p-2 rounded-xl hover:bg-slate-800"
+            className="text-slate-400 hover:text-white transition p-2 rounded-xl hover:bg-[#21262d]"
           >
             ✕
           </button>
@@ -148,11 +147,11 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-1 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Meal Date */}
             <div>
-              <label className="block text-xs font-semibold text-slate-200 mb-1.5">
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                 Meal Date <span className="text-rose-400">*</span>
               </label>
               <input
@@ -161,7 +160,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 value={formData.mealDate}
                 onChange={handleChange}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
             </div>
 
@@ -174,7 +173,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 name="mealType"
                 value={formData.mealType}
                 onChange={handleChange}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               >
                 <option value="Breakfast">Breakfast</option>
                 <option value="Lunch">Lunch</option>
@@ -186,7 +185,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Scheduled Start Time */}
             <div>
-              <label className=" text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
+              <label className="text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
                 Scheduled Start Time <span className="text-rose-400">*</span>
               </label>
@@ -196,13 +195,13 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 value={formData.scheduledStartTime}
                 onChange={handleChange}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
             </div>
 
             {/* Scheduled End Time */}
             <div>
-              <label className=" text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
+              <label className="text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
                 Scheduled End Time <span className="text-rose-400">*</span>
               </label>
@@ -212,7 +211,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 value={formData.scheduledEndTime}
                 onChange={handleChange}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
             </div>
           </div>
@@ -232,7 +231,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 value={formData.expectedMealsPrepared}
                 onChange={handleChange}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
             </div>
 
@@ -250,7 +249,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 value={formData.expectedPeopleEating}
                 onChange={handleChange}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
             </div>
           </div>
@@ -267,7 +266,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
               value={formData.menuItems}
               onChange={handleChange}
               required
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+              className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
             />
           </div>
 
@@ -286,9 +285,8 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 placeholder="e.g. 15 (historical average)"
                 value={formData.typicalLeftoverQuantity}
                 onChange={handleChange}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               />
-              
             </div>
 
             {/* Preparation Status */}
@@ -300,7 +298,7 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
                 name="preparationStatus"
                 value={formData.preparationStatus}
                 onChange={handleChange}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full bg-[#0d1117] border border-[#30363d] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition"
               >
                 <option value="Not Started">Not Started</option>
                 <option value="In Progress">In Progress</option>
@@ -311,13 +309,13 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
 
           {/* Special Event or Holiday Toggle */}
           <div className="pt-2">
-            <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition">
+            <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl bg-[#0d1117] border border-[#30363d] hover:border-slate-600 transition">
               <input
                 type="checkbox"
                 name="isSpecialEvent"
                 checked={formData.isSpecialEvent}
                 onChange={handleChange}
-                className="w-4 h-4 rounded text-emerald-500 bg-slate-900 border-slate-700 focus:ring-emerald-500 focus:ring-offset-slate-900"
+                className="w-4 h-4 rounded text-emerald-500 bg-[#161b22] border-[#30363d] focus:ring-emerald-500"
               />
               <div>
                 <span className="text-xs font-semibold text-slate-200 block">
@@ -332,19 +330,19 @@ export default function MealScheduleModal({ schedule, onClose, onSuccess }) {
           </div>
 
           {/* Form Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#30363d]">
             <button
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+              className="px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] rounded-xl transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2.5 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 rounded-xl shadow-lg shadow-emerald-950/40 flex items-center gap-2 transition disabled:opacity-50"
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 rounded-xl shadow-sm flex items-center gap-2 transition disabled:opacity-50"
             >
               {loading ? (
                 <span>Saving...</span>

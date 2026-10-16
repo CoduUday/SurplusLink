@@ -65,7 +65,7 @@ export default function DonationDetailsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+      <div className="min-h-screen bg-[#0d1117] text-slate-100 flex flex-col">
         <Navbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-3">
@@ -79,7 +79,7 @@ export default function DonationDetailsPage() {
 
   if (error || !donation) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+      <div className="min-h-screen bg-[#0d1117] text-slate-100 flex flex-col">
         <Navbar />
         <div className="flex-1 max-w-xl mx-auto px-4 py-16 text-center space-y-4">
           <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto">
@@ -89,7 +89,7 @@ export default function DonationDetailsPage() {
           <p className="text-xs text-slate-400">{error || 'The requested listing could not be found or you do not have permission to view it.'}</p>
           <button
             onClick={() => navigate(-1)}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 rounded-xl transition"
+            className="px-4 py-2 bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-xs font-semibold text-slate-200 rounded-xl transition cursor-pointer"
           >
             ← Go Back
           </button>
@@ -125,7 +125,7 @@ export default function DonationDetailsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#0d1117] text-slate-100 flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-6">
@@ -133,7 +133,7 @@ export default function DonationDetailsPage() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-emerald-400 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-emerald-400 transition cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" /> Go Back
           </button>
@@ -150,15 +150,15 @@ export default function DonationDetailsPage() {
 
         {/* Toast */}
         {toastMessage && (
-          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
+          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             <span>{toastMessage}</span>
           </div>
         )}
 
         {/* Hero Card */}
-        <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
                 <span
@@ -167,7 +167,7 @@ export default function DonationDetailsPage() {
                       ? isExpired
                         ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
                         : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
-                      : 'bg-slate-800 text-slate-300 border border-slate-700'
+                      : 'bg-[#21262d] text-slate-300 border border-[#30363d]'
                   }`}
                 >
                   {donation.status === 'AVAILABLE' && isExpired ? 'EXPIRED' : donation.status}
@@ -183,12 +183,12 @@ export default function DonationDetailsPage() {
                   {donation.foodType === 'VEGETARIAN' ? '🌱 Vegetarian' : '🍗 Non-Vegetarian'}
                 </span>
 
-                <span className="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#21262d] border border-[#30363d] text-slate-300 text-xs">
                   {donation.category}
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white">{donation.foodName}</h1>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{donation.foodName}</h1>
               <p className="text-xs text-slate-400">
                 Offered by <strong className="text-slate-200">{donation.donor?.organization || 'Food Donor'}</strong> • Published {formattedCreated}
               </p>
@@ -200,13 +200,13 @@ export default function DonationDetailsPage() {
                 <>
                   <button
                     onClick={() => setIsEditOpen(true)}
-                    className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition"
+                    className="px-4 py-2 bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-200 hover:text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <Edit2 className="w-3.5 h-3.5" /> Edit
                   </button>
                   <button
                     onClick={() => setIsCancelOpen(true)}
-                    className="px-4 py-2 bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition"
+                    className="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" /> Cancel
                   </button>
@@ -216,9 +216,8 @@ export default function DonationDetailsPage() {
               {isNgo && isAvailable && !isExpired && (
                 <button
                   onClick={() => setIsAcceptOpen(true)}
-                  className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-950/50 transition cursor-pointer"
+                  className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm transition cursor-pointer"
                 >
-                 
                   <span>Accept & Claim Food</span>
                 </button>
               )}
@@ -227,8 +226,8 @@ export default function DonationDetailsPage() {
 
           {/* Prominent Accepted Status Card */}
           {isAccepted && (
-            <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-slate-900 border border-blue-500/30 space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-blue-500/20 pb-4">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#0d1117] border border-blue-500/30 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#30363d] pb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
                     <HeartHandshake className="w-5 h-5" />
@@ -236,7 +235,7 @@ export default function DonationDetailsPage() {
                   <div>
                     <h3 className="text-sm font-bold text-white flex items-center gap-2">
                       <span>Donation Accepted & Claimed for Pickup</span>
-                      <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-semibold border border-blue-500/30">
+                      <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-semibold border border-blue-500/30">
                         ACCEPTED
                       </span>
                     </h3>
@@ -259,8 +258,8 @@ export default function DonationDetailsPage() {
 
               {/* NGO & Coordination Details Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-xs">
-                <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
-                  <span className="text-slate-500 uppercase tracking-wider font-semibold text-[10px] block">
+                <div className="p-3.5 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
+                  <span className="text-slate-400 uppercase tracking-wider font-semibold text-[10px] block">
                     Claiming NGO
                   </span>
                   <div className="font-bold text-slate-100 flex items-center gap-1.5">
@@ -274,8 +273,8 @@ export default function DonationDetailsPage() {
                   )}
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
-                  <span className="text-slate-500 uppercase tracking-wider font-semibold text-[10px] block">
+                <div className="p-3.5 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
+                  <span className="text-slate-400 uppercase tracking-wider font-semibold text-[10px] block">
                     NGO Contact Phone
                   </span>
                   <div className="font-bold text-emerald-400 flex items-center gap-1.5">
@@ -291,8 +290,8 @@ export default function DonationDetailsPage() {
                   )}
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
-                  <span className="text-slate-500 uppercase tracking-wider font-semibold text-[10px] block">
+                <div className="p-3.5 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
+                  <span className="text-slate-400 uppercase tracking-wider font-semibold text-[10px] block">
                     Estimated Pickup ETA
                   </span>
                   <div className="font-bold text-amber-300 flex items-center gap-1.5">
@@ -304,8 +303,8 @@ export default function DonationDetailsPage() {
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
-                  <span className="text-slate-500 uppercase tracking-wider font-semibold text-[10px] block">
+                <div className="p-3.5 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
+                  <span className="text-slate-400 uppercase tracking-wider font-semibold text-[10px] block">
                     Coordination Notes
                   </span>
                   <p className="text-slate-200 italic line-clamp-2">
@@ -318,7 +317,7 @@ export default function DonationDetailsPage() {
 
           {/* Key Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-850 space-y-1">
+            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1">
               <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5">
                 <Scale className="w-3.5 h-3.5 text-emerald-400" /> Total Food Quantity
               </span>
@@ -327,7 +326,7 @@ export default function DonationDetailsPage() {
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-850 space-y-1">
+            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1">
               <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-emerald-400" /> Potential Beneficiaries
               </span>
@@ -336,37 +335,22 @@ export default function DonationDetailsPage() {
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-850 space-y-1">
+            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1">
               <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-emerald-400" /> Must Be Picked Up By
               </span>
-              <div className={`text-sm font-bold ${isExpired ? 'text-amber-400' : 'text-slate-200'}`}>
+              <div className={`text-sm font-bold ${isExpired ? 'text-amber-400' : 'text-slate-100'}`}>
                 {formattedDeadline}
               </div>
             </div>
           </div>
 
           {/* Allergen & Ingredient Information */}
-          <div className="p-5 rounded-2xl bg-slate-950/50 border border-slate-800 space-y-3">
+          <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-amber-400" /> Allergen & Safety Information
               </h3>
-              {/* <span
-                className={`text-[11px] px-2.5 py-0.5 rounded-full font-medium ${
-                  donation.allergenInfo?.declarationStatus === 'ALLERGEN_FREE_VERIFIED'
-                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                    : donation.allergenInfo?.declarationStatus === 'DECLARED_ALLERGENS'
-                    ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                    : 'bg-slate-800 text-slate-400'
-                }`}
-              >
-                {donation.allergenInfo?.declarationStatus === 'ALLERGEN_FREE_VERIFIED'
-                  ? 'Verified Allergen-Free'
-                  : donation.allergenInfo?.declarationStatus === 'DECLARED_ALLERGENS'
-                  ? 'Allergens Declared'
-                  : 'Not Formally Tested / Unknown'}
-              </span> */}
             </div>
 
             {donation.allergenInfo?.allergensDeclared && donation.allergenInfo.allergensDeclared.length > 0 ? (
@@ -389,8 +373,8 @@ export default function DonationDetailsPage() {
             )}
 
             {donation.allergenInfo?.ingredientNotes && (
-              <div className="pt-2 border-t border-slate-800/80 text-xs text-slate-300">
-                <span className="text-slate-500 font-medium block">Ingredient Notes:</span>
+              <div className="pt-2 border-t border-[#30363d] text-xs text-slate-300">
+                <span className="text-slate-400 font-medium block">Ingredient Notes:</span>
                 <p className="mt-0.5">{donation.allergenInfo.ingredientNotes}</p>
               </div>
             )}
@@ -398,19 +382,19 @@ export default function DonationDetailsPage() {
 
           {/* Location & Instructions */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="p-5 rounded-2xl bg-slate-950/50 border border-slate-800 space-y-2">
+            <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-emerald-400" /> Pickup Location
               </h3>
-              <p className="text-sm font-medium text-slate-200">{donation.location?.address}</p>
+              <p className="text-sm font-medium text-slate-100">{donation.location?.address}</p>
               {donation.location?.coordinates && donation.location.coordinates[0] !== 0 && (
-                <span className="text-[11px] text-slate-500 block">
+                <span className="text-[11px] text-slate-400 block">
                   GPS: [{donation.location.coordinates[1]?.toFixed(4)}° N, {donation.location.coordinates[0]?.toFixed(4)}° E]
                 </span>
               )}
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-950/50 border border-slate-800 space-y-2">
+            <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-emerald-400" /> Pickup Instructions
               </h3>
@@ -421,17 +405,17 @@ export default function DonationDetailsPage() {
           </div>
 
           {/* Contact Details */}
-          <div className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3">
+          <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
               <Phone className="w-3.5 h-3.5 text-emerald-400" /> Contact Details (Authorized Access)
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <span className="text-slate-500 block">Contact Person</span>
-                <span className="font-semibold text-slate-200 text-sm">{donation.contactPerson}</span>
+                <span className="text-slate-400 block">Contact Person</span>
+                <span className="font-semibold text-slate-100 text-sm">{donation.contactPerson}</span>
               </div>
               <div>
-                <span className="text-slate-500 block">Phone Number</span>
+                <span className="text-slate-400 block">Phone Number</span>
                 <a
                   href={`tel:${donation.contactPhone}`}
                   className="font-semibold text-emerald-400 text-sm hover:underline"
@@ -444,7 +428,7 @@ export default function DonationDetailsPage() {
 
           {/* Cancellation Notice if applicable */}
           {donation.status === 'CANCELLED' && (
-            <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 space-y-1">
+            <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 space-y-1">
               <span className="font-bold flex items-center gap-1.5">
                 <AlertTriangle className="w-3.5 h-3.5" /> This listing was cancelled by the donor
               </span>

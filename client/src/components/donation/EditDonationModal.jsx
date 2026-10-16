@@ -255,29 +255,29 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+      <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
           disabled={isSubmitting}
-          className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-slate-800 transition"
+          className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-[#21262d] transition cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-emerald-400 text-xs font-semibold mb-2">
             <Utensils className="w-3.5 h-3.5" /> Edit Food Listing
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white">Update Surplus Listing</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Update Surplus Listing</h2>
           <p className="text-xs text-slate-400 mt-1">
             Modifications can only be saved while the listing is in Available status.
           </p>
         </div>
 
         {serverError && (
-          <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2.5">
+          <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2.5">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold block">Update Failed</span>
@@ -290,7 +290,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
           {/* Food Name & Category */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="sm:col-span-2 space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Food Item Name <span className="text-rose-400">*</span>
               </label>
               <input
@@ -298,22 +298,22 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 name="foodName"
                 value={formData.foodName}
                 onChange={handleChange}
-                className={`w-full px-4 py-2.5 bg-slate-950/80 border ${
-                  errors.foodName ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                  errors.foodName ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                 } rounded-xl text-slate-100 text-sm outline-none transition`}
               />
               {errors.foodName && <p className="text-xs text-rose-400">{errors.foodName}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Category <span className="text-rose-400">*</span>
               </label>
               <select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-3 py-2.5 bg-slate-950/80 border border-slate-800 focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
+                className="w-full px-3 py-2.5 bg-[#0d1117] border border-[#30363d] focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
               >
                 <option value="Cooked Meals">Cooked Meals</option>
                 <option value="Bakery & Bread">Bakery & Bread</option>
@@ -328,17 +328,17 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
 
           {/* Food Type Toggle */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Food Type <span className="text-rose-400">*</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setFormData((p) => ({ ...p, foodType: 'VEGETARIAN' }))}
-                className={`py-2 px-4 rounded-xl border text-xs font-semibold transition ${
+                className={`py-2 px-4 rounded-xl border text-xs font-semibold transition cursor-pointer ${
                   formData.foodType === 'VEGETARIAN'
-                    ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300'
-                    : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white'
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                    : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-slate-200 hover:bg-[#21262d]'
                 }`}
               >
                 🌱 Vegetarian
@@ -346,10 +346,10 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
               <button
                 type="button"
                 onClick={() => setFormData((p) => ({ ...p, foodType: 'NON_VEGETARIAN' }))}
-                className={`py-2 px-4 rounded-xl border text-xs font-semibold transition ${
+                className={`py-2 px-4 rounded-xl border text-xs font-semibold transition cursor-pointer ${
                   formData.foodType === 'NON_VEGETARIAN'
-                    ? 'bg-rose-500/20 border-rose-500 text-rose-300'
-                    : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white'
+                    ? 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+                    : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-slate-200 hover:bg-[#21262d]'
                 }`}
               >
                 🍗 Non-Vegetarian
@@ -360,7 +360,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
           {/* Quantity, Unit & Servings */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Quantity <span className="text-rose-400">*</span>
               </label>
               <input
@@ -370,22 +370,22 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 name="quantity"
                 value={formData.quantity}
                 onChange={handleChange}
-                className={`w-full px-4 py-2.5 bg-slate-950/80 border ${
-                  errors.quantity ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                  errors.quantity ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                 } rounded-xl text-slate-100 text-sm outline-none transition`}
               />
               {errors.quantity && <p className="text-xs text-rose-400">{errors.quantity}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Quantity Unit <span className="text-rose-400">*</span>
               </label>
               <select
                 name="quantityUnit"
                 value={formData.quantityUnit}
                 onChange={handleChange}
-                className="w-full px-3 py-2.5 bg-slate-950/80 border border-slate-800 focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
+                className="w-full px-3 py-2.5 bg-[#0d1117] border border-[#30363d] focus:border-emerald-500 rounded-xl text-slate-100 text-sm outline-none transition"
               >
                 <option value="kg">kg (kilograms)</option>
                 <option value="grams">grams</option>
@@ -397,7 +397,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 People Served <span className="text-rose-400">*</span>
               </label>
               <input
@@ -407,8 +407,8 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 name="servings"
                 value={formData.servings}
                 onChange={handleChange}
-                className={`w-full px-4 py-2.5 bg-slate-950/80 border ${
-                  errors.servings ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                  errors.servings ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                 } rounded-xl text-slate-100 text-sm outline-none transition`}
               />
               {errors.servings && <p className="text-xs text-rose-400">{errors.servings}</p>}
@@ -417,7 +417,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
 
           {/* Pickup Deadline */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Pickup Deadline <span className="text-rose-400">*</span>
             </label>
             <input
@@ -425,15 +425,15 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
               name="pickupDeadline"
               value={formData.pickupDeadline}
               onChange={handleChange}
-              className={`w-full px-4 py-2.5 bg-slate-950/80 border ${
-                errors.pickupDeadline ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+              className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                errors.pickupDeadline ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
               } rounded-xl text-slate-100 text-sm outline-none transition`}
             />
             {errors.pickupDeadline && <p className="text-xs text-rose-400">{errors.pickupDeadline}</p>}
           </div>
 
           {/* Allergen Information */}
-          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
+          <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
             <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
               <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
               Allergen & Ingredient Declaration
@@ -449,10 +449,10 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                       key={allergen}
                       type="button"
                       onClick={() => toggleAllergen(allergen)}
-                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition ${
+                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition cursor-pointer ${
                         isChecked
-                          ? 'bg-amber-500/20 border-amber-500 text-amber-300'
-                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                          ? 'bg-amber-500/10 border-amber-500/30 text-amber-300 font-semibold'
+                          : 'bg-[#161b22] border-[#30363d] text-slate-300 hover:bg-[#21262d]'
                       }`}
                     >
                       {allergen}
@@ -470,7 +470,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 value={formData.ingredientNotes}
                 onChange={handleChange}
                 placeholder="e.g., Prepared in a peanut-free commercial kitchen; includes dairy butter in sauce."
-                className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-slate-200 text-xs outline-none focus:border-emerald-500 transition"
+                className="w-full px-3 py-2 bg-[#161b22] border border-[#30363d] rounded-xl text-slate-100 placeholder-slate-500 text-xs outline-none focus:border-emerald-500 transition"
               />
             </div>
           </div>
@@ -478,7 +478,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
           {/* Location & Instructions */}
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Pickup Address <span className="text-rose-400">*</span>
               </label>
               <input
@@ -486,15 +486,15 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 name="locationAddress"
                 value={formData.locationAddress}
                 onChange={handleChange}
-                className={`w-full px-4 py-2.5 bg-slate-950/80 border ${
-                  errors.locationAddress ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                  errors.locationAddress ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                 } rounded-xl text-slate-100 text-sm outline-none transition`}
               />
               {errors.locationAddress && <p className="text-xs text-rose-400">{errors.locationAddress}</p>}
             </div>
 
             {/* Coordinates Section with GPS Auto-detection */}
-            <div className="space-y-2.5 bg-slate-950/50 p-3.5 rounded-2xl border border-slate-800/80">
+            <div className="space-y-2.5 bg-[#0d1117] p-3.5 rounded-xl border border-[#30363d]">
               <div className="flex items-center justify-between gap-2">
                 <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
                   <Crosshair className="w-3.5 h-3.5 text-emerald-400" />
@@ -504,7 +504,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                   type="button"
                   onClick={handleAutoDetectLocation}
                   disabled={isLocating}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-semibold rounded-lg transition disabled:opacity-50 cursor-pointer"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#21262d] hover:bg-[#30363d] text-emerald-400 border border-[#30363d] text-[11px] font-semibold rounded-lg transition disabled:opacity-50 cursor-pointer"
                 >
                   {isLocating ? (
                     <>
@@ -522,8 +522,8 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 <div
                   className={`p-2 rounded-lg text-xs flex items-center gap-1.5 ${
                     locationFeedback.type === 'success'
-                      ? 'bg-emerald-950/40 border border-emerald-500/30 text-emerald-300'
-                      : 'bg-rose-950/40 border border-rose-500/30 text-rose-300'
+                      ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300'
+                      : 'bg-rose-500/10 border border-rose-500/30 text-rose-300'
                   }`}
                 >
                   {locationFeedback.type === 'success' ? (
@@ -537,7 +537,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-slate-400">
+                  <label className="text-[11px] font-semibold text-slate-400">
                     Latitude <span className="text-rose-400">*</span>
                   </label>
                   <input
@@ -547,15 +547,15 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                     value={formData.latitude}
                     onChange={handleChange}
                     placeholder="e.g. 12.9716"
-                    className={`w-full px-3 py-1.5 bg-slate-900 border ${
-                      errors.latitude ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                    } rounded-xl text-slate-200 text-xs outline-none transition`}
+                    className={`w-full px-3 py-1.5 bg-[#161b22] border ${
+                      errors.latitude ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                    } rounded-xl text-slate-100 text-xs outline-none transition`}
                   />
                   {errors.latitude && <p className="text-xs text-rose-400">{errors.latitude}</p>}
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-slate-400">
+                  <label className="text-[11px] font-semibold text-slate-400">
                     Longitude <span className="text-rose-400">*</span>
                   </label>
                   <input
@@ -565,9 +565,9 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                     value={formData.longitude}
                     onChange={handleChange}
                     placeholder="e.g. 77.5946"
-                    className={`w-full px-3 py-1.5 bg-slate-900 border ${
-                      errors.longitude ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
-                    } rounded-xl text-slate-200 text-xs outline-none transition`}
+                    className={`w-full px-3 py-1.5 bg-[#161b22] border ${
+                      errors.longitude ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
+                    } rounded-xl text-slate-100 text-xs outline-none transition`}
                   />
                   {errors.longitude && <p className="text-xs text-rose-400">{errors.longitude}</p>}
                 </div>
@@ -575,7 +575,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Pickup Instructions (optional)
               </label>
               <textarea
@@ -583,7 +583,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 rows="2"
                 value={formData.pickupInstructions}
                 onChange={handleChange}
-                className="w-full px-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-slate-200 text-xs outline-none focus:border-emerald-500 transition"
+                className="w-full px-4 py-2 bg-[#0d1117] border border-[#30363d] rounded-xl text-slate-200 placeholder-slate-500 text-xs outline-none focus:border-emerald-500 transition"
               />
             </div>
           </div>
@@ -591,7 +591,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
           {/* Contact Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Contact Person <span className="text-rose-400">*</span>
               </label>
               <input
@@ -599,15 +599,15 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 name="contactPerson"
                 value={formData.contactPerson}
                 onChange={handleChange}
-                className={`w-full px-4 py-2.5 bg-slate-950/80 border ${
-                  errors.contactPerson ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                  errors.contactPerson ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                 } rounded-xl text-slate-100 text-sm outline-none transition`}
               />
               {errors.contactPerson && <p className="text-xs text-rose-400">{errors.contactPerson}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Contact Phone <span className="text-rose-400">*</span>
               </label>
               <input
@@ -615,8 +615,8 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
                 name="contactPhone"
                 value={formData.contactPhone}
                 onChange={handleChange}
-                className={`w-full px-4 py-2.5 bg-slate-950/80 border ${
-                  errors.contactPhone ? 'border-rose-500' : 'border-slate-800 focus:border-emerald-500'
+                className={`w-full px-4 py-2.5 bg-[#0d1117] border ${
+                  errors.contactPhone ? 'border-rose-500' : 'border-[#30363d] focus:border-emerald-500'
                 } rounded-xl text-slate-100 text-sm outline-none transition`}
               />
               {errors.contactPhone && <p className="text-xs text-rose-400">{errors.contactPhone}</p>}
@@ -624,19 +624,19 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-3 pt-3">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#30363d]">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-4 py-2.5 rounded-xl border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 text-xs font-medium transition"
+              className="px-4 py-2.5 rounded-xl border border-[#30363d] bg-[#21262d] hover:bg-[#30363d] text-slate-300 text-xs font-medium transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-lg shadow-emerald-950/50 transition disabled:opacity-60"
+              className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition disabled:opacity-60 cursor-pointer"
             >
               {isSubmitting ? (
                 <>

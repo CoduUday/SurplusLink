@@ -209,8 +209,8 @@ export default function RegisterPage() {
               }}
               className={`flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 role === "DONOR"
-                  ? "bg-emerald-600 text-white shadow-lg shadow-emerald-950/50"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-[#21262d]"
               }`}
             >
               <Utensils className="w-4 h-4" />
@@ -583,10 +583,10 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3.5 px-4 rounded-xl text-white font-semibold shadow-lg transition-all duration-200 flex items-center justify-center gap-2 ${
+              className={`w-full py-3.5 px-4 rounded-xl text-white font-semibold shadow-sm transition-all duration-200 flex items-center justify-center gap-2 ${
                 role === "DONOR"
-                  ? "bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 shadow-emerald-950/50"
-                  : "bg-blue-600 hover:bg-blue-500 active:bg-blue-700 shadow-blue-950/50"
+                  ? "bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700"
+                  : "bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
               } disabled:opacity-50`}
             >
               {loading ? (

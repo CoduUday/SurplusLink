@@ -90,12 +90,12 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+      <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-slate-800 transition"
+          className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-[#21262d] transition cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -113,12 +113,12 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
             >
               {donation.foodType === 'VEGETARIAN' ? '🌱 Vegetarian' : '🍗 Non-Vegetarian'}
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#21262d] border border-[#30363d] text-slate-300 text-xs">
               {donation.category}
             </span>
           </div>
 
-          <h2 className="text-2xl font-bold text-white mt-1">{donation.foodName}</h2>
+          <h2 className="text-2xl font-bold text-white mt-1 tracking-tight">{donation.foodName}</h2>
           <p className="text-xs text-slate-400">
             Listed by <strong className="text-slate-200">{donation.donor?.organization || 'Food Donor'}</strong> • Created on {formattedCreated}
           </p>
@@ -126,7 +126,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
 
         {/* Key Metrics Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1">
+          <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1">
             <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5">
               <Scale className="w-3.5 h-3.5 text-emerald-400" /> Quantity
             </span>
@@ -135,7 +135,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1">
+          <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1">
             <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5">
               <Users className="w-3.5 h-3.5 text-emerald-400" /> Feeds People
             </span>
@@ -144,18 +144,18 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
             </div>
           </div>
 
-          <div className="col-span-2 sm:col-span-1 p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1">
+          <div className="col-span-2 sm:col-span-1 p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1">
             <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-emerald-400" /> Pickup Deadline
             </span>
-            <div className={`text-sm font-bold ${isExpired ? 'text-amber-400' : 'text-slate-200'}`}>
+            <div className={`text-sm font-bold ${isExpired ? 'text-amber-400' : 'text-slate-100'}`}>
               {formattedDeadline}
             </div>
           </div>
         </div>
 
         {/* Allergen & Ingredient Details */}
-        <div className="p-4 rounded-2xl bg-slate-950/50 border border-slate-800 space-y-3">
+        <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
               <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
@@ -167,7 +167,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
                   ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                   : donation.allergenInfo?.declarationStatus === 'DECLARED_ALLERGENS'
                   ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                  : 'bg-slate-800 text-slate-400'
+                  : 'bg-[#21262d] text-slate-300 border border-[#30363d]'
               }`}
             >
               {donation.allergenInfo?.declarationStatus === 'ALLERGEN_FREE_VERIFIED'
@@ -198,8 +198,8 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
           )}
 
           {donation.allergenInfo?.ingredientNotes && (
-            <div className="pt-2 border-t border-slate-800/80 text-xs text-slate-300">
-              <span className="text-slate-500 font-medium block">Ingredient Notes:</span>
+            <div className="pt-2 border-t border-[#30363d] text-xs text-slate-300">
+              <span className="text-slate-400 font-medium block">Ingredient Notes:</span>
               <p className="mt-0.5">{donation.allergenInfo.ingredientNotes}</p>
             </div>
           )}
@@ -207,19 +207,19 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
 
         {/* Location & Instructions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-4 rounded-2xl bg-slate-950/50 border border-slate-800 space-y-1.5">
+          <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1.5">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-emerald-400" /> Pickup Location
             </span>
-            <p className="text-sm font-medium text-slate-200">{donation.location?.address}</p>
+            <p className="text-sm font-medium text-slate-100">{donation.location?.address}</p>
             {donation.location?.coordinates && donation.location.coordinates[0] !== 0 && (
-              <span className="text-[11px] text-slate-500 block">
+              <span className="text-[11px] text-slate-400 block">
                 GPS: [{donation.location.coordinates[1]?.toFixed(4)}° N, {donation.location.coordinates[0]?.toFixed(4)}° E]
               </span>
             )}
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-950/50 border border-slate-800 space-y-1.5">
+          <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-1.5">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
               <Info className="w-3.5 h-3.5 text-emerald-400" /> Pickup Instructions
             </span>
@@ -230,17 +230,17 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
         </div>
 
         {/* Contact Information */}
-        <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3">
+        <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
             <Phone className="w-3.5 h-3.5 text-emerald-400" /> Contact Details (Authorized Access)
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             <div>
-              <span className="text-slate-500 block">Contact Person</span>
-              <span className="font-semibold text-slate-200 text-sm">{donation.contactPerson}</span>
+              <span className="text-slate-400 block">Contact Person</span>
+              <span className="font-semibold text-slate-100 text-sm">{donation.contactPerson}</span>
             </div>
             <div>
-              <span className="text-slate-500 block">Phone Number</span>
+              <span className="text-slate-400 block">Phone Number</span>
               <a
                 href={`tel:${donation.contactPhone}`}
                 className="font-semibold text-emerald-400 text-sm hover:underline"
@@ -253,7 +253,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
 
         {/* Acceptance Notice if accepted */}
         {donation.status === 'ACCEPTED' && (
-          <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-xs text-blue-300 space-y-2">
+          <div className="p-4 rounded-xl bg-[#0d1117] border border-blue-500/30 text-xs text-blue-300 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-bold flex items-center gap-1.5 text-white">
                 <HeartHandshake className="w-4 h-4 text-blue-400" />
@@ -276,7 +276,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
               </div>
             </div>
             {donation.acceptNotes && (
-              <p className="text-[11px] text-slate-300 italic pt-1 border-t border-blue-500/20">
+              <p className="text-[11px] text-slate-300 italic pt-1 border-t border-[#30363d]">
                 "{donation.acceptNotes}"
               </p>
             )}
@@ -285,7 +285,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
 
         {/* Cancellation Notice if applicable */}
         {donation.status === 'CANCELLED' && (
-          <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 space-y-1">
+          <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 space-y-1">
             <span className="font-bold flex items-center gap-1.5">
               <AlertTriangle className="w-3.5 h-3.5" /> This donation was cancelled by the donor
             </span>
@@ -301,7 +301,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
             {donation._id && (
               <Link
                 to={`/donations/${donation._id}`}
-                className="px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold flex items-center justify-center gap-1.5 transition"
+                className="px-4 py-2 rounded-xl bg-[#21262d] hover:bg-[#30363d] text-emerald-400 border border-[#30363d] text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Open Full Page →</span>
@@ -314,7 +314,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
                   onClose();
                   onAcceptClick(donation);
                 }}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-blue-950/50 transition cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer"
               >
                 <HeartHandshake className="w-3.5 h-3.5" />
                 <span>Accept & Claim Food</span>
@@ -324,7 +324,7 @@ export default function DonationDetailsModal({ donation, isOpen, onClose, onAcce
 
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-semibold transition self-end sm:self-auto"
+            className="px-5 py-2.5 rounded-xl bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-200 hover:text-white text-xs font-semibold transition self-end sm:self-auto cursor-pointer"
           >
             Close Details
           </button>

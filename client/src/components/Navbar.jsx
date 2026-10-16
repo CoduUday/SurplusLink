@@ -19,7 +19,7 @@ export default function Navbar({ animate, className = '' }) {
   const shouldAnimate = typeof animate === 'boolean' ? animate : isHomePage;
 
   return (
-    <header className={`border-b border-[rgb(58,61,67)] bg-black backdrop-blur-md sticky top-0 z-50 ${shouldAnimate ? 'animate-slide-down' : ''} ${className}`.trim()}>
+    <header className={`border-b border-[#30363d] bg-black backdrop-blur-md sticky top-0 z-50 ${shouldAnimate ? 'animate-slide-down' : ''} ${className}`.trim()}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">
@@ -42,7 +42,7 @@ export default function Navbar({ animate, className = '' }) {
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider ${
                   user.role === 'NGO'
                     ? 'bg-blue-500/10 text-blue-400 border border-blue-500/30'
-                    : 'bg-emerald-500/10 text-emerald-400 border border-[rgb(58,61,67)]'
+                    : 'bg-emerald-500/10 text-emerald-400 border border-[#30363d]'
                 }`}
               >
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -60,13 +60,13 @@ export default function Navbar({ animate, className = '' }) {
                 <>
                   <Link
                     to="/donor/create-donation"
-                    className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600/90 hover:bg-emerald-500 text-white transition shadow-sm"
+                    className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-sm"
                   >
                     <span>+ List Food</span>
                   </Link>
                   <Link
                     to="/donor/my-donations"
-                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-[rgb(58,61,67)] transition"
+                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#21262d] hover:bg-[#30363d] text-slate-200 border border-[#30363d] transition"
                   >
                     <span>My Listings</span>
                   </Link>
@@ -74,7 +74,7 @@ export default function Navbar({ animate, className = '' }) {
               ) : (
                 <Link
                   to="/ngo/available-donations"
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600/90 hover:bg-blue-500 text-white transition shadow-sm"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition shadow-sm"
                 >
                   <span>Browse Available Food</span>
                 </Link>
@@ -83,7 +83,7 @@ export default function Navbar({ animate, className = '' }) {
               {/* Dashboard Link */}
               <Link
                 to={dashboardPath}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-[rgb(58,61,67)] transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#21262d] hover:bg-[#30363d] text-slate-200 border border-[#30363d] transition"
               >
                 <LayoutDashboard className="w-3.5 h-3.5" />
                 <span>Dashboard</span>
@@ -92,7 +92,7 @@ export default function Navbar({ animate, className = '' }) {
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-800/50 transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 transition"
                 title="Log out"
               >
                 <LogOut className="w-3.5 h-3.5" />
