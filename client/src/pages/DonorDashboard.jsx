@@ -174,23 +174,23 @@ export default function DonorDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#0d1117] text-slate-100 flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-6">
         {/* Welcome Banner */}
-        <div className="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-900 border border-emerald-500/20 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-xl">
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm animate-fade-in-up">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-3">
-                <Utensils className="w-3.5 h-3.5" /> Food Donor Portal
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-slate-300 text-xs font-semibold mb-3">
+                <Utensils className="w-3.5 h-3.5 text-emerald-400" /> Food Donor Portal
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 Welcome back, {user?.name || "Donor"}
               </h1>
-              <p className="text-slate-400 text-sm mt-1 max-w-xl">
+              <p className="text-slate-300 text-sm mt-1.5 max-w-xl leading-relaxed">
                 Ready to redirect surplus food from{" "}
-                <strong className="text-slate-200">{user?.organization}</strong>{" "}
+                <strong className="text-white font-semibold">{user?.organization}</strong>{" "}
                 to nearby NGOs and prevent food waste.
               </p>
             </div>
@@ -198,18 +198,18 @@ export default function DonorDashboard() {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 to="/donor/create-donation"
-                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-medium text-sm rounded-xl shadow-lg shadow-emerald-950/50 flex items-center gap-2 transition"
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-sm flex items-center gap-2 transition hover:-translate-y-0.5"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span>List Surplus Food</span>
               </Link>
               <Link
                 to="/donor/my-donations"
-                className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl transition flex items-center gap-1.5"
+                className="px-4 py-2.5 bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-slate-200 text-sm font-medium rounded-xl transition flex items-center gap-1.5 hover:-translate-y-0.5"
               >
                 <span>My Listings ({activeListingsCount})</span>
                 {acceptedListingsCount > 0 && (
-                  <span className="px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[11px] font-bold border border-blue-500/30">
+                  <span className="px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 text-[11px] font-bold border border-blue-500/30">
                     {acceptedListingsCount} claimed
                   </span>
                 )}
@@ -220,27 +220,24 @@ export default function DonorDashboard() {
 
         {/* NGO Acceptance Alert for Donor */}
         {acceptedListingsCount > 0 && (
-          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-slate-900 border border-blue-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#161b22] border border-blue-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm animate-fade-in-up animation-delay-150">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
                 <HeartHandshake className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
                   <span>Surplus Food Accepted by Partner NGOs!</span>
-                  <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-bold border border-blue-500/30">
+                  <span className="px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 text-[10px] font-bold border border-blue-500/30">
                     {acceptedListingsCount} {acceptedListingsCount === 1 ? 'LISTING CLAIMED' : 'LISTINGS CLAIMED'}
                   </span>
                 </h3>
-                <p className="text-xs text-slate-300 mt-0.5">
-                  An authorized NGO has claimed your food surplus and is scheduling collection. Check the pickup ETA and driver details.
-                </p>
               </div>
             </div>
 
             <Link
               to="/donor/my-donations"
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition self-start sm:self-auto shrink-0 shadow-md shadow-blue-950/40"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition self-start sm:self-auto shrink-0 shadow-sm hover:-translate-y-0.5"
             >
               <span>View Accepted Listings →</span>
             </Link>
@@ -249,117 +246,115 @@ export default function DonorDashboard() {
 
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-200 font-medium">
+          <div className="bg-[#161b22] border border-[#30363d] hover:border-slate-600 rounded-2xl p-5 space-y-2 hover:-translate-y-0.5 transition-all duration-200 animate-fade-in-up animation-delay-150 shadow-sm">
+            <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
               Scheduled Meal Batches
             </span>
             <div className="flex items-baseline justify-between">
               <span className="text-2xl font-bold text-white">
                 {mealSchedules.length}
               </span>
-              <span className="text-xs text-emerald-400 font-medium">
-                Recorded meals
+              <span className="text-xs text-slate-400 font-normal">
+                Batches
               </span>
             </div>
           </div>
 
-          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-200 font-medium">
+          <div className="bg-[#161b22] border border-[#30363d] hover:border-slate-600 rounded-2xl p-5 space-y-2 hover:-translate-y-0.5 transition-all duration-200 animate-fade-in-up animation-delay-200 shadow-sm">
+            <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
               Total Predicted Surplus
             </span>
             <div className="flex items-baseline justify-between">
-              <span className="text-2xl font-bold text-emerald-400">
-                {totalPredictedSurplusMeals} meals
+              <span className="text-2xl font-bold text-white">
+                {totalPredictedSurplusMeals} <span className="text-sm font-normal text-slate-400">meals</span>
               </span>
-              
             </div>
           </div>
 
-          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-200 font-medium">
+          <div className="bg-[#161b22] border border-[#30363d] hover:border-slate-600 rounded-2xl p-5 space-y-2 hover:-translate-y-0.5 transition-all duration-200 animate-fade-in-up animation-delay-250 shadow-sm">
+            <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
               Logged Actual Outcomes
             </span>
             <div className="flex items-baseline justify-between">
               <span className="text-2xl font-bold text-white">
                 {mealSchedules.filter((s) => Boolean(s.outcome)).length}
               </span>
-            
+              <span className="text-xs text-slate-400 font-normal">
+                Logged
+              </span>
             </div>
           </div>
 
-          <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 space-y-2">
-            <span className="text-xs text-slate-200 font-medium">
+          <div className="bg-[#161b22] border border-[#30363d] hover:border-slate-600 rounded-2xl p-5 space-y-2 hover:-translate-y-0.5 transition-all duration-200 animate-fade-in-up animation-delay-300 shadow-sm">
+            <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
               Pending Meal Outcomes
             </span>
             <div className="flex items-baseline justify-between">
-              <span
-                className={`text-2xl font-bold ${
-                  mealSchedules.filter((s) => !s.outcome).length > 0
-                    ? "text-amber-400"
-                    : "text-slate-400"
-                }`}
-              >
+              <span className="text-2xl font-bold text-white">
                 {mealSchedules.filter((s) => !s.outcome).length}
+              </span>
+              <span className="text-xs text-slate-400 font-normal">
+                Pending
               </span>
             </div>
           </div>
         </div>
 
         {/* Feature 2: Meal Schedule & Actual Leftover Recording Section */}
-        <MealScheduleSection onSchedulesChange={setMealSchedules} />
+        <div className="animate-fade-in-up animation-delay-350">
+          <MealScheduleSection onSchedulesChange={setMealSchedules} />
+        </div>
 
         {/* Profile & Registered Details Card */}
-        <div className="flex gap-6">
-          <div className="lg:col-span-1 w-full bg-slate-900/80 border border-slate-800 rounded-3xl p-6 space-y-6">
-            <div className="border-b border-slate-800 pb-4">
+        <div className="flex gap-6 animate-fade-in-up animation-delay-450">
+          <div className="lg:col-span-1 w-full bg-[#161b22] border border-[#30363d] rounded-2xl p-6 space-y-6 shadow-sm">
+            <div className="border-b border-[#30363d] pb-4">
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Building className="w-5 h-5 text-emerald-400" /> Donor
-                Profile
+                <Building className="w-5 h-5 text-slate-300" /> Donor Profile
               </h2>
-            
             </div>
 
             <div className="space-y-4 text-sm">
               <div>
-                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block mb-0.5">
                   Donor Name
                 </span>
-                <span className="text-slate-200 font-medium">{user?.name}</span>
+                <span className="text-slate-100 font-medium">{user?.name}</span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block mb-0.5">
                   Organization
                 </span>
-                <span className="text-slate-200 font-medium">
+                <span className="text-slate-100 font-medium">
                   {user?.organization}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block mb-0.5">
                   Email Address
                 </span>
-                <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
+                <span className="text-slate-100 font-medium flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-slate-400" /> {user?.email}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block mb-0.5">
                   Contact Number
                 </span>
-                <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
+                <span className="text-slate-100 font-medium flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-slate-400" />{" "}
                   {user?.contact}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block mb-0.5">
                   Address
                 </span>
-                <span className="text-slate-200 font-medium flex items-start gap-1.5 mt-0.5">
+                <span className="text-slate-100 font-medium flex items-start gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
                   <span>
                     {user?.address?.fullAddress ||
@@ -370,11 +365,11 @@ export default function DonorDashboard() {
               </div>
 
               <div>
-                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block">
+                <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold block mb-0.5">
                   Geotagged Coordinates
                 </span>
-                <span className="text-slate-200 font-medium flex items-center gap-1.5 mt-0.5">
-                  <Compass className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-slate-100 font-medium flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5 text-slate-400" />
                   {user?.location?.coordinates &&
                   user.location.coordinates[0] !== 0
                     ? `[${user.location.coordinates[1]?.toFixed(4)}° N, ${user.location.coordinates[0]?.toFixed(4)}° E]`
@@ -383,9 +378,6 @@ export default function DonorDashboard() {
               </div>
             </div>
           </div>
-
-          {/* Activity Placeholder */}
-         
         </div>
       </main>
 

@@ -75,15 +75,32 @@ select:focus {
   animation: slideDown 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
 .animation-delay-150 {
-  animation-delay: 250ms;
+  animation-delay: 180ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 260ms;
+}
+
+.animation-delay-250 {
+  animation-delay: 340ms;
 }
 
 .animation-delay-300 {
+  animation-delay: 420ms;
+}
+
+.animation-delay-350 {
   animation-delay: 500ms;
 }
 
 .animation-delay-450 {
-  animation-delay: 750ms;
+  animation-delay: 600ms;
 }
+
 
