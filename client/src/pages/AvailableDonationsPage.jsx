@@ -149,7 +149,7 @@ export default function AvailableDonationsPage() {
         )}
 
         {/* Page Banner */}
-        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-in-up">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-blue-400 text-xs font-semibold mb-2">
               <HeartHandshake className="w-3.5 h-3.5" /> NGO Food Redistribution Feed
@@ -167,7 +167,7 @@ export default function AvailableDonationsPage() {
         </div>
 
         {/* View Mode Tabs */}
-        <div className="flex items-center gap-2 border-b border-[#30363d] pb-3 overflow-x-auto">
+        <div className="flex items-center gap-2 border-b border-[#30363d] pb-3 overflow-x-auto animate-fade-in-up animation-delay-150">
           <button
             onClick={() => setActiveTab('all')}
             className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition cursor-pointer whitespace-nowrap ${
@@ -214,9 +214,11 @@ export default function AvailableDonationsPage() {
         </div>
 
         {activeTab === 'recommended' ? (
-          <RecommendedDonationsSection ngoId={user?._id} />
+          <div className="animate-fade-in-up animation-delay-200">
+            <RecommendedDonationsSection ngoId={user?._id} />
+          </div>
         ) : activeTab === 'claimed' ? (
-          <div className="space-y-6">
+          <div className="space-y-6 animate-fade-in-up animation-delay-200">
             <div className="flex items-center justify-between border-b border-[#30363d] pb-4">
               <div>
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
@@ -344,7 +346,7 @@ export default function AvailableDonationsPage() {
         ) : (
           <>
             {/* Search & Filters Bar */}
-            <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-4 sm:p-5 shadow-sm space-y-3">
+            <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-4 sm:p-5 shadow-sm space-y-3 animate-fade-in-up animation-delay-200">
               <form onSubmit={handleSearchSubmit} className="flex flex-col md:flex-row gap-3">
                 {/* Search Input */}
                 <div className="relative flex-1">
@@ -398,6 +400,7 @@ export default function AvailableDonationsPage() {
             </div>
 
             {/* Donations Feed Grid */}
+            <div className="space-y-6 animate-fade-in-up animation-delay-250">
             {isLoading ? (
               <div className="py-24 text-center space-y-3">
                 <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
@@ -592,6 +595,7 @@ export default function AvailableDonationsPage() {
                 </div>
               </div>
             )}
+            </div>
           </>
         )}
       </main>

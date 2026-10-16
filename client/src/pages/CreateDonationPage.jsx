@@ -305,7 +305,7 @@ export default function CreateDonationPage() {
         </div>
 
         {/* Page Header */}
-        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm animate-fade-in-up">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] text-emerald-400 text-xs font-semibold mb-3">
             <Utensils className="w-3.5 h-3.5" /> Food Surplus Listing
           </div>
@@ -334,7 +334,7 @@ export default function CreateDonationPage() {
         )}
 
         {/* Listing Form */}
-        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm animate-fade-in-up animation-delay-150">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Section 1: Food Details */}
             <div className="border-b border-[#30363d] pb-6 space-y-4">

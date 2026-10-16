@@ -200,7 +200,7 @@ export default function MyDonationsPage() {
         )}
 
         {/* Table / Card Container */}
-        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm animate-fade-in-up animation-delay-150">
           {/* Controls Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
             <h2 className="text-lg font-bold text-white">All Published Surplus Items</h2>

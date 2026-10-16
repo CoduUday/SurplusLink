@@ -157,7 +157,7 @@ export default function DonationDetailsPage() {
         )}
 
         {/* Hero Card */}
-        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 shadow-sm space-y-6 animate-fade-in-up">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-5">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
@@ -441,7 +441,9 @@ export default function DonationDetailsPage() {
 
         {/* Feature 4: Smart NGO Matching Section for Donors */}
         {isOwner && (
-          <RecommendedNgosSection donationId={donation._id} isAvailable={isAvailable} />
+          <div className="animate-fade-in-up animation-delay-200">
+            <RecommendedNgosSection donationId={donation._id} isAvailable={isAvailable} />
+          </div>
         )}
       </main>
 

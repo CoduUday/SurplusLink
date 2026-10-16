@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X,
   HeartHandshake,
@@ -53,8 +54,8 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="p-6 border-b border-[#30363d] flex items-center justify-between bg-[#161b22]">
@@ -197,6 +198,7 @@ export default function AcceptDonationModal({ donation, isOpen, onClose, onAccep
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

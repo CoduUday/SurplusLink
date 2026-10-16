@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X, AlertTriangle, Loader2 } from 'lucide-react';
 import donationService from '../../services/donationService';
 
@@ -30,8 +31,8 @@ export default function CancelDonationModal({ donation, isOpen, onClose, onCance
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
       <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl space-y-5 relative">
         <button
           onClick={onClose}
@@ -103,6 +104,7 @@ export default function CancelDonationModal({ donation, isOpen, onClose, onCance
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -327,7 +327,7 @@ export default function MealScheduleSection({ onSchedulesChange }) {
 
                       <td className="py-3.5 px-4">
                         <span
-                          className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-medium ${
+                          className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-medium text-center ${
                             schedule.preparationStatus === "Completed"
                               ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                               : schedule.preparationStatus === "In Progress"
@@ -360,19 +360,11 @@ export default function MealScheduleSection({ onSchedulesChange }) {
                               <div className="text-base font-extrabold text-white">
                                 {prediction.predictedSurplusQuantity}{" "}
                                 <span className="text-xs font-normal text-slate-300">
-                                  meals (~portions)
+                                  meals 
                                 </span>
                               </div>
-                              <p
-                                className="text-[10px] text-slate-400 line-clamp-2 leading-tight"
-                                title={prediction.explanation}
-                              >
-                                {prediction.explanation}
-                              </p>
-                              <div className="text-[9px] text-amber-400/90 flex items-center gap-1 pt-0.5 font-medium">
-                                <AlertCircle className="w-3 h-3 shrink-0" />
-                                <span>Estimated portions — not confirmed food</span>
-                              </div>
+                         
+                              
                             </div>
                           ) : (
                             <div className="p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400 italic flex items-center gap-1">
@@ -421,7 +413,7 @@ export default function MealScheduleSection({ onSchedulesChange }) {
                             </div>
                           </div>
                         ) : (
-                          <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-800/80 text-slate-400 border border-slate-700/60">
+                          <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-800/80 text-slate-400 border border-slate-700/60 text-center">
                             Outcome Not Recorded
                           </span>
                         )}

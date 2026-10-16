@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X,
   Utensils,
@@ -254,8 +255,8 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
       <div className="bg-[#161b22] border border-[#30363d] rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
@@ -653,6 +654,7 @@ export default function EditDonationModal({ donation, isOpen, onClose, onUpdated
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
