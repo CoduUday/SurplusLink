@@ -278,6 +278,136 @@ Test coverage includes:
 
 ---
 
+## 🍲 Feature 3: Food Surplus Listing
+
+### Overview
+SurplusLink allows authenticated food donors to create, publish, view, edit, and cancel food surplus listings. Authenticated NGOs can browse available, non-expired donations with real-time filters and pagination to identify food meeting their daily serving capacity.
+
+---
+
+### 📋 Food Donation Schema & Fields
+
+| Field | Type | Rules & Validation |
+| :--- | :--- | :--- |
+| `donor` | `ObjectId (User)` | Required reference to authenticated donor. Indexed. |
+| `foodName` | `String` | Required, trimmed, max 150 characters. |
+| `category` | `String` | Enum: `Cooked Meals`, `Bakery & Bread`, `Fresh Produce`, `Dairy & Eggs`, `Packaged Food`, `Beverages`, `Other`. |
+| `quantity` | `Number` | Required positive number ($> 0$). Kept strictly distinct from servings. |
+| `quantityUnit` | `String` | Enum: `kg`, `grams`, `litres`, `packets`, `servings`, `boxes`. |
+| `foodType` | `String` | Enum: `VEGETARIAN` or `NON_VEGETARIAN`. |
+| `servings` | `Number` | Required positive integer representing people served ($\ge 1$). |
+| `allergenInfo` | `Object` | Structured allergen data: `allergensDeclared` (`[String]`), `ingredientNotes` (`String`), `declarationStatus` (`DECLARED_ALLERGENS`, `ALLERGEN_FREE_VERIFIED`, `UNKNOWN_UNVERIFIED`). Never defaults to allergen-free without verification. |
+| `location` | `Object` | `address` (required string), `type` (`Point`), `coordinates` (`[longitude, latitude]`). Indexed with `2dsphere`. |
+| `pickupDeadline` | `Date` | Required future timestamp when creating/updating. |
+| `contactPerson` | `String` | Required donor contact person name. |
+| `contactPhone` | `String` | Required validated phone number. |
+| `pickupInstructions` | `String` | Optional pickup notes and access instructions. |
+| `status` | `String` | Enum: `AVAILABLE`, `ACCEPTED`, `COLLECTED`, `DELIVERED`, `CANCELLED`, `EXPIRED`. Indexed. |
+| `cancellationReason` | `String` | Reason recorded when a donor cancels an available listing. |
+| `createdAt` / `updatedAt` | `Date` | Mongoose auto timestamps. |
+
+---
+
+### ⏳ Expiration & State Machine Restrictions
+
+1. **Automatic Deadline Filtering & Expiration:**
+   - Any donation where `pickupDeadline <= Date.now()` is automatically excluded from the NGO available feed.
+   - The backend runs an automatic sweep marking past-due available listings as `EXPIRED`.
+   - The expiration sweep **never overwrites** donations that have progressed to `ACCEPTED`, `COLLECTED`, or `DELIVERED`.
+
+2. **Workflow State Protection:**
+   - **Editing (`PATCH /api/donations/:id`):** Only permitted while `status === 'AVAILABLE'`. Once accepted, collected, delivered, cancelled, or expired, modification is rejected with `409 Conflict`.
+   - **Cancellation (`DELETE /api/donations/:id`):** Only permitted while `status === 'AVAILABLE'`. Cannot cancel once accepted by an NGO or in transit.
+
+---
+
+### 📡 Feature 3 API Endpoints
+
+All endpoints require JWT Bearer authentication (`protect`):
+
+| Method | Endpoint | Authorization | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/donations` | `DONOR` | Create and publish a new surplus listing |
+| `GET` | `/api/donations` | `NGO` | Browse available, non-expired donations with filters (`category`, `foodType`, `search`, `page`, `limit`) |
+| `GET` | `/api/donations/mine` | `DONOR` | Retrieve authenticated donor's own listings (with optional `status` filter) |
+| `GET` | `/api/donations/:id` | Authorized User | Retrieve details of a donation (donor owner or NGO) |
+| `PATCH` | `/api/donations/:id` | `DONOR` | Update an eligible listing owned by donor (`AVAILABLE` status only) |
+| `DELETE` | `/api/donations/:id` | `DONOR` | Cancel an eligible listing owned by donor (`AVAILABLE` status only) |
+
+---
+
+### 🖥️ Frontend Pages & Navigation
+
+- **Create Donation Page (`/donor/create-donation`):** Comprehensive responsive form with field-level validation, future-deadline checks, allergen toggles, and duplicate submission prevention.
+- **My Listings Page (`/donor/my-donations`):** Donor management view displaying food details, status badges, countdowns, and inline modals for Viewing, Editing, and Cancelling.
+- **NGO Available Feed (`/ngo/available-donations`):** Interactive card grid with live search, category and food-type filters, urgency tags, and detail view modals.
+- **Donation Details View (`/donations/:id`):** Full authorized listing information, pickup instructions, GPS coordinates, contact details, and the embedded **Smart NGO Recommendations** module.
+
+---
+
+## 🎯 Feature 4: Smart NGO Matching System
+
+### Overview
+SurplusLink includes a transparent, explainable, rule-based matching engine that pairs available food donations with the most practical community organizations and NGOs. Rather than relying solely on straight-line distance, the engine evaluates multi-dimensional logistical feasibility: geographical proximity, daily serving capacity, operating schedules, transit estimates, and dietary preferences.
+
+### 🧮 Multi-Factor Weighted Scoring Formula (0 to 100 Points)
+
+The total score $S_{\text{total}} \in [0, 100]$ is computed as:
+
+$$S_{\text{total}} = S_{\text{proximity}} + S_{\text{capacity}} + S_{\text{schedule}} + S_{\text{foodCompatibility}}$$
+
+#### 1. Proximity & Service Area (Max 35 Points)
+Calculates real-world distance using the **Haversine Formula**:
+$$d = 2R \arcsin \left( \sqrt{ \sin^2\left(\frac{\Delta \text{lat}}{2}\right) + \cos(\text{lat}_1)\cos(\text{lat}_2)\sin^2\left(\frac{\Delta \text{lng}}{2}\right) } \right)$$
+- $d \le 2\text{ km}$: **35 points**
+- $2 < d \le 5\text{ km}$: **28 points**
+- $5 < d \le 10\text{ km}$: **20 points**
+- $10 < d \le 20\text{ km}$: **10 points**
+- $d > 20\text{ km}$ (within custom radius): **5 points**
+- **Hard Exclusion:** If $d > \text{serviceRadiusKm}_{\text{NGO}}$, the NGO is excluded from matching.
+
+#### 2. Serving Capacity Suitability (Max 25 Points)
+- **Sufficient Capacity ($\text{cap} \ge \text{servings}$):** **25 points**. Plain-language reason: *"Declared capacity is sufficient for all X servings."*
+- **Partial Capacity ($0.6 \le \text{ratio} < 1.0$):** **11 points**. Honest warning: *"Donation may exceed declared capacity."*
+- **Insufficient Capacity ($\text{ratio} < 0.6$):** **5 points**.
+- **Unknown Capacity:** **13 points** (neutral). Plain-language warning: *"Capacity information not available on profile."*
+
+#### 3. Operating Schedule & Pickup Feasibility (Max 20 Points)
+- Uses a clearly labeled distance-based travel heuristic ($\text{transitHours} = \frac{d}{25\text{ km/h}} + 0.5\text{h buffer}$).
+- **Feasible Window:** **20 points** when pickup window is compatible with operating hours.
+- **Tight Window:** **5 points** if time remaining before deadline is less than estimated transit.
+- **Unknown Schedule:** **10 points** (neutral) with uncertainty flagged.
+
+#### 4. Dietary & Category Compatibility (Max 20 Points)
+- **Food Type Match:** 10 points (VEGETARIAN vs NON_VEGETARIAN). *Hard exclusion if NGO strictly rejects the food type.*
+- **Category Match:** 10 points for preferred category, 10 points if unrestricted.
+
+---
+
+### 📍 GPS Coordinate Auto-Detection & Mandatory Coordinates
+- **Mandatory Geographic Coordinates:** Coordinates (`[longitude, latitude]`) are mandatory in both backend schemas, payload validation, and frontend forms for precise Haversine calculation.
+- **Auto-Detect Location (GPS):** Donors can click the **Auto-detect Location (GPS)** button to automatically query the browser Geolocation API (`navigator.geolocation.getCurrentPosition`), populating latitude and longitude with meter-level accuracy.
+
+---
+
+### 📡 Feature 4 API Endpoints
+
+All endpoints require JWT Bearer authentication (`protect`):
+
+| Method | Endpoint | Authorization | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/matching/donations/:donationId/ngos` | `DONOR` (Owner) | Returns ranked eligible NGOs for a food surplus listing with score breakdown and plain-language reasons |
+| `GET` | `/api/matching/ngos/:ngoId/donations` | `NGO` (Self) | Returns ranked available donations suitable for the authenticated NGO |
+
+---
+
+### 🖥️ Frontend Matching Components
+
+- **Recommended NGOs Module (`RecommendedNgosSection.jsx`):** Integrated into the donor's Donation Details page (`/donations/:id`). Ranks suitable NGOs with visual score badges, proximity indicators, capacity checks, and interactive *"Why this match?"* breakdown accordions.
+- **Recommended Donations Module (`RecommendedDonationsSection.jsx`):** Integrated into the NGO Dashboard (`/ngo/dashboard`) and Available Donations feed (`/ngo/available-donations`). Highlights best-fit food surplus matching the organization's location and serving capacity.
+
+---
+
 ## 🏃 Running the Application
 
 ### 1. Environment Configuration
@@ -292,3 +422,10 @@ npm run dev
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:5000`
 - Health check: `http://localhost:5000/api/health`
+
+### 3. Run Test Suite
+```bash
+# Run all 74 unit & integration tests from repository root
+npm test
+```
+

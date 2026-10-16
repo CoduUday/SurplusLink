@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import MealScheduleSection from "../components/MealScheduleSection";
+import donationService from "../services/donationService";
 import {
   Utensils,
   MapPin,
@@ -17,6 +19,7 @@ import {
   History,
   CheckCircle2,
   AlertCircle,
+  HeartHandshake
 } from "lucide-react";
 import SurplusPredictionForm from "../components/prediction/SurplusPredictionForm";
 import PredictionResultCard from "../components/prediction/PredictionResultCard";
@@ -110,10 +113,31 @@ export default function DonorDashboard() {
     }
   }, []);
 
+  const [activeListingsCount, setActiveListingsCount] = useState(0);
+  const [acceptedListingsCount, setAcceptedListingsCount] = useState(0);
+
+  const fetchListingsCounts = useCallback(async () => {
+    try {
+      const [availRes, acceptRes] = await Promise.all([
+        donationService.getMyDonations({ status: "AVAILABLE", limit: 1 }),
+        donationService.getMyDonations({ status: "ACCEPTED", limit: 1 })
+      ]);
+      if (availRes.success) {
+        setActiveListingsCount(availRes.total || 0);
+      }
+      if (acceptRes.success) {
+        setAcceptedListingsCount(acceptRes.total || 0);
+      }
+    } catch (err) {
+      // Non-blocking
+    }
+  }, []);
+
   useEffect(() => {
     fetchPredictionHistory(1, filters);
     fetchMealSchedules();
-  }, [fetchMealSchedules]);
+    fetchListingsCounts();
+  }, [fetchMealSchedules, fetchListingsCounts]);
 
   const handlePredictionGenerated = (newPrediction) => {
     setActivePrediction(newPrediction);
@@ -171,17 +195,57 @@ export default function DonorDashboard() {
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
-              <a
-                href="#meal-schedules"
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                to="/donor/create-donation"
                 className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-medium text-sm rounded-xl shadow-lg shadow-emerald-950/50 flex items-center gap-2 transition"
               >
-                <Sparkles className="w-4 h-4" />
-                <span>Estimate Meal Surplus</span>
-              </a>
+                <PlusCircle className="w-4 h-4" />
+                <span>List Surplus Food</span>
+              </Link>
+              <Link
+                to="/donor/my-donations"
+                className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl transition flex items-center gap-1.5"
+              >
+                <span>My Listings ({activeListingsCount})</span>
+                {acceptedListingsCount > 0 && (
+                  <span className="px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[11px] font-bold border border-blue-500/30">
+                    {acceptedListingsCount} claimed
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
         </div>
+
+        {/* NGO Acceptance Alert for Donor */}
+        {acceptedListingsCount > 0 && (
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-slate-900 border border-blue-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
+                <HeartHandshake className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <span>Surplus Food Accepted by Partner NGOs!</span>
+                  <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-bold border border-blue-500/30">
+                    {acceptedListingsCount} {acceptedListingsCount === 1 ? 'LISTING CLAIMED' : 'LISTINGS CLAIMED'}
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-300 mt-0.5">
+                  An authorized NGO has claimed your food surplus and is scheduling collection. Check the pickup ETA and driver details.
+                </p>
+              </div>
+            </div>
+
+            <Link
+              to="/donor/my-donations"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition self-start sm:self-auto shrink-0 shadow-md shadow-blue-950/40"
+            >
+              <span>View Accepted Listings →</span>
+            </Link>
+          </div>
+        )}
 
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

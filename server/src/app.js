@@ -3,6 +3,9 @@ import cors from "cors";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import mealScheduleRoutes from "./routes/mealSchedule.routes.js";
+import predictionRoutes from "./routes/prediction.routes.js";
+import donationRoutes from "./routes/donation.routes.js";
+import matchingRoutes from "./routes/matching.routes.js";
 
 const app = express();
 
@@ -20,6 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/meal-schedules", mealScheduleRoutes);
+app.use("/api/predictions", predictionRoutes);
+app.use("/api/donations", donationRoutes);
+app.use("/api/matching", matchingRoutes);
 
 // Root route
 app.get("/", (req, res) => {

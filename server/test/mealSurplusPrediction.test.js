@@ -365,4 +365,8 @@ describe('Feature 2: AI Food Surplus Prediction Engine — Unit & Integration Te
       assert.equal(res.jsonData.success, false);
     });
   });
+
+  after(async () => {
+    await mongoose.disconnect();
+  });
 });
