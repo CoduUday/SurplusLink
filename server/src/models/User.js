@@ -67,16 +67,59 @@ const userSchema = new mongoose.Schema(
         default: ''
       }
     },
-    // NGO-Specific Fields
+    // Account Status & Verification
+    isActive: {
+      type: Boolean,
+      default: true,
+      index: true
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
+    // NGO-Specific & Matching Profile Fields
     operatingSchedule: {
       type: String,
       default: '',
       trim: true
     },
+    operatingHours: {
+      start: { type: String, default: '', trim: true },
+      end: { type: String, default: '', trim: true },
+      days: { type: [String], default: [] }
+    },
     servingCapacity: {
       type: Number,
       default: 0,
       min: [0, 'Serving capacity cannot be negative']
+    },
+    minServingCapacity: {
+      type: Number,
+      default: 0,
+      min: [0, 'Minimum serving capacity cannot be negative']
+    },
+    maxServingCapacity: {
+      type: Number,
+      default: 0,
+      min: [0, 'Maximum serving capacity cannot be negative']
+    },
+    serviceRadiusKm: {
+      type: Number,
+      default: 20,
+      min: [0, 'Service radius cannot be negative']
+    },
+    acceptedFoodTypes: {
+      type: [String],
+      enum: ['VEGETARIAN', 'NON_VEGETARIAN'],
+      default: ['VEGETARIAN', 'NON_VEGETARIAN']
+    },
+    acceptedCategories: {
+      type: [String],
+      default: []
+    },
+    isAvailable: {
+      type: Boolean,
+      default: true
     }
   },
   {

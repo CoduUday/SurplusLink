@@ -52,6 +52,31 @@ export default function Navbar() {
                 <span className="text-xs text-slate-400 leading-none mt-1">{user.organization}</span>
               </div>
 
+              {/* Contextual Feature 3 Links */}
+              {user.role === 'DONOR' ? (
+                <>
+                  <Link
+                    to="/donor/create-donation"
+                    className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600/90 hover:bg-emerald-500 text-white transition shadow-sm"
+                  >
+                    <span>+ List Food</span>
+                  </Link>
+                  <Link
+                    to="/donor/my-donations"
+                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-[rgb(58,61,67)] transition"
+                  >
+                    <span>My Listings</span>
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  to="/ngo/available-donations"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600/90 hover:bg-blue-500 text-white transition shadow-sm"
+                >
+                  <span>Browse Available Food</span>
+                </Link>
+              )}
+
               {/* Dashboard Link */}
               <Link
                 to={dashboardPath}
